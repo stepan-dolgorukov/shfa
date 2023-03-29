@@ -12,7 +12,7 @@ def find_split(symbol_prob):
         up_summa += value
         low_summa -= value
         diff = abs(up_summa - low_summa)
-        print(up_summa, low_summa, )
+        #  print(up_summa, low_summa, )
         if diff != 0:
             if diff <= min_nonzero_diff:
                 min_nonzero_diff = diff
@@ -21,6 +21,12 @@ def find_split(symbol_prob):
     return split_index
 
 def parts(symbol_prob):
+
+    if len(symbol_prob) <= 2:
+        #  print(symbol_prob)
+        yield symbol_prob
+        return
+
     symbol_prob = sort(symbol_prob)
 
     part_left = dict()
@@ -28,10 +34,19 @@ def parts(symbol_prob):
 
     keys = list(symbol_prob.keys())
     split_index = find_split(symbol_prob)
+
     part_left_keys = keys[:split_index+1]
     part_right_keys = keys[split_index+1:]
 
-    print(part_left_keys, part_right_keys)
+    for key in part_left_keys:
+        part_left[key] = symbol_prob[key]
+
+    for key in part_right_keys:
+        part_right[key] = symbol_prob[key]
+
+    #  print(part_left, part_right)
+    yield from parts(part_left)
+    yield from parts(part_right)
 
 def sort(symbol_prob):
     return {k: v for k, v in sorted(symbol_prob.items(),
@@ -51,5 +66,6 @@ for symbol in symbols_info:
     symbols_info[symbol] /= len(data)
     symbols_info[symbol] *= 100
 
-print(symbols_info)
-parts(symbols_info)
+#  print(symbols_info)
+for part in parts(symbols_info):
+    print(part)
