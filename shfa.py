@@ -19,7 +19,7 @@ def find_split(symbol_prob):
 
     return split_index
 
-def parts(symbol_prob, code=''):
+def codes(symbol_prob, code=''):
 
     if len(symbol_prob) <= 2:
         #  print(symbol_prob)
@@ -50,8 +50,8 @@ def parts(symbol_prob, code=''):
 
     #  print(part_left, part_right)
 
-    yield from parts(part_left, code+'0')
-    yield from parts(part_right, code+'1')
+    yield from codes(part_left, code+'0')
+    yield from codes(part_right, code+'1')
 
 def sort(symbol_prob):
     return {k: v for k, v in sorted(symbol_prob.items(),
@@ -72,5 +72,5 @@ for symbol in symbols_info:
     symbols_info[symbol] *= 100
 
 #  print(symbols_info)
-for part in parts(symbols_info):
-    print(part)
+for code in codes(symbols_info):
+    print(code)
