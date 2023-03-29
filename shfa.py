@@ -5,7 +5,7 @@ from math import ceil, log2
 def find_split(symbol_prob):
     low_summa = sum(symbol_prob.values())
     up_summa = 0
-    min_nonzero_diff = low_summa
+    min_diff = low_summa
     split_index = 0
 
     for index, value in enumerate(symbol_prob.values()):
@@ -13,10 +13,9 @@ def find_split(symbol_prob):
         low_summa -= value
         diff = abs(up_summa - low_summa)
         #  print(up_summa, low_summa, )
-        if diff != 0:
-            if diff <= min_nonzero_diff:
-                min_nonzero_diff = diff
-                split_index = index
+        if diff <= min_diff:
+            min_diff = diff
+            split_index = index
 
     return split_index
 
