@@ -19,11 +19,16 @@ def find_split(symbol_prob):
 
     return split_index
 
-def parts(symbol_prob):
+def parts(symbol_prob, code=''):
 
     if len(symbol_prob) <= 2:
         #  print(symbol_prob)
-        yield symbol_prob
+
+        if len(symbol_prob) == 2:
+            for i, k in enumerate(symbol_prob):
+                yield (code + str(i), k)
+        else:
+            yield code,*symbol_prob.keys()
         return
 
     symbol_prob = sort(symbol_prob)
@@ -44,8 +49,9 @@ def parts(symbol_prob):
         part_right[key] = symbol_prob[key]
 
     #  print(part_left, part_right)
-    yield from parts(part_left)
-    yield from parts(part_right)
+
+    yield from parts(part_left, code+'0')
+    yield from parts(part_right, code+'1')
 
 def sort(symbol_prob):
     return {k: v for k, v in sorted(symbol_prob.items(),
