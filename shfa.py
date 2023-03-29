@@ -17,6 +17,7 @@ def find_split(symbol_prob):
 
     return split_index
 
+
 def codes(symbol_prob, code=''):
 
     if len(symbol_prob) <= 2:
@@ -26,7 +27,7 @@ def codes(symbol_prob, code=''):
             for i, k in enumerate(symbol_prob):
                 yield (code + str(i), k)
         else:
-            yield code,*symbol_prob.keys()
+            yield code, *symbol_prob.keys()
         return
 
     symbol_prob = sort(symbol_prob)
@@ -37,8 +38,8 @@ def codes(symbol_prob, code=''):
     keys = list(symbol_prob.keys())
     split_index = find_split(symbol_prob)
 
-    part_left_keys = keys[:split_index+1]
-    part_right_keys = keys[split_index+1:]
+    part_left_keys = keys[:split_index + 1]
+    part_right_keys = keys[split_index + 1:]
 
     for key in part_left_keys:
         part_left[key] = symbol_prob[key]
@@ -48,13 +49,15 @@ def codes(symbol_prob, code=''):
 
     #  print(part_left, part_right)
 
-    yield from codes(part_left, code+'0')
-    yield from codes(part_right, code+'1')
+    yield from codes(part_left, code + '0')
+    yield from codes(part_right, code + '1')
+
 
 def sort(symbol_prob):
     return {k: v for k, v in sorted(symbol_prob.items(),
                                     key=lambda item: item[1],
                                     reverse=True)}
+
 
 data = input()
 symbols_info = dict()
