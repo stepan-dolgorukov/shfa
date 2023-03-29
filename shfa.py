@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from math import ceil, log2
-
 def find_split(symbol_prob):
     low_summa = sum(symbol_prob.values())
     up_summa = 0
