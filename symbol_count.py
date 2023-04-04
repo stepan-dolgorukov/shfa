@@ -10,3 +10,15 @@ class SymbolCountMap:
 
     def at(self, symbol: str):
         return self.symbol_count[symbol]
+
+    def values(self):
+        return self.symbol_count.values()
+
+    def keys(self):
+        return self.symbol_count.keys()
+
+    def items(self):
+        return self.symbol_count.items()
+
+    def __len__(self):
+        return len(self.symbol_count)

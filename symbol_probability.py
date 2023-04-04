@@ -13,3 +13,15 @@ class SymbolProbabilityMap:
 
     def at(self, symbol: str):
         return self.symbol_prob[symbol]
+
+    def values(self):
+        return self.symbol_prob.values()
+
+    def keys(self):
+        return self.symbol_prob.keys()
+
+    def items(self):
+        return self.symbol_prob.items()
+
+    def __len__(self):
+        return len(self.symbol_prob)
