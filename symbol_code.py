@@ -80,3 +80,6 @@ class SymbolCodeMap:
 
     def items(self):
         return self.symbol_code.items()
+
+    def __iter__(self):
+        return self.symbol_code.__iter__()
