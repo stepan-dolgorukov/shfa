@@ -15,7 +15,8 @@ class SymbolProbabilityMap:
         self.symbol_prob = defaultdict(float)
 
         for symbol in data:
-            self.symbol_prob[symbol] = symbol_count.at(symbol) / len(data)
+            probability: float = symbol_count.at(symbol) / len(symbol_count)
+            self.symbol_prob[symbol] = probability
 
     def at(self, symbol: str):
         """Вероятность указанного символа
