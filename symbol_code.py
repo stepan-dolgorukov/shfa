@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from symbol_probability import SymbolProbabilityMap
+from accessify import private
 
 class SymbolCodeMap:
     def __init__(self, data: str):
@@ -12,11 +13,13 @@ class SymbolCodeMap:
 
         self.codes(self.symbol_prob)
 
+    @private
     def sort(self, symbol_prob):
         return {k: v for k, v in sorted(symbol_prob.items(),
                                         key=lambda item: item[1],
                                         reverse=True)}
 
+    @private
     def find_split(self, symbol_prob):
         low_summa = sum(symbol_prob.values())
         up_summa = 0
@@ -34,6 +37,7 @@ class SymbolCodeMap:
 
         return split_index
 
+    @private
     def codes(self, symbol_prob, code=''):
 
         if len(symbol_prob) <= 2:
