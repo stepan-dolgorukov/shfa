@@ -5,6 +5,7 @@ from symbol_count import SymbolCountMap
 from math import inf
 
 class SymbolProbabilityMap:
+    """Отображение «символ→вероятность»"""
     def __init__(self, data: str):
         if not data:
             self.symbol_prob = {}
@@ -17,18 +18,25 @@ class SymbolProbabilityMap:
             self.symbol_prob[symbol] = symbol_count.at(symbol) / len(data)
 
     def at(self, symbol: str):
-        if not symbol:
+        """Вероятность указанного символа
+
+        symbol -- символ, вероятность которого узнаётся
+        """
+        if not symbol or len(symbol) != 1:
             return -inf
 
         return self.symbol_prob[symbol]
 
     def values(self):
+        """Все вероятности, хранящиеся в словаре."""
         return self.symbol_prob.values()
 
     def keys(self):
+        """Все символы, для которых посчитана вероятность."""
         return self.symbol_prob.keys()
 
     def items(self):
+        """Все пары (символ, вероятность)."""
         return self.symbol_prob.items()
 
     def __len__(self):
