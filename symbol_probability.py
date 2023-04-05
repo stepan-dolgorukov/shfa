@@ -2,9 +2,14 @@
 
 from collections import defaultdict
 from symbol_count import SymbolCountMap
+from math import inf
 
 class SymbolProbabilityMap:
     def __init__(self, data: str):
+        if not data:
+            self.symbol_prob = {}
+            return
+
         symbol_count = SymbolCountMap(data)
         self.symbol_prob = defaultdict(float)
 
@@ -12,6 +17,9 @@ class SymbolProbabilityMap:
             self.symbol_prob[symbol] = symbol_count.at(symbol) / len(data)
 
     def at(self, symbol: str):
+        if not symbol:
+            return -inf
+
         return self.symbol_prob[symbol]
 
     def values(self):
