@@ -4,6 +4,7 @@ from symbol_probability import SymbolProbabilityMap
 from accessify import private
 
 class SymbolCodeMap:
+    """Отображение «символ→код»."""
     def __init__(self, data: str):
         if not data:
             return
@@ -76,9 +77,14 @@ class SymbolCodeMap:
         self.codes(part_right, code + '1')
 
     def at(self, symbol: str):
+        """Узнать код конкретного символа.
+
+        symbol -- символ, количество раз которого узнаётся
+        """
         return self.symbol_code[symbol]
 
     def items(self):
+        """Все пары (символ, код)."""
         return self.symbol_code.items()
 
     def __iter__(self):
