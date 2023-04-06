@@ -5,6 +5,7 @@ from symbol_count import SymbolCountMap
 
 class TestSymbolCountMap(unittest.TestCase):
     def test_empty_string(self):
+        """Тест на пустую строчку."""
         s = ''
         m = SymbolCountMap(s)
 
@@ -13,6 +14,7 @@ class TestSymbolCountMap(unittest.TestCase):
         self.assertEqual(-1, m.at('a'))
 
     def test_upper_and_lower(self):
+        """Тест на обработку заглавных и строчных символов."""
         s = 'aAbBYyZwzWaA'
         m = SymbolCountMap(s)
 

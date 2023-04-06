@@ -5,6 +5,7 @@ from symbol_probability import SymbolProbabilityMap
 
 class TestSymbolProbabilityMap(unittest.TestCase):
     def test_empty_string(self):
+        """Тест пустой строки."""
         s = ''
         m = SymbolProbabilityMap(s)
 
@@ -13,6 +14,7 @@ class TestSymbolProbabilityMap(unittest.TestCase):
         self.assertGreater(0, m.at('a'))
 
     def test_char_equal_probability_string(self):
+        """Проверка строки с равными вероятностями символов."""
         s = 'abcde'
         m = SymbolProbabilityMap(s)
 
@@ -24,6 +26,7 @@ class TestSymbolProbabilityMap(unittest.TestCase):
         self.assertEqual(1./5, m.at('e'))
 
     def test_char_diff_probability_string(self):
+        """Проверка строки с разными вероятностями символов."""
         s = 'abarak'
         m = SymbolProbabilityMap(s)
 
