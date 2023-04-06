@@ -23,7 +23,7 @@ class SymbolProbabilityMap:
 
         symbol -- символ, вероятность которого узнаётся
         """
-        if not symbol or len(symbol) != 1:
+        if not symbol or len(symbol) != 1 or symbol not in self.symbol_prob:
             return -inf
 
         return self.symbol_prob[symbol]

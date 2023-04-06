@@ -20,7 +20,7 @@ class SymbolCountMap:
 
         symbol -- символ, количество раз которого узнаётся
         """
-        if not symbol or len(symbol) != 1:
+        if not symbol or len(symbol) != 1 or symbol not in self.symbol_count:
             return -1
 
         return self.symbol_count[symbol]
