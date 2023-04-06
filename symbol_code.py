@@ -3,8 +3,10 @@
 from symbol_probability import SymbolProbabilityMap
 from accessify import private
 
+
 class SymbolCodeMap:
     """Отображение «символ→код»."""
+
     def __init__(self, data: str):
         if not data:
             return
@@ -47,11 +49,11 @@ class SymbolCodeMap:
             if len(symbol_prob) == 2:
                 for i, k in enumerate(symbol_prob):
                     #  yield (code + str(i), k)
-                    self.symbol_code[k]=code+str(i)
-            else: # == 1
+                    self.symbol_code[k] = code + str(i)
+            else:  # == 1
                 #  yield code, *self.symbol_prob.keys()
-                k=list(symbol_prob.keys())[0]
-                self.symbol_code[k]=code
+                k = list(symbol_prob.keys())[0]
+                self.symbol_code[k] = code
             return
 
         symbol_prob = self.sort(symbol_prob)

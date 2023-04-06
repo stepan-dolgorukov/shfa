@@ -4,8 +4,10 @@ from collections import defaultdict
 from symbol_count import SymbolCountMap
 from math import inf
 
+
 class SymbolProbabilityMap:
     """Отображение «символ→вероятность»"""
+
     def __init__(self, data: str):
         if not data:
             self.symbol_prob = {}

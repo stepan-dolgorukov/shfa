@@ -3,6 +3,7 @@
 import unittest
 from symbol_probability import SymbolProbabilityMap
 
+
 class TestSymbolProbabilityMap(unittest.TestCase):
     def test_empty_string(self):
         """Тест пустой строки."""
@@ -19,11 +20,11 @@ class TestSymbolProbabilityMap(unittest.TestCase):
         m = SymbolProbabilityMap(s)
 
         self.assertEqual(5, len(m.items()))
-        self.assertEqual(1./5, m.at('a'))
-        self.assertEqual(1./5, m.at('b'))
-        self.assertEqual(1./5, m.at('c'))
-        self.assertEqual(1./5, m.at('d'))
-        self.assertEqual(1./5, m.at('e'))
+        self.assertEqual(1. / 5, m.at('a'))
+        self.assertEqual(1. / 5, m.at('b'))
+        self.assertEqual(1. / 5, m.at('c'))
+        self.assertEqual(1. / 5, m.at('d'))
+        self.assertEqual(1. / 5, m.at('e'))
 
     def test_char_diff_probability_string(self):
         """Проверка строки с разными вероятностями символов."""
@@ -31,10 +32,11 @@ class TestSymbolProbabilityMap(unittest.TestCase):
         m = SymbolProbabilityMap(s)
 
         self.assertEqual(len(set(s)), len(m.items()))
-        self.assertEqual(3./len(s), m.at('a'))
-        self.assertEqual(1./len(s), m.at('b'))
-        self.assertEqual(1./len(s), m.at('r'))
-        self.assertEqual(1./len(s), m.at('k'))
+        self.assertEqual(3. / len(s), m.at('a'))
+        self.assertEqual(1. / len(s), m.at('b'))
+        self.assertEqual(1. / len(s), m.at('r'))
+        self.assertEqual(1. / len(s), m.at('k'))
+
 
 if __name__ == '__main__':
     unittest.main()

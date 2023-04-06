@@ -3,6 +3,7 @@
 import unittest
 from symbol_count import SymbolCountMap
 
+
 class TestSymbolCountMap(unittest.TestCase):
     def test_empty_string(self):
         """Тест на пустую строчку."""
@@ -20,12 +21,13 @@ class TestSymbolCountMap(unittest.TestCase):
 
         self.assertEqual(2, m.at('a'))
         self.assertEqual(2, m.at('A'))
-        self.assertEquals(1,m.at('b'))
-        self.assertEquals(1,m.at('B'))
-        self.assertEquals(1,m.at('z'))
-        self.assertEquals(1,m.at('Z'))
-        self.assertEquals(1,m.at('w'))
-        self.assertEquals(1,m.at('W'))
+        self.assertEquals(1, m.at('b'))
+        self.assertEquals(1, m.at('B'))
+        self.assertEquals(1, m.at('z'))
+        self.assertEquals(1, m.at('Z'))
+        self.assertEquals(1, m.at('w'))
+        self.assertEquals(1, m.at('W'))
+
 
 if __name__ == '__main__':
     unittest.main()

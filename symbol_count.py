@@ -2,10 +2,12 @@
 
 from collections import defaultdict
 
+
 class SymbolCountMap:
     """Отображение помогает вести подсчёт символов.
     Оно вида «символ->количество».
     """
+
     def __init__(self, data: str):
         if not data:
             self.symbol_count = {}
