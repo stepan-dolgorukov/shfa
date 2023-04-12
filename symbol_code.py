@@ -106,5 +106,10 @@ class SymbolCodeMap(SymbolMap):
         """Все пары (символ, код)."""
         return self.symbol_code.items()
 
+    @override
+    def __len__(self):
+        """Количество символов, имеющих свой код."""
+        return self.__len__()
+
     def __iter__(self):
         return self.symbol_code.__iter__()
