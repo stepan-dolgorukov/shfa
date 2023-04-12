@@ -10,12 +10,12 @@ class SymbolCodeMap(SymbolMap):
     """Отображение «символ→код»."""
 
     def __init__(self, data: str):
+        self.symbol_code = dict()
+
         if not data:
             return
 
         self.symbol_prob = SymbolProbabilityMap(data)
-        self.symbol_code = dict()
-
         self.codes(self.symbol_prob)
 
     @private
