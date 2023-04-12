@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+from typing_extensions import override
 from symbol_probability import SymbolProbabilityMap
+from symbol_map import SymbolMap
 from accessify import private
 
 
-class SymbolCodeMap:
+class SymbolCodeMap(SymbolMap):
     """Отображение «символ→код»."""
 
     def __init__(self, data: str):
@@ -78,6 +80,7 @@ class SymbolCodeMap:
         self.codes(part_left, code + '0')
         self.codes(part_right, code + '1')
 
+    @override
     def at(self, symbol: str):
         """Узнать код конкретного символа.
 
@@ -88,6 +91,7 @@ class SymbolCodeMap:
 
         return self.symbol_code[symbol]
 
+    @override
     def items(self):
         """Все пары (символ, код)."""
         return self.symbol_code.items()
