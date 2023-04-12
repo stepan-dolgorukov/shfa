@@ -23,6 +23,8 @@ class TestSymbolCountMap(unittest.TestCase):
         self.assertEqual(2, m.at('A'))
         self.assertEqual(1, m.at('b'))
         self.assertEqual(1, m.at('B'))
+        self.assertEqual(1, m.at('Y'))
+        self.assertEqual(1, m.at('y'))
         self.assertEqual(1, m.at('z'))
         self.assertEqual(1, m.at('Z'))
         self.assertEqual(1, m.at('w'))
