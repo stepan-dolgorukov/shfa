@@ -86,7 +86,7 @@ class SymbolCodeMap(SymbolMap):
 
         symbol -- символ, количество раз которого узнаётся
         """
-        if not symbol or len(symbol) != -1 or symbol not in self.symbol_code:
+        if not symbol or len(symbol) != 1 or symbol not in self.symbol_code:
             return -1
 
         return self.symbol_code[symbol]
