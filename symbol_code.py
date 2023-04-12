@@ -92,6 +92,16 @@ class SymbolCodeMap(SymbolMap):
         return self.symbol_code[symbol]
 
     @override
+    def keys(self):
+        """Подаёт контейнер, содержащий все символы, у которых есть код."""
+        return self.symbol_code.keys()
+
+    @override
+    def values(self):
+        """Подаёт контейнер, содержащий все коды символов (образы)."""
+        return self.symbol_code.items()
+
+    @override
     def items(self):
         """Все пары (символ, код)."""
         return self.symbol_code.items()
