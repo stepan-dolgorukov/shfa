@@ -20,6 +20,23 @@ class TestSymbolCountMap(unittest.TestCase):
             char = chr(char_code)
             self.assertEqual(-1, m.at(char))
 
+    def test_one_char_string(self):
+        """Проверка строки длины один."""
+        s = 'a'
+        m = SymbolCountMap(s)
+
+        self.assertEqual(1, len(m))
+        self.assertEqual(1, len(m.keys()))
+        self.assertEqual(1, len(m.values()))
+        self.assertEqual(1, len(m.items()))
+        self.assertEqual(1, m.at('a'))
+
+        # chr(i) определена на 0 <= i <= 0x10ffff
+        for char_code in range(0, 0x10ffff + 1):
+            char = chr(char_code)
+            if char not in s:
+                self.assertEqual(-1, m.at(char))
+
     def test_upper_and_lower(self):
         """Тест на обработку заглавных и строчных символов."""
         s = 'aAbBYyZwzWaA'
