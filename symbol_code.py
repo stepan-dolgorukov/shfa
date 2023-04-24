@@ -55,7 +55,7 @@ class SymbolCodeMap(SymbolMap):
             else:  # == 1
                 #  yield code, *self.symbol_prob.keys()
                 k = list(symbol_prob.keys())[0]
-                self.symbol_code[k] = code
+                self.symbol_code[k] = 0 if code == '' else code
             return
 
         symbol_prob = self.sort(symbol_prob)
@@ -75,8 +75,6 @@ class SymbolCodeMap(SymbolMap):
         for key in part_right_keys:
             part_right[key] = symbol_prob[key]
 
-        #  print(part_left, part_right)
-
         self.codes(part_left, code + '0')
         self.codes(part_right, code + '1')
 
@@ -86,6 +84,7 @@ class SymbolCodeMap(SymbolMap):
 
         symbol -- символ, количество раз которого узнаётся
         """
+
         if not symbol or len(symbol) != 1 or symbol not in self.symbol_code:
             return -1
 
