@@ -12,11 +12,20 @@ class CompressionWriter:
         self.info = None
 
     def write(self):
-        if None is self.data_to_write:
-            self.data_to_write = self.create_data_to_write()
+        if None is self.compressed:
+            self.create_compressed()
+            self.fill_info()
 
-        with open(self.fname, 'w') as file:
-            file.write(self.data_to_write)
+        with open(self.fname, "w") as file:
+            file.write(self.info)
+            file.write("\n")
+
+        with open(self.fname, "ab") as file:
+            length = len(self.compressed)
+            pad = 8 - (length % 8)
+
+            self.compressed.append(pad)
+            file.write(self.compressed.bytes)
 
     @private
     def fill_info(self):
