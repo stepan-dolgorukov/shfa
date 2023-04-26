@@ -23,10 +23,10 @@ def decode(filename):
 
 if __name__ == '__main__':
     args = ArgParser().parse()
-    message = ArgChecker(args).check()
+    checker = ArgChecker(args)
 
-    if "Хорошо" != message:
-        print(message)
+    if True != checker.conclusion():
+        print(checker.check_message())
         exit()
 
     if args.action == 'e':
