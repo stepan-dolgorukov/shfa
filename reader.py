@@ -33,7 +33,7 @@ class DecompressionReader:
     def read_encoded(self):
         with open(self.fname, "rb") as file:
             file.seek(self.info["header-length"])
-            self.encoded = file.readline()
+            self.encoded = file.read()
 
     @private
     def decode(self):
