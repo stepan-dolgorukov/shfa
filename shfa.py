@@ -26,7 +26,7 @@ def check_args(args):
 def encode(filename):
     data = ""
     with open(filename) as file:
-        data = file.readline()
+        data = "".join(file.readlines())
 
     writer = CompressionWriter(data, filename + '.compressed')
     writer.write()
