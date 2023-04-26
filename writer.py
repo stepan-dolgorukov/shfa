@@ -6,11 +6,10 @@ from encoder import Encoder
 class CompressionWriter:
     def __init__(self, data: str, fname: str):
         self.fname = fname
-
-        encoder = Encoder(data)
-        self.compressed_data = encoder.coded()
-        self.symbol_map = encoder.map()
-        self.data_to_write = None
+        self.data = data
+        self.symbol_map = None
+        self.compressed = None
+        self.info = None
 
     def write(self):
         if None is self.data_to_write:
@@ -20,10 +19,16 @@ class CompressionWriter:
             file.write(self.data_to_write)
 
     @private
-    def create_data_to_write(self):
-        write_data = dict()
-        write_data["encoding"] = "ShannonFano"
-        write_data["version"] = "Test"
-        write_data["data"] = self.compressed_data.uint
-        write_data["map"] = self.symbol_map.json()
-        return json.dumps(write_data)
+    def fill_info(self):
+        info = dict()
+        info["encoding"] = "ShannonFano"
+        info["version"] = "Test"
+        info["map"] = CodeSymbolMap(self.symbol_map).json()
+        info["length"] = len(self.compressed)
+        self.info = json.dumps(info)
+
+    @private
+    def create_compressed(self):
+        encoder = Encoder(self.data)
+        self.compressed = encoder.coded()
+        self.symbol_map = encoder.map()
