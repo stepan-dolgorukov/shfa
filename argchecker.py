@@ -16,6 +16,18 @@ class ArgChecker():
 
         return self.message
 
+    def conclusion(self):
+        if None is self.message:
+            self.check()
+
+        return "Хорошо" == self.message
+
+    def check_message(self):
+        if None is self.message:
+            self.check()
+
+        return self.message
+
     @private
     def check_arg_filename(self):
         if self.args.filename is None:
