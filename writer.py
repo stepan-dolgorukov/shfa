@@ -1,5 +1,6 @@
 import json
 from accessify import private
+from code_symbol import CodeSymbolMap
 from encoder import Encoder
 
 class CompressionWriter:
