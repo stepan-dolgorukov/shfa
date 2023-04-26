@@ -1,5 +1,6 @@
 from symbol_code import SymbolCodeMap
 from accessify import private
+import json
 
 class CodeSymbolMap():
     def __init__(self, symbol_code: SymbolCodeMap):
@@ -23,3 +24,6 @@ class CodeSymbolMap():
 
     def has(self, code: str):
         return code in self.code_symbol
+
+    def json(self):
+        return json.dumps(self.code_symbol)

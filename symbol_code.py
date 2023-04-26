@@ -4,6 +4,7 @@ from typing_extensions import override
 from symbol_probability import SymbolProbabilityMap
 from symbol_map import SymbolMap
 from accessify import private
+import json
 
 
 class SymbolCodeMap(SymbolMap):
@@ -112,3 +113,6 @@ class SymbolCodeMap(SymbolMap):
 
     def __iter__(self):
         return self.symbol_code.__iter__()
+
+    def json(self):
+        return json.dumps(self.symbol_code)
