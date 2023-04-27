@@ -14,9 +14,12 @@ class DecompressionReader:
     def read(self):
         """Получить раскодированную строку."""
         if self.decoded == None:
-            self.read_info()
-            self.read_encoded()
-            self.decode()
+            try:
+                self.read_info()
+                self.read_encoded()
+                self.decode()
+            except Exception:
+                raise ValueError
         return self.decoded
 
     @private
@@ -29,8 +32,12 @@ class DecompressionReader:
 
         header_length = len(info)
 
-        self.info = json.loads(info)
-        self.info["map"] = json.loads(self.info["map"])
+        try:
+            self.info = json.loads(info)
+            self.info["map"] = json.loads(self.info["map"])
+        except Exception:
+            raise ValueError
+
         self.info["header-length"] = header_length
 
     @private

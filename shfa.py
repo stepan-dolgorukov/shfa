@@ -9,16 +9,20 @@ from argchecker import ArgChecker
 def encode(filename):
     data = ""
     with open(filename) as file:
-        data = "".join(file.readlines())
+        data = file.read()
 
     writer = CompressionWriter(data, filename + '.compressed')
     writer.write()
 
 def decode(filename):
-    reader = DecompressionReader(filename)
-    data = reader.read()
+    data = None
 
-    print(data)
+    try:
+        reader = DecompressionReader(filename)
+        data = reader.read()
+    except Exception:
+        raise ValueError
+
     return data
 
 if __name__ == '__main__':
@@ -33,4 +37,7 @@ if __name__ == '__main__':
         encode(args.filename)
 
     if args.action == 'd':
-        decode(args.filename)
+        try:
+            data = decode(args.filename)
+        except Exception:
+            print("Не удалось раскодировать строку")
