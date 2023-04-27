@@ -39,5 +39,6 @@ if __name__ == '__main__':
     if args.action == 'd':
         try:
             data = decode(args.filename)
+            print(data)
         except Exception:
             print("Не удалось раскодировать строку")
