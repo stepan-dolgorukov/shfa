@@ -4,6 +4,8 @@ from code_symbol import CodeSymbolMap
 from encoder import Encoder
 
 class CompressionWriter:
+    """Сжимает строку и записывает в указанный файл."""
+
     def __init__(self, data: str, fname: str):
         self.fname = fname
         self.data = data
@@ -12,6 +14,8 @@ class CompressionWriter:
         self.info = None
 
     def write(self):
+        """Записать заголовок & сжатые данные в файл. """
+
         if None is self.compressed:
             self.create_compressed()
             self.fill_info()
@@ -29,6 +33,8 @@ class CompressionWriter:
 
     @private
     def fill_info(self):
+        """Заполнить заголовок. """
+
         info = dict()
         info["encoding"] = "ShannonFano"
         info["version"] = "Test"
@@ -38,6 +44,8 @@ class CompressionWriter:
 
     @private
     def create_compressed(self):
+        """Закодировать (сжать) строку."""
+
         encoder = Encoder(self.data)
         self.compressed = encoder.coded()
         self.symbol_map = encoder.map()

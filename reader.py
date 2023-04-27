@@ -3,6 +3,8 @@ from bitstring import BitArray
 import json
 
 class DecompressionReader:
+    """Читает из файла и раскодирует информацию."""
+
     def __init__(self, fname: str):
         self.fname = fname
         self.decoded = None
@@ -10,6 +12,7 @@ class DecompressionReader:
         self.info = None
 
     def read(self):
+        """Получить раскодированную строку."""
         if self.decoded == None:
             self.read_info()
             self.read_encoded()
@@ -18,6 +21,7 @@ class DecompressionReader:
 
     @private
     def read_info(self):
+        """Считать заголовок."""
         info = None
 
         with open(self.fname, 'r', errors="ignore") as file:
@@ -31,12 +35,19 @@ class DecompressionReader:
 
     @private
     def read_encoded(self):
+        """Считать закодированную информацию.
+
+        Информация записана байтово, не символьно.
+        """
+
         with open(self.fname, "rb") as file:
             file.seek(self.info["header-length"])
             self.encoded = file.read()
 
     @private
     def decode(self):
+        """Раскодировать строку."""
+
         self.decoded = ""
         self.encoded = BitArray(self.encoded)
         data_length = self.info["length"]

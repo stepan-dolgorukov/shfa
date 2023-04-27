@@ -1,6 +1,8 @@
 import argparse
 
 class ArgParser:
+    """Разбирающий аргументы."""
+
     def __init__(self):
         self.args = None
 
@@ -9,6 +11,8 @@ class ArgParser:
         self.parser.add_argument("--action", "-a", nargs='?')
 
     def parse(self):
+        """Разобрать аргументы."""
+
         if self.args is None:
             self.args = self.parser.parse_args()
         return self.args

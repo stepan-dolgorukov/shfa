@@ -45,4 +45,5 @@ class SymbolCountMap(SymbolMap):
         return self.symbol_count.items()
 
     def __len__(self):
+        """Получить количество отображаемых символов."""
         return len(self.symbol_count)

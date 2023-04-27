@@ -115,4 +115,6 @@ class SymbolCodeMap(SymbolMap):
         return self.symbol_code.__iter__()
 
     def json(self):
+        """Получить строку JSON."""
+
         return json.dumps(self.symbol_code)

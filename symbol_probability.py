@@ -50,4 +50,9 @@ class SymbolProbabilityMap(SymbolMap):
 
     @override
     def __len__(self):
+        """Получить количество прообразов в отображении.
+
+        Прообразы — символы, которые отображаются в вероятность.
+        """
+
         return len(self.symbol_prob)

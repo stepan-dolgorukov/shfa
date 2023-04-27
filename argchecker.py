@@ -3,11 +3,17 @@ import os.path
 from accessify import private
 
 class ArgChecker():
+    """Проверяет переданные аргументы на выполнение условий,
+    необходимых для дальнейшей работы программы shfa.
+    """
+
     def __init__(self, args):
         self.args = args
         self.message = None
 
     def check(self):
+        """Проверить аргументы, вернуть сообщение проверки."""
+
         if None is self.message:
             self.check_arg_action()
 
@@ -17,12 +23,18 @@ class ArgChecker():
         return self.message
 
     def conclusion(self):
+        """Получить заключение по корректности аргументов.
+        Аргументы либо верны, либо не верны.
+        """
+
         if None is self.message:
             self.check()
 
         return "Хорошо" == self.message
 
     def check_message(self):
+        """Получить сообщение проверки."""
+
         if None is self.message:
             self.check()
 
@@ -30,6 +42,8 @@ class ArgChecker():
 
     @private
     def check_arg_filename(self):
+        """Проверить аргумент «имя файла»."""
+
         if self.args.filename is None:
             self.message = "Не указано имя файла"
             return
@@ -43,6 +57,10 @@ class ArgChecker():
 
     @private
     def check_arg_action(self):
+        """Проверить аргумент «действие над файлом».
+        Файл можно либо закодировать, либо раскодировать.
+        """
+
         if self.args.action is None:
             self.message = "Не указано действие"
             return

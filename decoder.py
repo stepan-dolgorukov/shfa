@@ -4,18 +4,24 @@ from code_symbol import CodeSymbolMap
 from accessify import private
 
 class Decoder:
+    """Декодировка информации. Коды берутся из переданного отображения."""
+
     def __init__(self, data: BitArray, symbol_code: SymbolCodeMap):
         self.code_symbol = CodeSymbolMap(symbol_code)
         self.data = data
         self.decompressed_data = None
 
     def decoded(self):
+        """Получить информацию, которую раскодировал."""
+
         if None is self.decompressed_data:
             self.decompressed_data = self.decode()
         return self.decompressed_data
 
     @private
     def decode(self):
+        """Раскодировать информацию."""
+
         decompressed = ""
         code = ""
         for i in range(len(self.data)):
