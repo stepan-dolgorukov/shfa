@@ -10,9 +10,15 @@ class TestSymbolProbabilityMap(unittest.TestCase):
         s = ''
         m = SymbolProbabilityMap(s)
 
+        self.assertEqual(0, len(m))
+        self.assertEqual(0, len(m.keys()))
+        self.assertEqual(0, len(m.values()))
         self.assertEqual(0, len(m.items()))
-        self.assertGreater(0, m.at(chr(0)))
-        self.assertGreater(0, m.at('a'))
+
+        # chr(i) определена на 0 <= i <= 0x10ffff
+        for char_code in range(0, 0x10ffff + 1):
+            char = chr(char_code)
+            self.assertGreater(0, m.at(char))
 
     def test_char_equal_probability_string(self):
         """Проверка строки с равными вероятностями символов."""
@@ -26,6 +32,12 @@ class TestSymbolProbabilityMap(unittest.TestCase):
         self.assertEqual(1. / 5, m.at('d'))
         self.assertEqual(1. / 5, m.at('e'))
 
+        # chr(i) определена на 0 <= i <= 0x10ffff
+        for char_code in range(0, 0x10ffff + 1):
+            char = chr(char_code)
+            if char not in s:
+                self.assertGreater(0, m.at(char))
+
     def test_char_diff_probability_string(self):
         """Проверка строки с разными вероятностями символов."""
         s = 'abarak'
@@ -37,6 +49,11 @@ class TestSymbolProbabilityMap(unittest.TestCase):
         self.assertEqual(1. / len(s), m.at('r'))
         self.assertEqual(1. / len(s), m.at('k'))
 
+        # chr(i) определена на 0 <= i <= 0x10ffff
+        for char_code in range(0, 0x10ffff + 1):
+            char = chr(char_code)
+            if char not in s:
+                self.assertGreater(0, m.at(char))
 
 if __name__ == '__main__':
     unittest.main()

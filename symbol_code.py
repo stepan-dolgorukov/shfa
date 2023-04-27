@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 
+from typing_extensions import override
 from symbol_probability import SymbolProbabilityMap
+from symbol_map import SymbolMap
 from accessify import private
+import json
 
 
-class SymbolCodeMap:
+class SymbolCodeMap(SymbolMap):
     """Отображение «символ→код»."""
 
     def __init__(self, data: str):
+        self.symbol_code = dict()
+
         if not data:
             return
 
         self.symbol_prob = SymbolProbabilityMap(data)
-        self.symbol_code = dict()
-
         self.codes(self.symbol_prob)
 
     @private
@@ -53,7 +56,7 @@ class SymbolCodeMap:
             else:  # == 1
                 #  yield code, *self.symbol_prob.keys()
                 k = list(symbol_prob.keys())[0]
-                self.symbol_code[k] = code
+                self.symbol_code[k] = 0 if code == '' else code
             return
 
         symbol_prob = self.sort(symbol_prob)
@@ -73,11 +76,10 @@ class SymbolCodeMap:
         for key in part_right_keys:
             part_right[key] = symbol_prob[key]
 
-        #  print(part_left, part_right)
-
         self.codes(part_left, code + '0')
         self.codes(part_right, code + '1')
 
+    @override
     def at(self, symbol: str):
         """Узнать код конкретного символа.
 
@@ -88,9 +90,30 @@ class SymbolCodeMap:
 
         return self.symbol_code[symbol]
 
+    @override
+    def keys(self):
+        """Подаёт контейнер, содержащий все символы, у которых есть код."""
+        return self.symbol_code.keys()
+
+    @override
+    def values(self):
+        """Подаёт контейнер, содержащий все коды символов (образы)."""
+        return self.symbol_code.values()
+
+    @override
     def items(self):
         """Все пары (символ, код)."""
         return self.symbol_code.items()
 
+    @override
+    def __len__(self):
+        """Количество символов, имеющих свой код."""
+        return len(self.symbol_code)
+
     def __iter__(self):
         return self.symbol_code.__iter__()
+
+    def json(self):
+        """Получить строку JSON."""
+
+        return json.dumps(self.symbol_code)
