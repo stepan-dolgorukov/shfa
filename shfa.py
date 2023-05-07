@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     if True != checker.conclusion():
         print(checker.check_message())
-        exit()
+        exit(1)
 
     if args.action == 'e':
         encode(args.filename)
