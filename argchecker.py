@@ -75,7 +75,7 @@ class ArgChecker:
         if self.args.action is None:
             return CheckMessage.NO_ACTION
 
-        if self.args.action not in {'e', 'd'}:
+        if self.args.action not in Action:
             return CheckMessage.INCORRECT_ACTION
 
         return CheckMessage.CORRECT
