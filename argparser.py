@@ -7,9 +7,17 @@ class ArgParser:
     def __init__(self):
         self.args = None
 
+        self.action_key_values = {
+            Action.ENCODE: ['e', 'encode'],
+            Action.DECODE: ['d', 'decode']
+        }
+
         self.parser = argparse.ArgumentParser(prog="Архиватор «Shannon-Fano»")
         self.parser.add_argument("--filename", "-f", nargs='?')
-        self.parser.add_argument("--action", "-a", nargs='?', choices={'encode', 'e', 'decode', 'd'})
+
+        self.parser.add_argument("--action", "-a", nargs='?',
+            choices=self.action_key_values[Action.ENCODE] +
+                    self.action_key_values[Action.DECODE])
 
     def parse(self):
         """Разобрать аргументы."""
@@ -17,10 +25,10 @@ class ArgParser:
         if self.args is None:
             self.args = self.parser.parse_args()
 
-        if self.args.action in {'e', 'encode'}:
+        if self.args.action in self.action_key_values[Action.ENCODE]:
             self.args.action = Action.ENCODE
 
-        if self.args.action in {'d', 'decode'}:
+        if self.args.action in self.action_key_values[Action.DECODE]:
             self.args.action = Action.DECODE
 
         return self.args
