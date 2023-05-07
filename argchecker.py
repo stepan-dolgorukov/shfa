@@ -24,6 +24,7 @@ class ArgChecker:
 
         self.args = args
         self.message = None
+        self.conclusion = None
 
     def check(self):
         """Проверить аргументы, вернуть сообщение проверки."""
