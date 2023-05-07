@@ -60,15 +60,12 @@ class ArgChecker:
         """Проверить аргумент «имя файла»."""
 
         if self.args.filename is None:
-            self.message = CheckMessage.NO_FILE_NAME
-            return
+            return CheckMessage.NO_FILE_NAME
 
         if not os.path.exists(self.args.filename):
-            self.message = CheckMessage.FILE_DOESNT_EXIST
-            return
+            return CheckMessage.FILE_DOESNT_EXIST
 
-        self.message = CheckMessage.CORRECT
-        return
+        return CheckMessage.CORRECT
 
     @private
     def check_arg_action(self):
@@ -77,12 +74,9 @@ class ArgChecker:
         """
 
         if self.args.action is None:
-            self.message = CheckMessage.NO_ACTION
-            return
+            return CheckMessage.NO_ACTION
 
         if self.args.action not in {'e', 'd'}:
-            self.message = CheckMessage.INCORRECT_ACTION
-            return
+            return CheckMessage.INCORRECT_ACTION
 
-        self.message = CheckMessage.CORRECT
-        return
+        return CheckMessage.CORRECT
