@@ -1,9 +1,9 @@
 import os.path
 
 from accessify import private
-from enum import Enum
+from enum import StrEnum
 
-class CheckMessage(Enum):
+class CheckMessage(StrEnum):
     CORRECT = "Хорошо",
     NO_FILE_NAME = "Не указано имя файла",
     FILE_DOESNT_EXIST = "Файл не существует",
