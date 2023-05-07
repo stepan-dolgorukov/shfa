@@ -4,13 +4,15 @@ from bitstring import BitArray
 
 class Encoder:
     def __init__(self, data: str):
+        """data -- информация, которую нужно закодировать"""
+
         self.data = data
         self.symbol_code = SymbolCodeMap(data)
         self.compressed_data = None
 
     def coded(self):
         """Получить информацию в сжатом виде."""
-        if self.compressed_data == None:
+        if self.compressed_data is None:
             self.compressed_data = self.bitarray()
         return self.compressed_data
 

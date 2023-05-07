@@ -14,7 +14,7 @@ class Decoder:
     def decoded(self):
         """Получить информацию, которую раскодировал."""
 
-        if None is self.decompressed_data:
+        if self.decompressed_data is None:
             self.decompressed_data = self.decode()
         return self.decompressed_data
 
