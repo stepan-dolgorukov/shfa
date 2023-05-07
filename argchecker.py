@@ -26,32 +26,27 @@ class ArgChecker:
         self.message = None
         self.conclusion = None
 
-    def check(self):
-        """Проверить аргументы, вернуть сообщение проверки."""
-
-        if self.message is None:
-            self.check_arg_action()
-
-            if CheckMessage.CORRECT == self.message:
-                self.check_arg_filename()
-
-        return self.message
-
-    def conclusion(self):
+    def get_conclusion(self):
         """Получить заключение по корректности аргументов.
         Аргументы либо верны, либо не верны.
         """
 
         if self.message is None:
-            self.check()
+            self.message = self.check_arg_action()
 
-        return CheckMessage.CORRECT == self.message
+            if CheckMessage.CORRECT == self.message:
+                self.message = self.check_arg_filename()
 
-    def check_message(self):
+        if CheckMessage.CORRECT == self.message:
+            return Conclusions.POSITIVE
+        
+        return Conclusions.NEGATIVE
+
+    def get_message(self):
         """Получить сообщение проверки."""
 
-        if self.message is None:
-            self.check()
+        if self.conclusion is None:
+            self.conclusion = self.get_conclusion()
 
         return self.message
 
