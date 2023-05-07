@@ -29,7 +29,7 @@ class ArgChecker:
         Аргументы либо верны, либо не верны.
         """
 
-        if None is self.message:
+        if self.message is None:
             self.check()
 
         return "Хорошо" == self.message
