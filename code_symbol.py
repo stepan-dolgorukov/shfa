@@ -1,6 +1,7 @@
 from symbol_code import SymbolCodeMap
 from accessify import private
 import json
+from bitstring import BitArray
 
 class CodeSymbolMap:
     """Отображение «код символа→символ»
@@ -12,7 +13,7 @@ class CodeSymbolMap:
         self.code_symbol = self.inverse(symbol_code)
 
     @private
-    def inverse(self, symbol_code: SymbolCodeMap):
+    def inverse(self, symbol_code: SymbolCodeMap) -> dict[BitArray, str]:
         """Построить обратное отображение к отображению «символ→код»."""
 
         inversed = dict()
