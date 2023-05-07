@@ -13,9 +13,9 @@ class ArgParser:
         }
 
         self.parser = argparse.ArgumentParser(prog="Архиватор «Shannon-Fano»")
-        self.parser.add_argument("--filename", "-f", nargs=1)
+        self.parser.add_argument("--filename", "-f", nargs='?')
 
-        self.parser.add_argument("--action", "-a", nargs=1,
+        self.parser.add_argument("--action", "-a", nargs='?',
             choices=self.action_key_values[Action.ENCODE] +
                     self.action_key_values[Action.DECODE])
 
