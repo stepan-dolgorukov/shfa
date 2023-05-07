@@ -10,9 +10,13 @@ class CheckMessage(StrEnum):
     NO_ACTION = "Не указано действие",
     INCORRECT_ACTION = "Указано некорректное действие"
 
-class Conclusions(Enum):
+class Conclusion(Enum):
     NEGATIVE = False
     POSITIVE = True
+
+class Action(Enum):
+    ENCODE = 0,
+    DECODE = 1
 
 class ArgChecker:
     """Проверяет переданные аргументы на выполнение условий,
@@ -26,7 +30,7 @@ class ArgChecker:
         self.message = None
         self.conclusion = None
 
-    def get_conclusion(self):
+    def get_conclusion(self) -> Conclusion:
         """Получить заключение по корректности аргументов.
         Аргументы либо верны, либо не верны.
         """
@@ -38,11 +42,11 @@ class ArgChecker:
                 self.message = self.check_arg_filename()
 
         if CheckMessage.CORRECT == self.message:
-            return Conclusions.POSITIVE
+            return Conclusion.POSITIVE
         
-        return Conclusions.NEGATIVE
+        return Conclusion.NEGATIVE
 
-    def get_message(self):
+    def get_message(self) -> CheckMessage:
         """Получить сообщение проверки."""
 
         if self.conclusion is None:
@@ -51,7 +55,7 @@ class ArgChecker:
         return self.message
 
     @private
-    def check_arg_filename(self):
+    def check_arg_filename(self) -> CheckMessage:
         """Проверить аргумент «имя файла»."""
 
         if self.args.filename is None:
@@ -63,7 +67,7 @@ class ArgChecker:
         return CheckMessage.CORRECT
 
     @private
-    def check_arg_action(self):
+    def check_arg_action(self) -> CheckMessage:
         """Проверить аргумент «действие над файлом».
         Файл можно либо закодировать, либо раскодировать.
         """
@@ -71,7 +75,7 @@ class ArgChecker:
         if self.args.action is None:
             return CheckMessage.NO_ACTION
 
-        if self.args.action not in {'e', 'd'}:
+        if self.args.action not in Action:
             return CheckMessage.INCORRECT_ACTION
 
         return CheckMessage.CORRECT
