@@ -27,7 +27,7 @@ class ArgChecker:
         if self.message is None:
             self.check_arg_action()
 
-            if CheckMessage.CORRECT != self.message:
+            if CheckMessage.CORRECT == self.message:
                 self.check_arg_filename()
 
         return self.message
