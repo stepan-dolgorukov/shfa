@@ -23,10 +23,7 @@ class Encoder:
     @private
     def bitamount(self):
         """Вычислить количество битов, необходимых для сжатой строки."""
-        amount: int = 0
-        for code in self.symbol_code.values():
-            amount += len(code)
-        return amount
+        return sum([len(code) for code in self.symbol_code.values()])
 
     @private
     def code_to_bitstr(self, code: str):
