@@ -29,7 +29,7 @@ if __name__ == '__main__':
     args = ArgParser().parse()
     checker = ArgChecker(args)
 
-    if Conclusions.POSITIVE != checker.get_conclusion():
+    if Conclusion.POSITIVE != checker.get_conclusion():
         print(checker.get_message())
         exit(1)
 

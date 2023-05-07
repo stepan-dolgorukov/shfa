@@ -10,7 +10,7 @@ class CheckMessage(StrEnum):
     NO_ACTION = "Не указано действие",
     INCORRECT_ACTION = "Указано некорректное действие"
 
-class Conclusions(Enum):
+class Conclusion(Enum):
     NEGATIVE = False
     POSITIVE = True
 
