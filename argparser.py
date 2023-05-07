@@ -12,7 +12,9 @@ class ArgParser:
             Action.DECODE: ['d', 'decode', 'dec', 'de']
         }
 
-        self.parser = argparse.ArgumentParser(prog="Архиватор «Shannon-Fano»")
+        self.parser = argparse.ArgumentParser(
+            description="Архиватор «Shannon-Fano»")
+
         self.parser.add_argument("--filename", "-f", nargs='?',
             help="Имя файла ввода")
 
