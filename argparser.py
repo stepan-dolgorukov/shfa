@@ -1,4 +1,5 @@
 import argparse
+from argchecker import Action
 
 class ArgParser:
     """Разбирающий аргументы."""
@@ -15,6 +16,13 @@ class ArgParser:
 
         if self.args is None:
             self.args = self.parser.parse_args()
+
+        if self.args.action in {'e', 'encode'}:
+            self.args.action = Action.ENCODE
+
+        if self.args.action in {'d', 'decode'}:
+            self.args.action = Action.DECODE
+
         return self.args
 
     def brief(self):
