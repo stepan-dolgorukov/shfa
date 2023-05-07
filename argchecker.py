@@ -8,6 +8,8 @@ class ArgChecker():
     """
 
     def __init__(self, args):
+        """args -- аргументы, отправленные на проверку."""
+
         self.args = args
         self.message = None
 
