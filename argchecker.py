@@ -16,7 +16,7 @@ class ArgChecker():
     def check(self):
         """Проверить аргументы, вернуть сообщение проверки."""
 
-        if None is self.message:
+        if self.message is None:
             self.check_arg_action()
 
             if "Хорошо" == self.message:
@@ -37,7 +37,7 @@ class ArgChecker():
     def check_message(self):
         """Получить сообщение проверки."""
 
-        if None is self.message:
+        if self.message is None:
             self.check()
 
         return self.message
