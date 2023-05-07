@@ -1,6 +1,14 @@
 import os.path
 
 from accessify import private
+from enum import Enum
+
+class CheckMessage(Enum):
+    CORRECT = "Хорошо",
+    NO_FILE_NAME = "Не указано имя файла",
+    FILE_DOESNT_EXIST = "Файл не существует",
+    NO_ACTION = "Не указано действие",
+    INCORRECT_ACTION = "Указано некорректное действие"
 
 class ArgChecker:
     """Проверяет переданные аргументы на выполнение условий,
@@ -19,7 +27,7 @@ class ArgChecker:
         if self.message is None:
             self.check_arg_action()
 
-            if "Хорошо" == self.message:
+            if CheckMessage.CORRECT != self.message:
                 self.check_arg_filename()
 
         return self.message
@@ -32,7 +40,7 @@ class ArgChecker:
         if self.message is None:
             self.check()
 
-        return "Хорошо" == self.message
+        return CheckMessage.CORRECT == self.message
 
     def check_message(self):
         """Получить сообщение проверки."""
@@ -47,14 +55,14 @@ class ArgChecker:
         """Проверить аргумент «имя файла»."""
 
         if self.args.filename is None:
-            self.message = "Не указано имя файла"
+            self.message = CheckMessage.NO_FILE_NAME
             return
 
         if not os.path.exists(self.args.filename):
-            self.message = "Файл не существует"
+            self.message = CheckMessage.FILE_DOESNT_EXIST
             return
 
-        self.message = "Хорошо"
+        self.message = CheckMessage.CORRECT
         return
 
     @private
@@ -64,12 +72,12 @@ class ArgChecker:
         """
 
         if self.args.action is None:
-            self.message = "Не указано действие"
+            self.message = CheckMessage.NO_ACTION
             return
 
         if self.args.action not in {'e', 'd'}:
-            self.message = "Указано некорректное действие"
+            self.message = CheckMessage.INCORRECT_ACTION
             return
 
-        self.message = "Хорошо"
+        self.message = CheckMessage.CORRECT
         return
