@@ -13,7 +13,7 @@ class DecompressionReader:
 
     def read(self):
         """Получить раскодированную строку."""
-        if self.decoded == None:
+        if self.decoded is None:
             try:
                 self.read_info()
                 self.read_encoded()
