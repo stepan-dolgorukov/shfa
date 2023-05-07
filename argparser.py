@@ -28,3 +28,6 @@ class ArgParser:
     def brief(self):
         """Получить инструкцию как пользоваться программой"""
         return self.parser.format_help()
+
+    def action(self) -> Action:
+        return self.args.action
