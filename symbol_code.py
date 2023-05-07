@@ -47,16 +47,10 @@ class SymbolCodeMap(SymbolMap):
     def codes(self, symbol_prob, code=''):
 
         if len(symbol_prob) <= 2:
-            #  print(self.symbol_prob)
-
-            if len(symbol_prob) == 2:
-                for i, k in enumerate(symbol_prob):
-                    #  yield (code + str(i), k)
-                    self.symbol_code[k] = code + str(i)
-            else:  # == 1
-                #  yield code, *self.symbol_prob.keys()
-                k = list(symbol_prob.keys())[0]
-                self.symbol_code[k] = 0 if code == '' else code
+            # Если в отображении два прообраза, то index in {0,1}
+            # Если один, то index = 0
+            for index, symbol in enumerate(symbol_prob):
+                self.symbol_code[symbol] = code + str(index)
             return
 
         symbol_prob = self.sort(symbol_prob)
