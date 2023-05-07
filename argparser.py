@@ -8,8 +8,8 @@ class ArgParser:
         self.args = None
 
         self.action_key_values = {
-            Action.ENCODE: ['e', 'encode'],
-            Action.DECODE: ['d', 'decode']
+            Action.ENCODE: ['e', 'encode', 'enc', 'en'],
+            Action.DECODE: ['d', 'decode', 'dec', 'de']
         }
 
         self.parser = argparse.ArgumentParser(prog="Архиватор «Shannon-Fano»")
