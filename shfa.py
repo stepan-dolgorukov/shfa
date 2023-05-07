@@ -4,7 +4,7 @@ from writer import CompressionWriter
 from reader import DecompressionReader
 
 from argparser import ArgParser
-from argchecker import ArgChecker, Conclusion
+from argchecker import ArgChecker, Conclusion, Action
 
 def encode(filename):
     data = ""
@@ -35,10 +35,10 @@ if __name__ == '__main__':
         print(parser.brief())
         exit(1)
 
-    if args.action == 'e':
+    if parser.args.action == Action.ENCODE:
         encode(args.filename)
 
-    if args.action == 'd':
+    if parser.args.action == Action.DECODE:
         try:
             data = decode(args.filename)
             print(data)
