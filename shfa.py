@@ -41,6 +41,11 @@ if __name__ == '__main__':
     if parser.args.action == Action.DECODE:
         try:
             data = decode(args.filename)
-            print(data)
+
+            try:
+                with open(parser.args.output, "w") as out:
+                    out.write(data)
+            except Exception:
+                print("Не удалось записать раскодированную информацию")
         except Exception:
             print("Не удалось раскодировать строку")
