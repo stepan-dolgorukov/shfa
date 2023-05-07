@@ -44,6 +44,23 @@ class SymbolCodeMap(SymbolMap):
         return split_index
 
     @private
+    def parts(self, symbol_prob, split_index):
+        """Разбиение отображения на две части по индексу"""
+
+        part_left = dict()
+        part_right = dict()
+        keys = list(symbol_prob.keys())
+
+        for key in keys[:split_index + 1]:
+            part_left[key] = symbol_prob[key]
+
+        for key in keys[split_index + 1:]:
+            part_right[key] = symbol_prob[key]
+
+        return (part_left, part_right)
+
+
+    @private
     def codes(self, symbol_prob, code=''):
 
         if len(symbol_prob) <= 2:
@@ -54,21 +71,9 @@ class SymbolCodeMap(SymbolMap):
             return
 
         symbol_prob = self.sort(symbol_prob)
-
-        part_left = dict()
-        part_right = dict()
-
-        keys = list(symbol_prob.keys())
         split_index = self.find_split(symbol_prob)
 
-        part_left_keys = keys[:split_index + 1]
-        part_right_keys = keys[split_index + 1:]
-
-        for key in part_left_keys:
-            part_left[key] = symbol_prob[key]
-
-        for key in part_right_keys:
-            part_right[key] = symbol_prob[key]
+        part_left, part_right = self.parts(symbol_prob, split_index)
 
         self.codes(part_left, code + '0')
         self.codes(part_right, code + '1')
