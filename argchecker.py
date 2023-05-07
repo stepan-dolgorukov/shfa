@@ -38,9 +38,9 @@ class ArgChecker:
                 self.message = self.check_arg_filename()
 
         if CheckMessage.CORRECT == self.message:
-            return Conclusions.POSITIVE
+            return Conclusion.POSITIVE
         
-        return Conclusions.NEGATIVE
+        return Conclusion.NEGATIVE
 
     def get_message(self):
         """Получить сообщение проверки."""
