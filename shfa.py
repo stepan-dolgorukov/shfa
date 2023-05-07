@@ -4,7 +4,7 @@ from writer import CompressionWriter
 from reader import DecompressionReader
 
 from argparser import ArgParser
-from argchecker import ArgChecker, Conclusions
+from argchecker import ArgChecker, Conclusion
 
 def encode(filename):
     data = ""
@@ -31,6 +31,7 @@ if __name__ == '__main__':
 
     if Conclusion.POSITIVE != checker.get_conclusion():
         print(checker.get_message())
+        print(ArgParser().get_desc())
         exit(1)
 
     if args.action == 'e':
