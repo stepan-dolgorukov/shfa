@@ -26,12 +26,13 @@ def decode(filename):
     return data
 
 if __name__ == '__main__':
-    args = ArgParser().parse()
+    parser = ArgParser()
+    args = parser.parse()
     checker = ArgChecker(args)
 
     if Conclusion.POSITIVE != checker.get_conclusion():
         print(checker.get_message())
-        print(ArgParser().get_desc())
+        print(parser.brief())
         exit(1)
 
     if args.action == 'e':
