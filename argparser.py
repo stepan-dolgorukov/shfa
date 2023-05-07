@@ -9,7 +9,7 @@ class ArgParser:
 
         self.parser = argparse.ArgumentParser(prog="Архиватор «Shannon-Fano»")
         self.parser.add_argument("--filename", "-f", nargs='?')
-        self.parser.add_argument("--action", "-a", nargs='?')
+        self.parser.add_argument("--action", "-a", nargs='?', choices={'encode', 'e', 'decode', 'd'})
 
     def parse(self):
         """Разобрать аргументы."""
