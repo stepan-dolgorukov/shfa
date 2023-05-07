@@ -16,3 +16,7 @@ class ArgParser:
         if self.args is None:
             self.args = self.parser.parse_args()
         return self.args
+
+    def brief(self):
+        """Получить инструкцию как пользоваться программой"""
+        return self.parser.format_help()
