@@ -26,7 +26,7 @@ class ArgChecker:
         self.message = None
         self.conclusion = None
 
-    def get_conclusion(self):
+    def get_conclusion(self) -> Conclusion:
         """Получить заключение по корректности аргументов.
         Аргументы либо верны, либо не верны.
         """
@@ -42,7 +42,7 @@ class ArgChecker:
         
         return Conclusion.NEGATIVE
 
-    def get_message(self):
+    def get_message(self) -> CheckMessage:
         """Получить сообщение проверки."""
 
         if self.conclusion is None:
@@ -51,7 +51,7 @@ class ArgChecker:
         return self.message
 
     @private
-    def check_arg_filename(self):
+    def check_arg_filename(self) -> CheckMessage:
         """Проверить аргумент «имя файла»."""
 
         if self.args.filename is None:
@@ -63,7 +63,7 @@ class ArgChecker:
         return CheckMessage.CORRECT
 
     @private
-    def check_arg_action(self):
+    def check_arg_action(self) -> CheckMessage:
         """Проверить аргумент «действие над файлом».
         Файл можно либо закодировать, либо раскодировать.
         """
