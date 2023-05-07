@@ -2,7 +2,7 @@ import os.path
 
 from accessify import private
 
-class ArgChecker():
+class ArgChecker:
     """Проверяет переданные аргументы на выполнение условий,
     необходимых для дальнейшей работы программы shfa.
     """

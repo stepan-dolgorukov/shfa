@@ -2,7 +2,7 @@ from symbol_code import SymbolCodeMap
 from accessify import private
 import json
 
-class CodeSymbolMap():
+class CodeSymbolMap:
     """Отображение «код символа→символ»
 
     Используется при декодировании.
