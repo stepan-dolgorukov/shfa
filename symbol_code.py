@@ -10,7 +10,7 @@ import json
 class SymbolCodeMap(SymbolMap):
     """Отображение «символ→код»."""
 
-    def __init__(self, data: str):
+    def __init__(self, data: bytes):
         self.symbol_code = dict()
 
         if not data:
@@ -78,12 +78,12 @@ class SymbolCodeMap(SymbolMap):
         self.codes(part_right, code + '1')
 
     @override
-    def at(self, symbol: str):
+    def at(self, symbol: bytes):
         """Узнать код конкретного символа.
 
         symbol -- символ, количество раз которого узнаётся
         """
-        if not symbol or len(symbol) != 1 or symbol not in self.symbol_code:
+        if symbol not in self.symbol_code:
             return -1
 
         return self.symbol_code[symbol]

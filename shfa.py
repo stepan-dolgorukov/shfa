@@ -6,12 +6,12 @@ from reader import DecompressionReader
 from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
 
-def encode(filename):
+def encode(filename, output_filename):
     data = ""
-    with open(filename) as file:
+    with open(filename, 'rb') as file:
         data = file.read()
 
-    writer = CompressionWriter(data, filename + '.compressed')
+    writer = CompressionWriter(data, output_filename)
     writer.write()
 
 def decode(filename):
@@ -36,14 +36,14 @@ if __name__ == '__main__':
         exit(1)
 
     if parser.args.action == Action.ENCODE:
-        encode(args.filename)
+        encode(args.filename, args.output)
 
     if parser.args.action == Action.DECODE:
         try:
             data = decode(args.filename)
 
             try:
-                with open(parser.args.output, "w") as out:
+                with open(parser.args.output, "wb") as out:
                     out.write(data)
             except Exception:
                 print("Не удалось записать раскодированную информацию")

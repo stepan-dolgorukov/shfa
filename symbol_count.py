@@ -9,7 +9,7 @@ class SymbolCountMap(SymbolMap):
     Оно вида «символ->количество».
     """
 
-    def __init__(self, data: str):
+    def __init__(self, data: bytes):
         if not data:
             self.symbol_count = {}
             return
@@ -19,12 +19,12 @@ class SymbolCountMap(SymbolMap):
             self.symbol_count[symbol] += 1
 
     @override
-    def at(self, symbol: str):
+    def at(self, symbol: bytes):
         """Сколько раз встречается конкретный символ.
 
         symbol -- символ, количество раз которого узнаётся
         """
-        if not symbol or len(symbol) != 1 or symbol not in self.symbol_count:
+        if symbol not in self.symbol_count:
             return -1
 
         return self.symbol_count[symbol]

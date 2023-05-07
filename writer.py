@@ -6,7 +6,7 @@ from encoder import Encoder
 class CompressionWriter:
     """Сжимает строку и записывает в указанный файл."""
 
-    def __init__(self, data: str, fname: str):
+    def __init__(self, data: bytes, fname: str):
         self.fname = fname
         self.data = data
         self.symbol_map = None

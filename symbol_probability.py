@@ -23,12 +23,12 @@ class SymbolProbabilityMap(SymbolMap):
             self.symbol_prob[symbol] = probability
 
     @override
-    def at(self, symbol: str):
+    def at(self, symbol: bytes):
         """Вероятность указанного символа
 
         symbol -- символ, вероятность которого узнаётся
         """
-        if not symbol or len(symbol) != 1 or symbol not in self.symbol_prob:
+        if symbol not in self.symbol_prob:
             return -inf
 
         return self.symbol_prob[symbol]

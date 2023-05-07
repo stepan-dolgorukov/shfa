@@ -55,8 +55,9 @@ class DecompressionReader:
     def decode(self):
         """Раскодировать строку."""
 
-        self.decoded = ""
+        self.decoded = b""
         self.encoded = BitArray(self.encoded)
+
         data_length = self.info["length"]
         char_code = ""
 
@@ -66,5 +67,5 @@ class DecompressionReader:
             if char_code not in self.info["map"]:
                 continue
 
-            self.decoded += self.info["map"][char_code]
+            self.decoded += bytes([self.info["map"][char_code]])
             char_code = ""

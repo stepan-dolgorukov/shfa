@@ -4,7 +4,7 @@ class SymbolMap(ABC):
     """Отображение «символ->something»"""
 
     @abstractmethod
-    def at(self, symbol: str):
+    def at(self, symbol: bytes):
         """Получение значения (образа) по символу (прообразу)."""
         raise NotImplementedError
 
