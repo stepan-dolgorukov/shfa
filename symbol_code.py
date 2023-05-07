@@ -36,7 +36,6 @@ class SymbolCodeMap(SymbolMap):
             up_summa += value
             low_summa -= value
             diff = abs(up_summa - low_summa)
-            #  print(up_summa, low_summa, )
             if diff <= min_diff:
                 min_diff = diff
                 split_index = index
