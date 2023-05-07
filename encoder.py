@@ -4,6 +4,8 @@ from bitstring import BitArray
 
 class Encoder:
     def __init__(self, data: str):
+        """data -- информация, которую нужно закодировать"""
+
         self.data = data
         self.symbol_code = SymbolCodeMap(data)
         self.compressed_data = None
