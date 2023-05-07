@@ -10,7 +10,7 @@ class Encoder:
 
     def coded(self):
         """Получить информацию в сжатом виде."""
-        if self.compressed_data == None:
+        if self.compressed_data is None:
             self.compressed_data = self.bitarray()
         return self.compressed_data
 
