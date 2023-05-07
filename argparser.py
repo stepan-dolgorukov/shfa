@@ -19,6 +19,8 @@ class ArgParser:
             choices=self.action_key_values[Action.ENCODE] +
                     self.action_key_values[Action.DECODE])
 
+        self.parser.add_argument("--output", "-o", nargs='?')
+
     def parse(self):
         """Разобрать аргументы."""
 
