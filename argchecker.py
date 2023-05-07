@@ -14,6 +14,10 @@ class Conclusion(Enum):
     NEGATIVE = False
     POSITIVE = True
 
+class Action(Enum):
+    ENCODE = 0,
+    DECODE = 1
+
 class ArgChecker:
     """Проверяет переданные аргументы на выполнение условий,
     необходимых для дальнейшей работы программы shfa.
