@@ -1,7 +1,7 @@
 import os.path
 
 from accessify import private
-from enum import StrEnum
+from enum import StrEnum, Enum
 
 class CheckMessage(StrEnum):
     CORRECT = "Хорошо",
@@ -9,6 +9,10 @@ class CheckMessage(StrEnum):
     FILE_DOESNT_EXIST = "Файл не существует",
     NO_ACTION = "Не указано действие",
     INCORRECT_ACTION = "Указано некорректное действие"
+
+class Conclusions(Enum):
+    NEGATIVE = False
+    POSITIVE = True
 
 class ArgChecker:
     """Проверяет переданные аргументы на выполнение условий,
