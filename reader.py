@@ -1,6 +1,7 @@
 from accessify import private
 from bitstring import BitArray
 import json
+from decoder import Decoder
 
 class DecompressionReader:
     """Читает из файла и раскодирует информацию."""
@@ -49,23 +50,11 @@ class DecompressionReader:
 
         with open(self.fname, "rb") as file:
             file.seek(self.info["header-length"])
-            self.encoded = file.read()
+            self.encoded = BitArray(file.read())
 
     @private
     def decode(self):
-        """Раскодировать строку."""
+        code_symbol = self.info["map"]
 
-        self.decoded = b""
-        self.encoded = BitArray(self.encoded)
-
-        data_length = self.info["length"]
-        char_code = ""
-
-        for i in range(data_length):
-            char_code += str(int(self.encoded[i]))
-
-            if char_code not in self.info["map"]:
-                continue
-
-            self.decoded += bytes([self.info["map"][char_code]])
-            char_code = ""
+        decoder = Decoder(self.encoded, code_symbol)
+        self.decoded = decoder.decoded()

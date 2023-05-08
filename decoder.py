@@ -6,8 +6,8 @@ from accessify import private
 class Decoder:
     """Декодировка информации. Коды берутся из переданного отображения."""
 
-    def __init__(self, data: BitArray, symbol_code: SymbolCodeMap):
-        self.code_symbol = CodeSymbolMap(symbol_code)
+    def __init__(self, data: BitArray, code_symbol: dict[str:int]):
+        self.code_symbol = code_symbol
         self.data = data
         self.decompressed_data = None
 
@@ -22,13 +22,13 @@ class Decoder:
     def decode(self):
         """Раскодировать информацию."""
 
-        decompressed = ""
+        decompressed = b""
         code = ""
+        print(self.code_symbol)
         for i in range(len(self.data)):
             code += str(int(self.data[i]))
-            if self.code_symbol.has(code):
-                decompressed += self.code_symbol.at(code)
+            if code in self.code_symbol:
+                decompressed += bytes([self.code_symbol[code]])
                 code = ""
-        if code:
-            decompressed += self.code_symbol.at(code)
+
         return decompressed
