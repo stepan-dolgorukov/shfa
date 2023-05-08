@@ -10,7 +10,7 @@ from math import inf
 class SymbolProbabilityMap(SymbolMap):
     """Отображение «символ→вероятность»"""
 
-    def __init__(self, data: str):
+    def __init__(self, data: bytes):
         if not data:
             self.symbol_prob = {}
             return
