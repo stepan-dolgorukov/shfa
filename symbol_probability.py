@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from collections import defaultdict
+from collections import defaultdict, Counter
 from typing_extensions import override
-from symbol_count import SymbolCountMap
 from symbol_map import SymbolMap
 from math import inf
 
@@ -15,11 +14,11 @@ class SymbolProbabilityMap(SymbolMap):
             self.symbol_prob = {}
             return
 
-        symbol_count = SymbolCountMap(data)
+        symbol_count = Counter(data)
         self.symbol_prob = defaultdict(float)
 
         for symbol in data:
-            probability: float = symbol_count.at(symbol) / len(data)
+            probability: float = symbol_count[symbol] / len(data)
             self.symbol_prob[symbol] = probability
 
     @override
