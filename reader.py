@@ -54,5 +54,5 @@ class DecompressionReader:
 
     @private
     def decode(self):
-        decoder = Decoder(self.encoded, self.info["map"])
+        decoder = Decoder(self.encoded, self.info["length"], self.info["map"])
         self.decoded = decoder.decoded()

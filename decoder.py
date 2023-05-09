@@ -6,9 +6,10 @@ from accessify import private
 class Decoder:
     """Декодировка информации. Коды берутся из переданного отображения."""
 
-    def __init__(self, data: BitArray, code_symbol: dict[str:int]):
+    def __init__(self, data: BitArray, length: int, code_symbol: dict[str:int]):
         self.code_symbol = code_symbol
         self.data = data
+        self.data_length = length
         self.decompressed_data = None
 
     def decoded(self):
@@ -25,7 +26,7 @@ class Decoder:
         decompressed = b""
         code = ""
 
-        for i in range(len(self.data)):
+        for i in range(self.data_length):
             code += str(int(self.data[i]))
             if code in self.code_symbol:
                 decompressed += bytes([self.code_symbol[code]])
