@@ -28,14 +28,14 @@ class SymbolCodeMap(SymbolMap):
 
     @private
     def find_split(self, symbol_prob: dict[int, float]):
-        low_summa = sum(symbol_prob.values())
-        up_summa = 0
+        decr_summa = sum(symbol_prob.values())
+        incr_summa = 0
 
-        for index, value in enumerate(symbol_prob.values()):
-            up_summa += value
-            low_summa -= value
+        for index, probability in enumerate(symbol_prob.values()):
+            incr_summa += probability
+            decr_summa -= probability
 
-            if (up_summa - low_summa) >= 0:
+            if (incr_summa - decr_summa) >= 0:
                 return index
 
         return -1
