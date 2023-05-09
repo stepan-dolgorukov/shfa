@@ -54,7 +54,5 @@ class DecompressionReader:
 
     @private
     def decode(self):
-        code_symbol = self.info["map"]
-
-        decoder = Decoder(self.encoded, code_symbol)
+        decoder = Decoder(self.encoded, self.info["map"])
         self.decoded = decoder.decoded()
