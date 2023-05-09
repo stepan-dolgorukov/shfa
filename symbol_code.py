@@ -30,18 +30,15 @@ class SymbolCodeMap(SymbolMap):
     def find_split(self, symbol_prob: dict[int, float]):
         low_summa = sum(symbol_prob.values())
         up_summa = 0
-        min_diff = low_summa
-        split_index = 0
 
         for index, value in enumerate(symbol_prob.values()):
             up_summa += value
             low_summa -= value
-            diff = abs(up_summa - low_summa)
-            if diff <= min_diff:
-                min_diff = diff
-                split_index = index
 
-        return split_index
+            if (up_summa - low_summa) >= 0:
+                return index
+
+        return -1
 
     @private
     def parts(self, symbol_prob: dict[int, float], split_index: int):
