@@ -21,13 +21,13 @@ class SymbolCodeMap(SymbolMap):
         self.codes(self.symbol_prob)
 
     @private
-    def sort(self, symbol_prob):
+    def sort(self, symbol_prob: dict[int, float]) -> dict[int, float]:
         return {k: v for k, v in sorted(symbol_prob.items(),
                                         key=lambda item: item[1],
                                         reverse=True)}
 
     @private
-    def find_split(self, symbol_prob):
+    def find_split(self, symbol_prob: dict[int, float]):
         low_summa = sum(symbol_prob.values())
         up_summa = 0
         min_diff = low_summa
@@ -44,7 +44,7 @@ class SymbolCodeMap(SymbolMap):
         return split_index
 
     @private
-    def parts(self, symbol_prob, split_index):
+    def parts(self, symbol_prob: dict[int, float], split_index: int):
         """Разбиение отображения на две части по индексу"""
 
         part_left = dict()
@@ -61,7 +61,7 @@ class SymbolCodeMap(SymbolMap):
 
 
     @private
-    def codes(self, symbol_prob, code=''):
+    def codes(self, symbol_prob: dict[int: float], code: str=''):
 
         # Группа из двух символов
         # первому символу назначается код слева — приписывается ноль
