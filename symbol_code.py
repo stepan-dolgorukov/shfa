@@ -100,6 +100,12 @@ class SymbolCodeMap(SymbolMap):
 
         return self.symbol_code[symbol]
 
+    def __getitem__(self, symbol):
+        if symbol not in self.symbol_code:
+            return ""
+
+        return self.symbol_code[symbol]
+
     @override
     def keys(self):
         """Подаёт контейнер, содержащий все символы, у которых есть код."""
