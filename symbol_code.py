@@ -63,11 +63,19 @@ class SymbolCodeMap(SymbolMap):
     @private
     def codes(self, symbol_prob, code=''):
 
-        if len(symbol_prob) <= 2:
-            # Если в отображении два прообраза, то index in {0,1}
-            # Если один, то index = 0
+        # Группа из двух символов
+        # первому символу назначается код слева — приписывается ноль
+        # второму назначается код справа — приписывается единица
+        if len(symbol_prob) == 2:
             for index, symbol in enumerate(symbol_prob):
                 self.symbol_code[symbol] = code + str(index)
+            return
+
+        # Группа из одного символа
+        # К коду ничего не дописывается
+        if len(symbol_prob) == 1:
+            symbol = [symbol for symbol in symbol_prob][0]
+            self.symbol_code[symbol] = code
             return
 
         symbol_prob = self.sort(symbol_prob)
