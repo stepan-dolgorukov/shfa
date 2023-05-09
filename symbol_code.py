@@ -47,6 +47,9 @@ class SymbolCodeMap(SymbolMap):
     def parts(self, symbol_prob: dict[int, float], split_index: int):
         """Разбиение отображения на две части по индексу"""
 
+        if split_index < 0:
+            raise ValueError("Отрицательное значение индекса")
+
         part_left = dict()
         part_right = dict()
         keys = list(symbol_prob.keys())
