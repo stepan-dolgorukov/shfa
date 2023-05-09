@@ -24,7 +24,7 @@ class Decoder:
 
         decompressed = b""
         code = ""
-        print(self.code_symbol)
+
         for i in range(len(self.data)):
             code += str(int(self.data[i]))
             if code in self.code_symbol:
