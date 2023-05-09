@@ -26,9 +26,11 @@ class CompressionWriter:
 
         with open(self.fname, "ab") as file:
             length = len(self.compressed)
-            pad = 8 - (length % 8)
 
-            self.compressed.append(pad)
+            if (length % 8 != 0):
+                pad = 8 - (length % 8)
+                self.compressed.append(pad)
+
             file.write(self.compressed.bytes)
 
     @private
