@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 from typing_extensions import override
-from symbol_probability import SymbolProbabilityMap
 from symbol_map import SymbolMap
 from accessify import private
 import json
+
+import probability
 
 
 class SymbolCodeMap(SymbolMap):
@@ -16,7 +17,7 @@ class SymbolCodeMap(SymbolMap):
         if not data:
             return
 
-        self.symbol_prob = SymbolProbabilityMap(data)
+        self.symbol_prob = probability.byte_probability(data)
         self.codes(self.symbol_prob)
 
     @private
