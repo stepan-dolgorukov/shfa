@@ -7,6 +7,14 @@ from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
 
 def encode(filename, output_filename):
+    """Считать информацию с файла, записать заголовок и сжатую
+    информацию в файл
+
+    Аргументы:
+    filename -- файл ввода, в нём лежит информация, которую нужно сжать
+    output -- файл вывода, в него будет помещён контейнер
+    """
+
     data = ""
     with open(filename, 'rb') as file:
         data = file.read()
@@ -15,6 +23,13 @@ def encode(filename, output_filename):
     writer.write()
 
 def decode(filename):
+    """Считать заголок & сжатые данные из файла,
+    вернуть раскодированную информацию
+
+    Аргументы:
+    filename -- файл, в котором содержится заголовок & сжатые данные
+    """
+
     data = None
 
     try:
