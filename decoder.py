@@ -8,6 +8,15 @@ class Decoder:
 
     def __init__(self, data: BitArray, length: int, code_symbol: dict[str:int]):
 
+        if not isinstance(data, BitArray):
+            raise ValueError("Поддерживается работа только со строками байтов")
+
+        if not isinstance(length, int):
+            raise ValueError("Длина должна задаваться целым числом")
+
+        if not isinstance(code_symbol, dict):
+            raise ValueError("Отображение «код→символ» должно быть словарём")
+
         if length <= 0:
             raise ValueError("Длина должна быть строго положительной")
 
@@ -17,6 +26,9 @@ class Decoder:
         if len(data) < length:
             raise ValueError("Длина закодированной строки меньше указанной "
                 "длины")
+
+        if len(code_symbol) <= 0:
+            raise ValueError("Отображение не должно быть пустым")
 
         self.code_symbol = code_symbol
         self.data = data
