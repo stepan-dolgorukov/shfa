@@ -6,6 +6,10 @@ class Encoder:
     def __init__(self, data: bytes):
         """data -- информация, которую нужно закодировать"""
 
+        if not isinstance(data, bytes):
+            raise ValueError("Поддерживается работа только с байтовыми"
+                "строками")
+
         if len(data) <= 0:
             raise ValueError("Длина должна быть строго положительной")
 
