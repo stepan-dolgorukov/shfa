@@ -57,6 +57,9 @@ class ArgChecker:
             if CheckMessage.CORRECT == self.message:
                 self.message = self.check_arg_filename()
 
+            if CheckMessage.CORRECT == self.message:
+                self.message = self.check_arg_output()
+
         if CheckMessage.CORRECT == self.message:
             return Conclusion.POSITIVE
         
@@ -80,12 +83,6 @@ class ArgChecker:
         if not os.path.exists(self.args.filename):
             return CheckMessage.FILE_DOESNT_EXIST
 
-        if self.args.output is None:
-            return CheckMessage.NO_OUTPUT_FILE_NAME
-
-        if os.path.exists(self.args.output):
-            return CheckMessage.OUTPUT_FILE_EXIST
-
         return CheckMessage.CORRECT
 
     @private
@@ -99,5 +96,17 @@ class ArgChecker:
 
         if not isinstance(self.args.action, Action):
             return CheckMessage.INCORRECT_ACTION
+
+        return CheckMessage.CORRECT
+
+    @private
+    def check_arg_output(self) -> CheckMessage:
+        """Проверить аргумент «имя файла выхода»"""
+
+        if self.args.output is None:
+            return CheckMessage.NO_OUTPUT_FILE_NAME
+
+        if os.path.exists(self.args.output):
+            return CheckMessage.OUTPUT_FILE_EXIST
 
         return CheckMessage.CORRECT
