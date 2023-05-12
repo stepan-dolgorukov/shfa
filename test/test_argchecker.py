@@ -62,18 +62,18 @@ class TestArgChecker(unittest.TestCase):
         self.assertEqual(CheckMessage.FILE_DOESNT_EXIST, checker.get_message())
 
     def test_no_output_file_name(self):
-        checker = ArgChecker(Namespace(filename='in.txt', output='out.txt'))
+        checker = ArgChecker(Namespace(filename='in.txt', output=None))
         checker.check_arg_action = Mock(return_value=CheckMessage.CORRECT)
 
         def file_exists(filename: str) -> bool:
             if filename == 'in.txt': return True 
-            if filename == 'out.txt': return True
+            if filename == 'out.txt': return False
             raise ValueError("Имя файла в тесте не участвует")
 
         checker.file_exists = Mock(side_effect=file_exists)
 
         self.assertEqual(Conclusion.NEGATIVE, checker.get_conclusion())
-        self.assertEqual(CheckMessage.OUTPUT_FILE_EXIST, checker.get_message())
+        self.assertEqual(CheckMessage.NO_OUTPUT_FILE_NAME, checker.get_message())
 
     def test_output_file_exists(self):
         checker = ArgChecker(Namespace(output='output', filename='input'))
@@ -88,6 +88,9 @@ class TestArgChecker(unittest.TestCase):
 
         self.assertEqual(Conclusion.NEGATIVE, checker.get_conclusion())
         self.assertEqual(CheckMessage.OUTPUT_FILE_EXIST, checker.get_message())
+
+        checker.file_exists.assert_called_with('output')
+
 
 if __name__ == '__main__':
     unittest.main()
