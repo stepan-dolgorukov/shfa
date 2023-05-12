@@ -3,6 +3,22 @@ from decoder import Decoder
 from bitstring import BitArray
 
 class TestDecoder(unittest.TestCase):
+    def test_wrong_encoded_data_type(self):
+        for data in (int(), dict(), set(), str(), tuple(), list()):
+            self.assertRaises(ValueError, Decoder, data, 0, {})
+
+    def test_wrong_length_type(self):
+        for length in (float(), dict(), set(), str(), tuple(), list()):
+            self.assertRaises(ValueError, Decoder, BitArray([0]), length, {})
+
+    def test_wrong_code_to_symbol_map_type(self):
+        for code_symbol in (float(), int(), set(), str(), tuple(), list()):
+            self.assertRaises(
+                ValueError, Decoder, BitArray([0]), 1, code_symbol)
+
+    def test_empty_code_to_symbol_map(self):
+        self.assertRaises(ValueError, Decoder, BitArray([0]), 1, {})
+
     def test_negative_length(self):
         code_symbol = {
             '0': ord('a')
