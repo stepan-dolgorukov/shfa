@@ -97,7 +97,7 @@ class ArgChecker:
         if self.args.action is None:
             return CheckMessage.NO_ACTION
 
-        if self.args.action not in Action:
+        if not isinstance(self.args.action, Action):
             return CheckMessage.INCORRECT_ACTION
 
         return CheckMessage.CORRECT
