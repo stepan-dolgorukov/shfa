@@ -17,6 +17,7 @@ class TestArgChecker(unittest.TestCase):
     def test_incorrect_action(self):
         checker = ArgChecker(Namespace(action='bla-bla-bla'))
         checker.check_arg_filename = Mock(return_value=CheckMessage.CORRECT)
+        checker.check_arg_output = Mock(return_value=CheckMessage.CORRECT)
 
         self.assertEqual(Conclusion.NEGATIVE, checker.get_conclusion())
         self.assertEqual(CheckMessage.INCORRECT_ACTION, checker.get_message())
