@@ -4,6 +4,8 @@ from accessify import private
 from enum import StrEnum, Enum
 
 class CheckMessage(StrEnum):
+    """Человекопонятные сообщения проверки."""
+
     CORRECT = "Хорошо",
     NO_FILE_NAME = "Не указано имя файла",
     FILE_DOESNT_EXIST = "Файл не существует",
@@ -12,10 +14,18 @@ class CheckMessage(StrEnum):
     OUTPUT_FILE_EXIST = "Выходной файл уже существует"
 
 class Conclusion(Enum):
+    """Заключения проверки.
+    Проверка либо пройдена, либо нет.
+    """
+
     NEGATIVE = False
     POSITIVE = True
 
 class Action(Enum):
+    """Действия над файлом.
+    Файл можно либо закодировать, либо раскодировать.
+    """
+
     ENCODE = 0,
     DECODE = 1
 
