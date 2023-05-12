@@ -74,13 +74,19 @@ class ArgChecker:
         return self.message
 
     @private
+    def file_exists(self, filename: str) -> bool:
+        """Узнать, существует ли файл."""
+
+        return os.path.exists(filename)
+
+    @private
     def check_arg_filename(self) -> CheckMessage:
         """Проверить аргумент «имя файла»."""
 
         if self.args.filename is None:
             return CheckMessage.NO_FILE_NAME
 
-        if not os.path.exists(self.args.filename):
+        if not self.file_exists(self.args.filename):
             return CheckMessage.FILE_DOESNT_EXIST
 
         return CheckMessage.CORRECT
@@ -106,7 +112,7 @@ class ArgChecker:
         if self.args.output is None:
             return CheckMessage.NO_OUTPUT_FILE_NAME
 
-        if os.path.exists(self.args.output):
+        if self.file_exists(self.args.output):
             return CheckMessage.OUTPUT_FILE_EXIST
 
         return CheckMessage.CORRECT
