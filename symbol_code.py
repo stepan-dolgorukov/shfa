@@ -12,11 +12,13 @@ class SymbolCodeMap(SymbolMap):
     """Отображение «символ→код»."""
 
     def __init__(self, data: bytes):
-        self.symbol_code = dict()
+        if not isinstance(data, bytes):
+            raise ValueError("Только байтовые строки")
 
         if not data:
-            return
+            raise ValueError("Пустая байтовая строка")
 
+        self.symbol_code = dict()
         self.symbol_prob = probability.byte_probability(data)
         self.codes(self.symbol_prob)
 
