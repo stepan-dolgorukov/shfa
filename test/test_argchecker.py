@@ -42,6 +42,7 @@ class TestArgChecker(unittest.TestCase):
     def test_no_file_name(self):
         checker = ArgChecker(Namespace(filename=None))
         checker.check_arg_action = Mock(return_value=CheckMessage.CORRECT)
+        checker.check_arg_output = Mock(return_value=CheckMessage.CORRECT)
 
         self.assertEqual(Conclusion.NEGATIVE, checker.get_conclusion())
         self.assertEqual(CheckMessage.NO_FILE_NAME, checker.get_message())
