@@ -65,7 +65,7 @@ class TestArgChecker(unittest.TestCase):
         checker = ArgChecker(Namespace(filename='in.txt', output='out.txt'))
         checker.check_arg_action = Mock(return_value=CheckMessage.CORRECT)
 
-        def file_exists(filename) -> bool:
+        def file_exists(filename: str) -> bool:
             if filename == 'in.txt': return True 
             if filename == 'out.txt': return True
             raise ValueError("Имя файла в тесте не участвует")
@@ -79,7 +79,7 @@ class TestArgChecker(unittest.TestCase):
         checker = ArgChecker(Namespace(output='output', filename='input'))
         checker.check_arg_action = Mock(return_value=CheckMessage.CORRECT)
 
-        def file_exists(filename) -> bool:
+        def file_exists(filename: str) -> bool:
             if filename == 'input': return True
             if filename == 'output': return True
             raise ValueError("Имя файла в тесте не участвует")
