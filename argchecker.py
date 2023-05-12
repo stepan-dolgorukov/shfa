@@ -12,6 +12,7 @@ class CheckMessage(StrEnum):
     FILE_DOESNT_EXIST = "Файл не существует",
     NO_ACTION = "Не указано действие",
     INCORRECT_ACTION = "Указано некорректное действие",
+    NO_OUTPUT_FILE_NAME = "Не указано имя файла вывода",
     OUTPUT_FILE_EXIST = "Выходной файл уже существует"
 
 class Conclusion(Enum):
@@ -78,6 +79,9 @@ class ArgChecker:
 
         if not os.path.exists(self.args.filename):
             return CheckMessage.FILE_DOESNT_EXIST
+
+        if self.args.output is None:
+            return CheckMessage.NO_OUTPUT_FILE_NAME
 
         if os.path.exists(self.args.output):
             return CheckMessage.OUTPUT_FILE_EXIST
