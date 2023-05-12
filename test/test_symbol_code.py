@@ -1,7 +1,6 @@
 import unittest
 from symbol_code import SymbolCodeMap
 
-
 class TestSymbolCodeMap(unittest.TestCase):
     def test_none(self):
         self.assertRaises(ValueError, SymbolCodeMap, None)
@@ -11,16 +10,21 @@ class TestSymbolCodeMap(unittest.TestCase):
 
     def test_one_byte(self):
         symbol_code = SymbolCodeMap(b"a")
+
+        self.assertEqual(1, len(symbol_code))
         self.assertIn(symbol_code[ord('a')], {'0', '1'})
 
     def test_two_bytes(self):
         symbol_code = SymbolCodeMap(b"ab")
 
+        self.assertEqual(2, len(symbol_code))
         self.assertEqual({'0', '1'}, set(symbol_code.values()))
         self.assertNotEqual(symbol_code[ord('a')], symbol_code[ord('b')])
 
     def test_three_bytes(self):
         symbol_code = SymbolCodeMap(b"abc")
+
+        self.assertEqual(3, len(symbol_code))
 
         self.assertIn(
             set(symbol_code.values()),
