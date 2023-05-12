@@ -7,6 +7,10 @@ class Decoder:
     """Декодировка информации. Коды берутся из переданного отображения."""
 
     def __init__(self, data: BitArray, length: int, code_symbol: dict[str:int]):
+
+        if length <= 0:
+            raise ValueError("Длина должна быть строго положительной")
+
         self.code_symbol = code_symbol
         self.data = data
         self.data_length = length
