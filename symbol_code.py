@@ -77,6 +77,10 @@ class SymbolCodeMap(SymbolMap):
         # К коду ничего не дописывается
         if len(symbol_prob) == 1:
             symbol = [symbol for symbol in symbol_prob][0]
+
+            if code == '':
+                code = '0'
+
             self.symbol_code[symbol] = code
             return
 
