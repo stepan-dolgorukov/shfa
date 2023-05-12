@@ -3,7 +3,7 @@ from accessify import private
 from bitstring import BitArray
 
 class Encoder:
-    def __init__(self, data: str):
+    def __init__(self, data: bytes):
         """data -- информация, которую нужно закодировать"""
 
         self.data = data
