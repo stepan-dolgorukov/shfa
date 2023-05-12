@@ -2,6 +2,7 @@ import os.path
 
 from accessify import private
 from enum import StrEnum, Enum
+from argparse import Namespace
 
 class CheckMessage(StrEnum):
     """Человекопонятные сообщения проверки."""
@@ -36,6 +37,9 @@ class ArgChecker:
 
     def __init__(self, args):
         """args -- аргументы, отправленные на проверку."""
+
+        if not isinstance(args, Namespace):
+            raise ValueError("Поддерживается только argparse.Namespace")
 
         self.args = args
         self.message = None
