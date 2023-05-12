@@ -10,7 +10,7 @@ class Encoder:
         self.symbol_code = SymbolCodeMap(data)
         self.compressed_data = None
 
-    def coded(self):
+    def coded(self) -> bytes:
         """Получить информацию в сжатом виде."""
         if self.compressed_data is None:
             self.compressed_data = self.bitarray()

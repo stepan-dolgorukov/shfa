@@ -22,7 +22,7 @@ def encode(filename, output_filename):
     writer = CompressionWriter(data, output_filename)
     writer.write()
 
-def decode(filename):
+def decode(filename) -> bytes:
     """Считать заголок & сжатые данные из файла,
     вернуть раскодированную информацию
 
