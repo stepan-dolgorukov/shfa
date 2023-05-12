@@ -11,6 +11,13 @@ class Decoder:
         if length <= 0:
             raise ValueError("Длина должна быть строго положительной")
 
+        if len(data) <= 0:
+            raise ValueError("Невалидная длина закодированной строки")
+
+        if len(data) < length:
+            raise ValueError("Длина закодированной строки меньше указанной "
+                "длины")
+
         self.code_symbol = code_symbol
         self.data = data
         self.data_length = length
