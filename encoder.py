@@ -6,6 +6,9 @@ class Encoder:
     def __init__(self, data: bytes):
         """data -- информация, которую нужно закодировать"""
 
+        if len(data) <= 0:
+            raise ValueError("Длина должна быть строго положительной")
+
         self.data = data
         self.symbol_code = SymbolCodeMap(data)
         self.compressed_data = None
