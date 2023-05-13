@@ -13,6 +13,7 @@ class CompressionWriter:
         self.compressed = None
         self.info = None
 
+    @private
     def pad(self, length: int) -> int:
         return (8 - (length % 8)) % 8
 
