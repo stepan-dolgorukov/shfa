@@ -7,6 +7,12 @@ class DecompressionReader:
     """Читает из файла и раскодирует информацию."""
 
     def __init__(self, fname: str):
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть типом «str»")
+
+        if not fname:
+            raise ValueError("Пустое имя файла")
+
         self.fname = fname
         self.decoded = None
         self.encoded = None
