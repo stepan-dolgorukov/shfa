@@ -7,6 +7,19 @@ class CompressionWriter:
     """Сжимает строку и записывает в указанный файл."""
 
     def __init__(self, data: bytes, fname: str):
+        if not isinstance(data, bytes):
+            raise TypeError("Данные должны быть байтовой строкой (тип «bytes»)")
+
+        if len(data) <= 0:
+            raise ValueError("Длина байтовой строки должна быть строго "
+                "положительной")
+
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно задаваться строкой типа «str»")
+
+        if not fname:
+            raise ValueError("Не указано имя файла")
+
         self.fname = fname
         self.data = data
         self.symbol_map = None
