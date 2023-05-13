@@ -28,8 +28,11 @@ class DecompressionReader:
         """Считать заголовок."""
         info = None
 
-        with open(self.fname, 'r', errors="ignore") as file:
-            info = file.readline()
+        try:
+            with open(self.fname, 'r', errors="ignore") as file:
+                info = file.readline()
+        except Exception:
+            raise IOError("Не удалось считать заголовок из файла")
 
         header_length = len(info)
 
@@ -51,9 +54,12 @@ class DecompressionReader:
 
         encoded = None
 
-        with open(self.fname, "rb") as file:
-            file.seek(self.info["header-length"])
-            encoded = BitArray(file.read())
+        try:
+            with open(self.fname, "rb") as file:
+                file.seek(self.info["header-length"])
+                encoded = BitArray(file.read())
+        except Exception:
+            raise IOError("Не удалось считать закодированную информацию")
 
         return encoded
 
