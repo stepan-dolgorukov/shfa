@@ -22,9 +22,7 @@ class CompressionWriter:
 
         self.fname = fname
         self.data = data
-        self.symbol_map = None
-        self.compressed = None
-        self.info = None
+        self.encoder = None
 
     @private
     def pad(self, length: int) -> int:
@@ -33,43 +31,63 @@ class CompressionWriter:
     def write(self):
         """Записать заголовок & сжатые данные в файл. """
 
-        if None is self.compressed:
-            self.create_compressed()
-            self.fill_info()
+        if self.encoder is None:
+            self.encoder = Encoder(self.data)
+
+        self.write_header()
+        self.write_compressed()
+
+    @private
+    def write_header(self):
+        """Записать заголовок в файл."""
 
         try:
             with open(self.fname, "w") as file:
-                file.write(self.info)
+                file.write(self.get_header())
                 file.write("\n")
         except Exception:
             raise IOError("Не удалось записать заголовок в файл")
 
+    @private
+    def write_compressed(self):
+        """Записать сжатую строку в файл."""
+
         try:
             with open(self.fname, "ab") as file:
-                length = len(self.compressed)
-                pad = self.pad(length)
+                compressed = self.get_compressed()
+                pad = self.pad(len(compressed))
 
-                self.compressed.append(pad)
-
-                file.write(self.compressed.bytes)
+                compressed.append(pad)
+                file.write(compressed.bytes)
         except Exception:
             raise IOError("Не удалось записать закодированную информацию в файл")
 
     @private
-    def fill_info(self):
-        """Заполнить заголовок. """
+    def get_header(self):
+        """Сформировать заголовок."""
 
-        info = dict()
-        info["encoding"] = "ShannonFano"
-        info["version"] = "Test"
-        info["map"] = CodeSymbolMap(self.symbol_map).json()
-        info["length"] = len(self.compressed)
-        self.info = json.dumps(info)
+        header = None
+
+        try:
+            info = dict()
+            info["encoding"] = "ShannonFano"
+            info["version"] = "Test"
+            info["map"] = CodeSymbolMap(self.get_symbol_code_map()).json()
+            info["length"] = len(self.get_compressed())
+            header = json.dumps(info)
+        except Exception:
+            raise Exception("Не удалось сформировать заголовок")
+
+        return header 
 
     @private
-    def create_compressed(self):
-        """Закодировать (сжать) строку."""
+    def get_compressed(self):
+        """Получить сжатую строку."""
 
-        encoder = Encoder(self.data)
-        self.compressed = encoder.coded()
-        self.symbol_map = encoder.map()
+        return self.encoder.coded()
+
+    @private
+    def get_symbol_code_map(self):
+        """Получить отображение для раскодирования."""
+
+        return self.encoder.map()
