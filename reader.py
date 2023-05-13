@@ -40,7 +40,7 @@ class DecompressionReader:
             info = json.loads(info)
             info["map"] = json.loads(info["map"])
         except Exception:
-            raise ValueError
+            raise ValueError("Не удалось раскодировать заголовок")
 
         info["header-length"] = header_length
         return info
