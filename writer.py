@@ -37,17 +37,23 @@ class CompressionWriter:
             self.create_compressed()
             self.fill_info()
 
-        with open(self.fname, "w") as file:
-            file.write(self.info)
-            file.write("\n")
+        try:
+            with open(self.fname, "w") as file:
+                file.write(self.info)
+                file.write("\n")
+        except Exception:
+            raise IOError("Не удалось записать заголовок в файл")
 
-        with open(self.fname, "ab") as file:
-            length = len(self.compressed)
-            pad = self.pad(length)
+        try:
+            with open(self.fname, "ab") as file:
+                length = len(self.compressed)
+                pad = self.pad(length)
 
-            self.compressed.append(pad)
+                self.compressed.append(pad)
 
-            file.write(self.compressed.bytes)
+                file.write(self.compressed.bytes)
+        except Exception:
+            raise IOError("Не удалось записать закодированную информацию в файл")
 
     @private
     def fill_info(self):
