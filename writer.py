@@ -13,6 +13,9 @@ class CompressionWriter:
         self.compressed = None
         self.info = None
 
+    def pad(self, length: int) -> int:
+        return (8 - (length % 8)) % 8
+
     def write(self):
         """Записать заголовок & сжатые данные в файл. """
 
@@ -26,10 +29,9 @@ class CompressionWriter:
 
         with open(self.fname, "ab") as file:
             length = len(self.compressed)
+            pad = self.pad(length)
 
-            if (length % 8 != 0):
-                pad = 8 - (length % 8)
-                self.compressed.append(pad)
+            self.compressed.append(pad)
 
             file.write(self.compressed.bytes)
 
