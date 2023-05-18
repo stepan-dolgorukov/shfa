@@ -2,6 +2,7 @@ import json
 from accessify import private
 from code_symbol import CodeSymbolMap
 from encoder import Encoder
+from pathlib import Path
 
 class CompressionWriter:
     """Сжимает строку и записывает в указанный файл."""
@@ -19,6 +20,9 @@ class CompressionWriter:
 
         if not fname:
             raise ValueError("Не указано имя файла")
+
+        if Path(fname).exists():
+            raise ValueError(f"Файл {fname} существует")
 
         self.fname = fname
         self.data = data
