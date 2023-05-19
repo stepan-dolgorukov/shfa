@@ -95,3 +95,27 @@ class CompressionWriter:
         """Получить отображение для раскодирования."""
 
         return self.encoder.map()
+
+class Writer():
+    """Запись байтов в файл."""
+
+    def __init__(self, data: bytes, fname: str):
+        if not isinstance(data, bytes):
+            raise TypeError("Информация должна быть типа bytes")
+
+        if not data:
+            raise ValueError("Передана пустая байтовая строка")
+
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть строкой str")
+
+        if not fname:
+            raise ValueError("Передано пустое имя файла")
+
+        self.data = data
+        self.fname = fname
+
+    def write(self):
+        """Записать информацию."""
+        with open(self.fname, "wb") as out:
+            out.write(data)
