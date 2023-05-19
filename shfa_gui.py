@@ -25,9 +25,9 @@ class EncodeButton:
         e.grid(row=0,column=0)
         e.focus()
 
-        e.bind("<Return>", self.on_pressed) 
+        e.bind("<Return>", self.on_return) 
 
-    def on_pressed(self, event):
+    def on_return(self, event):
         output = event.widget.get()
 
         try:
@@ -70,9 +70,9 @@ class DecodeButton:
         e.grid(row=0,column=0)
         e.focus()
 
-        e.bind("<Return>", self.on_pressed) 
+        e.bind("<Return>", self.on_return) 
 
-    def on_pressed(self, event):
+    def on_return(self, event):
         output = event.widget.get()
         data = None
 
