@@ -92,14 +92,21 @@ def decode():
     b.grid(row=0, column=1)
 
 
+class ShannonFanoApplication:
+    def __init__(self):
+        self.root = tkinter.Tk()
+        self.root.title("ShFa")
+
+        frm = ttk.Frame(self.root, padding=10)
+        frm.grid()
+
+        ttk.Button(frm, text="Enc", command=encode).grid(column=0, row=0)
+        ttk.Button(frm, text="Dec", command=decode).grid(column=1, row=0)
+
+    def start(self):
+        self.root.mainloop()
+
+
 if __name__ == '__main__':
-    root = tkinter.Tk()
-    root.title("ShFa")
-
-    frm = ttk.Frame(root, padding=10)
-    frm.grid()
-
-    ttk.Button(frm, text="Enc", command=encode).grid(column=0, row=0)
-    ttk.Button(frm, text="Dec", command=decode).grid(column=1, row=0)
-
-    root.mainloop()
+    app = ShannonFanoApplication()
+    app.start()
