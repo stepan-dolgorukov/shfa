@@ -7,17 +7,10 @@ from writer import CompressionWriter, Writer
 from reader import DecompressionReader, Reader
 
 
-class ShannonFanoApplication(tkinter.Frame):
-    def __init__(self):
-        super().__init__(tkinter.Tk())
-
-        self.master.title("ShFa")
-        self.master.resizable(width=False, height=False)
-
-        ttk.Button(self, text="Enc", command=self.encode).grid(column=0, row=0)
-        ttk.Button(self, text="Dec", command=self.decode).grid(column=1, row=0)
-
-        self.pack()
+class EncodeButton:
+    def __init__(self, root_frame):
+        self.root = root_frame
+        ttk.Button(root_frame, text="Enc", command=self.encode).pack()
 
     def encode(self):
         filename = askopenfilename()
@@ -26,10 +19,10 @@ class ShannonFanoApplication(tkinter.Frame):
             tkinter.messagebox.showerror(title="Ошибка", message="Файл не выбран")
             return
 
-        inp=tkinter.Toplevel(self)
+        inp=tkinter.Toplevel(self.root)
         inp.title("Файл вывода")
 
-        e = tkinter.Entry(inp, text='Укажите название файла')
+        e = tkinter.Entry(master=inp, text='Укажите название файла')
         e.grid(row=0,column=0)
         e.focus()
 
@@ -61,6 +54,11 @@ class ShannonFanoApplication(tkinter.Frame):
         b = tkinter.Button(inp, text='Sub',command=lambda: on_pressed(e.get()))
         b.grid(row=0, column=1)
 
+class DecodeButton:
+    def __init__(self, root_frame):
+        self.root = root_frame
+        ttk.Button(root_frame, text="Dec", command=self.decode).pack()
+
     def decode(self):
         filename = askopenfilename()
 
@@ -68,7 +66,7 @@ class ShannonFanoApplication(tkinter.Frame):
             tkinter.messagebox.showerror(title="Ошибка", message="Файл не выбран")
             return
 
-        inp=tkinter.Tk()
+        inp=tkinter.Toplevel(self.root)
         inp.title("Файл вывода")
 
         e = tkinter.Entry(inp, text="Укажите имя файла")
@@ -102,6 +100,19 @@ class ShannonFanoApplication(tkinter.Frame):
         b = tkinter.Button(inp, text='Sub',command=lambda: on_pressed(e.get()))
         b.grid(row=0, column=1)
 
+
+
+class ShannonFanoApplication(tkinter.Frame):
+    def __init__(self):
+        super().__init__(tkinter.Tk())
+
+        self.master.title("ShFa")
+        self.master.resizable(width=False, height=False)
+
+        EncodeButton(self)
+        DecodeButton(self)
+
+        self.pack()
 
 if __name__ == '__main__':
     ShannonFanoApplication().mainloop()
