@@ -16,7 +16,6 @@ class EncodeButton:
         filename = askopenfilename()
 
         if not filename:
-            tkinter.messagebox.showerror(title="Ошибка", message="Файл не выбран")
             return
 
         inp=tkinter.Toplevel(self.root)
@@ -62,7 +61,6 @@ class DecodeButton:
         filename = askopenfilename()
 
         if not filename:
-            tkinter.messagebox.showerror(title="Ошибка", message="Файл не выбран")
             return
 
         inp=tkinter.Toplevel(self.root)
