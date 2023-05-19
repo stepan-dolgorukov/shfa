@@ -104,6 +104,22 @@ class Writer():
     """Запись байтов в файл."""
 
     def __init__(self, data: bytes, fname: str):
+        self.arguments_checking(data, fname)
+
+        self.data = data
+        self.fname = fname
+
+    def write(self):
+        """Записать информацию."""
+
+        try:
+            with open(self.fname, "wb") as out:
+                out.write(self.data)
+        except Exception:
+            raise IOError(f"Ошибка записи в файл {self.fname}")
+
+    @private
+    def arguments_checking(self, data, fname):
         if not isinstance(data, bytes):
             raise TypeError("Информация должна быть типа bytes")
 
@@ -118,15 +134,3 @@ class Writer():
 
         if Path(fname).exists():
             raise ValueError(f"Файл уже {fname} существует")
-
-        self.data = data
-        self.fname = fname
-
-    def write(self):
-        """Записать информацию."""
-
-        try:
-            with open(self.fname, "wb") as out:
-                out.write(self.data)
-        except Exception:
-            raise IOError(f"Ошибка записи в файл {self.fname}")
