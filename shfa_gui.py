@@ -7,19 +7,15 @@ from writer import CompressionWriter, Writer
 from reader import DecompressionReader, Reader
 
 
-class ShannonFanoApplication:
+class ShannonFanoApplication(tkinter.Frame):
     def __init__(self):
-        self.root = tkinter.Tk()
-        self.root.title("ShFa")
+        super().__init__(tkinter.Tk())
+        self.master.title("ShFa")
 
-        frm = ttk.Frame(self.root, padding=10)
-        frm.grid()
+        ttk.Button(self, text="Enc", command=self.encode).grid(column=0, row=0)
+        ttk.Button(self, text="Dec", command=self.decode).grid(column=1, row=0)
 
-        ttk.Button(frm, text="Enc", command=self.encode).grid(column=0, row=0)
-        ttk.Button(frm, text="Dec", command=self.decode).grid(column=1, row=0)
-
-    def start(self):
-        self.root.mainloop()
+        self.pack()
 
     def encode(self):
         filename = askopenfilename()
@@ -107,4 +103,4 @@ class ShannonFanoApplication:
 
 if __name__ == '__main__':
     app = ShannonFanoApplication()
-    app.start()
+    app.mainloop()
