@@ -82,3 +82,25 @@ class DecompressionReader:
     def decode(self):
         decoder = Decoder(self.encoded, self.info["length"], self.info["map"])
         return decoder.decoded()
+
+class Reader():
+    """Чтение байтов из файла."""
+
+    def __init__(self, fname: str):
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть строкой str")
+
+        if not fname:
+            raise ValueError("Передано пустое имя файла")
+
+        if not Path(fname).exists():
+            raise ValueError(f"Файл {fname} не существует")
+
+        self.fname = fname
+
+    def read(self) -> bytes:
+        """Прочитать информацию."""
+        data = None
+        with open(self.fname, "rb") as inp:
+            data = inp.read()
+        return data
