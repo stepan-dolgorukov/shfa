@@ -104,5 +104,4 @@ class ShannonFanoApplication(tkinter.Frame):
 
 
 if __name__ == '__main__':
-    app = ShannonFanoApplication()
-    app.mainloop()
+    ShannonFanoApplication().mainloop()
