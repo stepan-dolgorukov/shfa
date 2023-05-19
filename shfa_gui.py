@@ -26,7 +26,8 @@ class EncodeButton:
         e.grid(row=0,column=0)
         e.focus()
 
-        def on_pressed(output):
+        def on_pressed(event):
+            output = event.widget.get()
 
             try:
                 reader = Reader(filename)
@@ -50,9 +51,7 @@ class EncodeButton:
 
             inp.destroy()
 
-
-        b = tkinter.Button(inp, text='Sub',command=lambda: on_pressed(e.get()))
-        b.grid(row=0, column=1)
+        e.bind("<Return>", on_pressed) 
 
 class DecodeButton:
     def __init__(self, root_frame):
@@ -73,7 +72,8 @@ class DecodeButton:
         e.grid(row=0,column=0)
         e.focus()
 
-        def on_pressed(output):
+        def on_pressed(event):
+            output = event.widget.get()
             data = None
 
             try:
@@ -97,8 +97,7 @@ class DecodeButton:
 
             inp.destroy()
 
-        b = tkinter.Button(inp, text='Sub',command=lambda: on_pressed(e.get()))
-        b.grid(row=0, column=1)
+        e.bind("<Return>", on_pressed) 
 
 
 
