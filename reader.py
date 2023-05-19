@@ -101,6 +101,11 @@ class Reader():
     def read(self) -> bytes:
         """Прочитать информацию."""
         data = None
-        with open(self.fname, "rb") as inp:
-            data = inp.read()
+
+        try:
+            with open(self.fname, "rb") as inp:
+                data = inp.read()
+        except Exception:
+            raise IOError(f"Не удалось считать информацию из {self.fname}")
+
         return data
