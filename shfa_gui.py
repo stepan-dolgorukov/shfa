@@ -10,7 +10,8 @@ from reader import DecompressionReader, Reader
 class EncodeButton:
     def __init__(self, root_frame):
         self.root = root_frame
-        ttk.Button(root_frame, text="Закодировать", command=self.encode).pack()
+        button = ttk.Button(root_frame, text="Закодировать", command=self.encode)
+        button.grid(row=0, column=0)
 
     def encode(self):
         self.filename = askopenfilename()
@@ -23,6 +24,7 @@ class EncodeButton:
 
         e = tkinter.Entry(master=self.inp, text='Укажите название файла')
         e.grid(row=0,column=0)
+
         e.focus()
 
         e.bind("<Return>", self.on_return) 
@@ -55,7 +57,8 @@ class EncodeButton:
 class DecodeButton:
     def __init__(self, root_frame):
         self.root = root_frame
-        ttk.Button(root_frame, text="Декодировать", command=self.decode).pack()
+        button = ttk.Button(root_frame, text="Декодировать", command=self.decode)
+        button.grid(row=1, column=0)
 
     def decode(self):
         self.filename = askopenfilename()
@@ -101,10 +104,12 @@ class DecodeButton:
 
 class ShannonFanoApplication(tkinter.Frame):
     def __init__(self):
-        super().__init__(tkinter.Tk())
+        master_window = tkinter.Tk()
+        master_window.geometry("200x100")
+
+        super().__init__(master_window)
 
         self.master.title("ShFa")
-        self.master.resizable(width=False, height=False)
 
         EncodeButton(self)
         DecodeButton(self)
