@@ -12,6 +12,11 @@ class TestDecompressionReader(unittest.TestCase):
         self.assertRaises(ValueError, DecompressionReader, '')
 
     def test_hello(self):
+
+        # Проверки аргументов выключаются. Считается, что они пройдены:
+        # 'input' — допустимое имя для файла (непустая строка)
+        DecompressionReader.args_checking = Mock(return_value=None)
+
         reader = DecompressionReader('input')
 
         reader.read_encoded = Mock(return_value=BitArray(
