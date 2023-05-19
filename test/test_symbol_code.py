@@ -1,6 +1,7 @@
 import unittest
 from symbol_code import SymbolCodeMap
 
+
 class TestSymbolCodeMap(unittest.TestCase):
     def test_none(self):
         self.assertRaises(ValueError, SymbolCodeMap, None)
@@ -37,11 +38,11 @@ class TestSymbolCodeMap(unittest.TestCase):
 
         # 2 байта с кодами длины 2
         self.assertEqual(2,
-            len({code for code in symbol_code.values() if len(code) == 2}))
+                         len({code for code in symbol_code.values() if len(code) == 2}))
 
         # 4 байта с кодами длины 3
         self.assertEqual(4,
-            len({code for code in symbol_code.values() if len(code) == 3}))
+                         len({code for code in symbol_code.values() if len(code) == 3}))
 
     def test_hello_world(self):
         symbol_code = SymbolCodeMap(b"HelloWorld")
@@ -51,17 +52,18 @@ class TestSymbolCodeMap(unittest.TestCase):
         self.assertEqual(2, len(symbol_code[ord('l')]))
         self.assertEqual(2, len(symbol_code[ord('o')]))
 
-        # l, o 
+        # l, o
         self.assertEqual(2,
-            len({code for code in symbol_code.values() if len(code) == 2}))
+                         len({code for code in symbol_code.values() if len(code) == 2}))
 
         # w, r, d
         self.assertEqual(3,
-            len({code for code in symbol_code.values() if len(code) == 3}))
+                         len({code for code in symbol_code.values() if len(code) == 3}))
 
         # H, e
         self.assertEqual(2,
-            len({code for code in symbol_code.values() if len(code) == 4}))
+                         len({code for code in symbol_code.values() if len(code) == 4}))
+
 
 if __name__ == '__main__':
     unittest.main()

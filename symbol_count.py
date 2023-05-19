@@ -4,6 +4,7 @@ from collections import defaultdict
 from typing_extensions import override
 from symbol_map import SymbolMap
 
+
 class SymbolCountMap(SymbolMap):
     """Отображение помогает вести подсчёт символов.
     Оно вида «символ->количество».

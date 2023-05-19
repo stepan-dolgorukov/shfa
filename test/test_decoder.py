@@ -2,6 +2,7 @@ import unittest
 from decoder import Decoder
 from bitstring import BitArray
 
+
 class TestDecoder(unittest.TestCase):
     def test_wrong_encoded_data_type(self):
         for data in (int(), dict(), set(), str(), tuple(), list()):
@@ -35,7 +36,7 @@ class TestDecoder(unittest.TestCase):
         }
 
         encoded = BitArray([0])
-        length = 0 
+        length = 0
 
         self.assertRaises(ValueError, Decoder, encoded, length, code_symbol)
 
@@ -77,10 +78,10 @@ class TestDecoder(unittest.TestCase):
 
         # Дополнили строку до кратной восьми длины
         encoded = BitArray(
-            [0] + # a
+            [0] +  # a
             [0, 0, 0, 0, 0, 0, 0])
 
-        # Длина нужной нам информации не меняется 
+        # Длина нужной нам информации не меняется
         length = 1
 
         decoder = Decoder(encoded, length, code_symbol)
@@ -105,8 +106,8 @@ class TestDecoder(unittest.TestCase):
         }
 
         encoded = BitArray(
-            [0] + # a
-            [1] + # b
+            [0] +  # a
+            [1] +  # b
             [0, 0, 0, 0, 0, 0, 0])
 
         length = 2
@@ -123,10 +124,10 @@ class TestDecoder(unittest.TestCase):
         }
 
         encoded = BitArray(
-            [1, 0] + # h
-            [0, 1] + # e
-            [0, 0] + # l
-            [0, 0] + # l
+            [1, 0] +  # h
+            [0, 1] +  # e
+            [0, 0] +  # l
+            [0, 0] +  # l
             [1, 1]   # o
         )
 
@@ -144,11 +145,11 @@ class TestDecoder(unittest.TestCase):
         }
 
         encoded = BitArray(
-            [1, 0] + # h
-            [0, 1] + # e
-            [0, 0] + # l
-            [0, 0] + # l
-            [1, 1] + # o
+            [1, 0] +  # h
+            [0, 1] +  # e
+            [0, 0] +  # l
+            [0, 0] +  # l
+            [1, 1] +  # o
             [0, 0, 0, 0, 0, 0]
         )
 
@@ -159,4 +160,4 @@ class TestDecoder(unittest.TestCase):
 
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

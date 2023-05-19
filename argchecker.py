@@ -4,6 +4,7 @@ from accessify import private
 from enum import StrEnum, Enum
 from argparse import Namespace
 
+
 class CheckMessage(StrEnum):
     """Человекопонятные сообщения проверки."""
 
@@ -15,6 +16,7 @@ class CheckMessage(StrEnum):
     NO_OUTPUT_FILE_NAME = "Не указано имя файла вывода",
     OUTPUT_FILE_EXIST = "Выходной файл уже существует"
 
+
 class Conclusion(Enum):
     """Заключения проверки.
     Проверка либо пройдена, либо нет.
@@ -23,6 +25,7 @@ class Conclusion(Enum):
     NEGATIVE = False
     POSITIVE = True
 
+
 class Action(Enum):
     """Действия над файлом.
     Файл можно либо закодировать, либо раскодировать.
@@ -30,6 +33,7 @@ class Action(Enum):
 
     ENCODE = 0,
     DECODE = 1
+
 
 class ArgChecker:
     """Проверяет переданные аргументы на выполнение условий,
@@ -62,7 +66,7 @@ class ArgChecker:
 
         if CheckMessage.CORRECT == self.message:
             return Conclusion.POSITIVE
-        
+
         return Conclusion.NEGATIVE
 
     def get_message(self) -> CheckMessage:

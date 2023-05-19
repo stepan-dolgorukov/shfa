@@ -12,7 +12,10 @@ class EncodeButton:
 
     def __init__(self, root_frame):
         self.root = root_frame
-        button = ttk.Button(root_frame, text="Закодировать", command=self.encode)
+        button = ttk.Button(
+            root_frame,
+            text="Закодировать",
+            command=self.encode)
         button.grid(row=0, column=0)
 
     def encode(self):
@@ -23,15 +26,15 @@ class EncodeButton:
         if not self.filename:
             return
 
-        self.inp=tkinter.Toplevel(self.root)
+        self.inp = tkinter.Toplevel(self.root)
         self.inp.title("Файл вывода")
 
         e = tkinter.Entry(master=self.inp, text='Укажите название файла')
-        e.grid(row=0,column=0)
+        e.grid(row=0, column=0)
 
         e.focus()
 
-        e.bind("<Return>", self.on_return) 
+        e.bind("<Return>", self.on_return)
 
     def on_return(self, event):
         """Обработка ввода имени файла выхода."""
@@ -56,16 +59,20 @@ class EncodeButton:
             return
 
         tkinter.messagebox.showinfo(title="Успешно",
-            message=f"Сжатая информация записана в {output}")
+                                    message=f"Сжатая информация записана в {output}")
 
         self.inp.destroy()
+
 
 class DecodeButton:
     """Кнопка декодирования файла."""
 
     def __init__(self, root_frame):
         self.root = root_frame
-        button = ttk.Button(root_frame, text="Декодировать", command=self.decode)
+        button = ttk.Button(
+            root_frame,
+            text="Декодировать",
+            command=self.decode)
         button.grid(row=1, column=0)
 
     def decode(self):
@@ -76,14 +83,14 @@ class DecodeButton:
         if not self.filename:
             return
 
-        self.inp=tkinter.Toplevel(self.root)
+        self.inp = tkinter.Toplevel(self.root)
         self.inp.title("Файл вывода")
 
         e = tkinter.Entry(self.inp, text="Укажите имя файла")
-        e.grid(row=0,column=0)
+        e.grid(row=0, column=0)
         e.focus()
 
-        e.bind("<Return>", self.on_return) 
+        e.bind("<Return>", self.on_return)
 
     def on_return(self, event):
         """Обработка ввода пользователем имени файла вывода."""
@@ -108,10 +115,9 @@ class DecodeButton:
             return
 
         tkinter.messagebox.showinfo(title="Успешно",
-            message=f"Расжатая информация записана в {output}")
+                                    message=f"Расжатая информация записана в {output}")
 
         self.inp.destroy()
-
 
 
 class ShannonFanoApplication(tkinter.Frame):
@@ -129,6 +135,7 @@ class ShannonFanoApplication(tkinter.Frame):
         DecodeButton(self)
 
         self.pack()
+
 
 if __name__ == '__main__':
     ShannonFanoApplication().mainloop()

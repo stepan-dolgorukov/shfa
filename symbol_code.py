@@ -61,9 +61,8 @@ class SymbolCodeMap(SymbolMap):
 
         return (part_left, part_right)
 
-
     @private
-    def codes(self, symbol_prob: dict[int: float], code: str=''):
+    def codes(self, symbol_prob: dict[int: float], code: str = ''):
 
         # Группа из двух символов
         # первому символу назначается код слева — приписывается ноль

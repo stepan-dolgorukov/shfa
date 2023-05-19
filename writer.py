@@ -4,16 +4,18 @@ from code_symbol import CodeSymbolMap
 from encoder import Encoder
 from pathlib import Path
 
+
 class CompressionWriter:
     """Сжимает строку и записывает в указанный файл."""
 
     def __init__(self, data: bytes, fname: str):
         if not isinstance(data, bytes):
-            raise TypeError("Данные должны быть байтовой строкой (тип «bytes»)")
+            raise TypeError(
+                "Данные должны быть байтовой строкой (тип «bytes»)")
 
         if len(data) <= 0:
             raise ValueError("Длина байтовой строки должна быть строго "
-                "положительной")
+                             "положительной")
 
         if not isinstance(fname, str):
             raise TypeError("Имя файла должно задаваться строкой типа «str»")
@@ -64,7 +66,8 @@ class CompressionWriter:
                 compressed.append(pad)
                 file.write(compressed.bytes)
         except Exception:
-            raise IOError("Не удалось записать закодированную информацию в файл")
+            raise IOError(
+                "Не удалось записать закодированную информацию в файл")
 
     @private
     def get_header(self):
@@ -82,7 +85,7 @@ class CompressionWriter:
         except Exception:
             raise Exception("Не удалось сформировать заголовок")
 
-        return header 
+        return header
 
     @private
     def get_compressed(self):
@@ -95,6 +98,7 @@ class CompressionWriter:
         """Получить отображение для раскодирования."""
 
         return self.encoder.map()
+
 
 class Writer():
     """Запись байтов в файл."""

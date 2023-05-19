@@ -4,6 +4,7 @@ import unittest
 from unittest.mock import Mock
 from bitstring import BitArray
 
+
 class TestDecompressionReader(unittest.TestCase):
     def test_filename_none(self):
         self.assertRaises(TypeError, DecompressionReader, None)
@@ -20,10 +21,10 @@ class TestDecompressionReader(unittest.TestCase):
         reader = DecompressionReader('input')
 
         reader.read_encoded = Mock(return_value=BitArray(
-            [1, 0] + # H
-            [0, 1] + # e
-            [0, 0] + # l
-            [0, 0] + # l
+            [1, 0] +  # H
+            [0, 1] +  # e
+            [0, 0] +  # l
+            [0, 0] +  # l
             [1, 1]   # o
         ))
 

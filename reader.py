@@ -4,6 +4,7 @@ import json
 from decoder import Decoder
 from pathlib import Path
 
+
 class DecompressionReader:
     """Читает из файла и раскодирует информацию."""
 
@@ -86,6 +87,7 @@ class DecompressionReader:
 
         if not Path(fname).exists():
             raise ValueError(f"Файл {fname} не существует")
+
 
 class Reader():
     """Чтение байтов из файла."""
