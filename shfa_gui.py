@@ -4,7 +4,7 @@ import tkinter
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from writer import CompressionWriter, Writer
-from reader import DecompressionReader
+from reader import DecompressionReader, Reader
 
 
 class ShannonFanoApplication:
@@ -31,10 +31,6 @@ class ShannonFanoApplication:
         inp=tkinter.Tk()
         inp.title("Файл вывода")
 
-        data = ""
-        with open(filename, 'rb') as file:
-            data = file.read()
-
         e = tkinter.Entry(inp, text='Укажите название файла')
         e.grid(row=0,column=0)
         e.focus()
@@ -42,6 +38,9 @@ class ShannonFanoApplication:
         def on_pressed(output):
 
             try:
+                reader = Reader(filename)
+                data = reader.read()
+
                 writer = CompressionWriter(data, output)
             except Exception as exc:
                 tkinter.messagebox.showerror(title="Ошибка", message=exc)
