@@ -8,12 +8,16 @@ from reader import DecompressionReader, Reader
 
 
 class EncodeButton:
+    """Кнопка кодирования файла."""
+
     def __init__(self, root_frame):
         self.root = root_frame
         button = ttk.Button(root_frame, text="Закодировать", command=self.encode)
         button.grid(row=0, column=0)
 
     def encode(self):
+        """Обработка нажатия кнопки."""
+
         self.filename = askopenfilename()
 
         if not self.filename:
@@ -30,6 +34,8 @@ class EncodeButton:
         e.bind("<Return>", self.on_return) 
 
     def on_return(self, event):
+        """Обработка ввода имени файла выхода."""
+
         output = event.widget.get()
 
         try:
@@ -55,12 +61,16 @@ class EncodeButton:
         self.inp.destroy()
 
 class DecodeButton:
+    """Кнопка декодирования файла."""
+
     def __init__(self, root_frame):
         self.root = root_frame
         button = ttk.Button(root_frame, text="Декодировать", command=self.decode)
         button.grid(row=1, column=0)
 
     def decode(self):
+        """Обработка нажатия на кнопку."""
+
         self.filename = askopenfilename()
 
         if not self.filename:
@@ -76,6 +86,8 @@ class DecodeButton:
         e.bind("<Return>", self.on_return) 
 
     def on_return(self, event):
+        """Обработка ввода пользователем имени файла вывода."""
+
         output = event.widget.get()
         data = None
 
@@ -103,6 +115,8 @@ class DecodeButton:
 
 
 class ShannonFanoApplication(tkinter.Frame):
+    """Приложение с графическим интерфейсом «Архиватор Shannon-Fano»."""
+
     def __init__(self):
         master_window = tkinter.Tk()
         master_window.geometry("200x100")
