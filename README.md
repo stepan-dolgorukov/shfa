@@ -38,6 +38,7 @@
 + writer.py &mdash; запись закодированной информациии
 + probability.py &mdash; подсчёт вероятности встречи символа
 + symbol_code.py &mdash; отображение &laquo;символ→код&raquo;
++ shfa_gui.py &mdash; графический интерфейс пользователя (Tk)
 
 ## Зависимости
 
