@@ -8,14 +8,7 @@ class DecompressionReader:
     """Читает из файла и раскодирует информацию."""
 
     def __init__(self, fname: str):
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно быть типом «str»")
-
-        if not fname:
-            raise ValueError("Пустое имя файла")
-
-        if not Path(fname).exists():
-            raise ValueError(f"Файл {fname} не существует")
+        self.args_checking(fname)
 
         self.fname = fname
         self.decoded = None
@@ -82,6 +75,17 @@ class DecompressionReader:
     def decode(self):
         decoder = Decoder(self.encoded, self.info["length"], self.info["map"])
         return decoder.decoded()
+
+    @private
+    def args_checking(self, fname):
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть типом «str»")
+
+        if not fname:
+            raise ValueError("Пустое имя файла")
+
+        if not Path(fname).exists():
+            raise ValueError(f"Файл {fname} не существует")
 
 class Reader():
     """Чтение байтов из файла."""
