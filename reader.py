@@ -28,9 +28,14 @@ class DecompressionReader:
             try:
                 self.info = self.read_info()
                 self.encoded = self.read_encoded()
-                self.decoded = self.decode()
             except Exception:
                 raise ValueError("Неверный формат сжатого файла")
+
+            try:
+                self.decoded = self.decode()
+            except Exception:
+                raise ValueError("Не удалось декодировать информацию")
+
         return self.decoded
 
     @private
