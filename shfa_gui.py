@@ -13,44 +13,44 @@ class EncodeButton:
         ttk.Button(root_frame, text="Enc", command=self.encode).pack()
 
     def encode(self):
-        filename = askopenfilename()
+        self.filename = askopenfilename()
 
-        if not filename:
+        if not self.filename:
             return
 
-        inp=tkinter.Toplevel(self.root)
-        inp.title("Файл вывода")
+        self.inp=tkinter.Toplevel(self.root)
+        self.inp.title("Файл вывода")
 
-        e = tkinter.Entry(master=inp, text='Укажите название файла')
+        e = tkinter.Entry(master=self.inp, text='Укажите название файла')
         e.grid(row=0,column=0)
         e.focus()
 
-        def on_pressed(event):
-            output = event.widget.get()
+        e.bind("<Return>", self.on_pressed) 
 
-            try:
-                reader = Reader(filename)
-                data = reader.read()
+    def on_pressed(self, event):
+        output = event.widget.get()
 
-                writer = CompressionWriter(data, output)
-            except Exception as exc:
-                tkinter.messagebox.showerror(title="Ошибка", message=exc)
-                inp.destroy()
-                return
+        try:
+            reader = Reader(self.filename)
+            data = reader.read()
 
-            try:
-                writer.write()
-            except Exception as exc:
-                tkinter.messagebox.showerror(title="Ошибка", message=exc)
-                inp.destroy()
-                return
+            writer = CompressionWriter(data, output)
+        except Exception as exc:
+            tkinter.messagebox.showerror(title="Ошибка", message=exc)
+            self.inp.destroy()
+            return
 
-            tkinter.messagebox.showinfo(title="Успешно",
-                message=f"Сжатая информация записана в {output}")
+        try:
+            writer.write()
+        except Exception as exc:
+            tkinter.messagebox.showerror(title="Ошибка", message=exc)
+            self.inp.destroy()
+            return
 
-            inp.destroy()
+        tkinter.messagebox.showinfo(title="Успешно",
+            message=f"Сжатая информация записана в {output}")
 
-        e.bind("<Return>", on_pressed) 
+        self.inp.destroy()
 
 class DecodeButton:
     def __init__(self, root_frame):
@@ -58,44 +58,44 @@ class DecodeButton:
         ttk.Button(root_frame, text="Dec", command=self.decode).pack()
 
     def decode(self):
-        filename = askopenfilename()
+        self.filename = askopenfilename()
 
-        if not filename:
+        if not self.filename:
             return
 
-        inp=tkinter.Toplevel(self.root)
-        inp.title("Файл вывода")
+        self.inp=tkinter.Toplevel(self.root)
+        self.inp.title("Файл вывода")
 
-        e = tkinter.Entry(inp, text="Укажите имя файла")
+        e = tkinter.Entry(self.inp, text="Укажите имя файла")
         e.grid(row=0,column=0)
         e.focus()
 
-        def on_pressed(event):
-            output = event.widget.get()
-            data = None
+        e.bind("<Return>", self.on_pressed) 
 
-            try:
-                reader = DecompressionReader(filename)
-                data = reader.read()
-            except Exception as exc:
-                tkinter.messagebox.showerror(title="Ошибка", message=exc)
-                inp.destroy()
-                return
+    def on_pressed(self, event):
+        output = event.widget.get()
+        data = None
 
-            try:
-                writer = Writer(data, output)
-                writer.write()
-            except Exception as exc:
-                tkinter.messagebox.showerror(title="Ошибка", message=exc)
-                inp.destroy()
-                return
+        try:
+            reader = DecompressionReader(self.filename)
+            data = reader.read()
+        except Exception as exc:
+            tkinter.messagebox.showerror(title="Ошибка", message=exc)
+            self.inp.destroy()
+            return
 
-            tkinter.messagebox.showinfo(title="Успешно",
-                message=f"Расжатая информация записана в {output}")
+        try:
+            writer = Writer(data, output)
+            writer.write()
+        except Exception as exc:
+            tkinter.messagebox.showerror(title="Ошибка", message=exc)
+            self.inp.destroy()
+            return
 
-            inp.destroy()
+        tkinter.messagebox.showinfo(title="Успешно",
+            message=f"Расжатая информация записана в {output}")
 
-        e.bind("<Return>", on_pressed) 
+        self.inp.destroy()
 
 
 
