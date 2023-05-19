@@ -30,7 +30,9 @@ class EncodeButton:
         self.output_file_window.title("Файл вывода")
         self.output_file_window.geometry("200x50")
 
-        output_file_entry = tkinter.Entry(master=self.output_file_window, text='Укажите название файла')
+        output_file_entry = tkinter.Entry(
+            master=self.output_file_window,
+            text='Укажите название файла')
         output_file_entry.grid(row=0, column=0)
         output_file_entry.focus()
         output_file_entry.bind("<Return>", self.on_return)
@@ -86,7 +88,9 @@ class DecodeButton:
         self.output_file_input_window.title("Файл вывода")
         self.output_file_input_window.geometry("200x50")
 
-        output_file_entry = tkinter.Entry(self.output_file_input_window, text="Укажите имя файла")
+        output_file_entry = tkinter.Entry(
+            self.output_file_input_window,
+            text="Укажите имя файла")
         output_file_entry.grid(row=0, column=0)
         output_file_entry.focus()
 
