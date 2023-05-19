@@ -117,5 +117,9 @@ class Writer():
 
     def write(self):
         """Записать информацию."""
-        with open(self.fname, "wb") as out:
-            out.write(data)
+
+        try:
+            with open(self.fname, "wb") as out:
+                out.write(self.data)
+        except Exception:
+            raise IOError(f"Ошибка записи в файл {self.fname}")
