@@ -26,15 +26,14 @@ class EncodeButton:
         if not self.filename:
             return
 
-        self.inp = tkinter.Toplevel(self.root)
-        self.inp.title("Файл вывода")
+        self.output_file_window = tkinter.Toplevel(self.root)
+        self.output_file_window.title("Файл вывода")
+        self.output_file_window.geometry("200x50")
 
-        e = tkinter.Entry(master=self.inp, text='Укажите название файла')
-        e.grid(row=0, column=0)
-
-        e.focus()
-
-        e.bind("<Return>", self.on_return)
+        output_file_entry = tkinter.Entry(master=self.output_file_window, text='Укажите название файла')
+        output_file_entry.grid(row=0, column=0)
+        output_file_entry.focus()
+        output_file_entry.bind("<Return>", self.on_return)
 
     def on_return(self, event):
         """Обработка ввода имени файла выхода."""
@@ -48,20 +47,20 @@ class EncodeButton:
             writer = CompressionWriter(data, output)
         except Exception as exc:
             tkinter.messagebox.showerror(title="Ошибка", message=exc)
-            self.inp.destroy()
+            self.output_file_window.destroy()
             return
 
         try:
             writer.write()
         except Exception as exc:
             tkinter.messagebox.showerror(title="Ошибка", message=exc)
-            self.inp.destroy()
+            self.output_file_window.destroy()
             return
 
         tkinter.messagebox.showinfo(title="Успешно",
                                     message=f"Сжатая информация записана в {output}")
 
-        self.inp.destroy()
+        self.output_file_window.destroy()
 
 
 class DecodeButton:
@@ -83,14 +82,15 @@ class DecodeButton:
         if not self.filename:
             return
 
-        self.inp = tkinter.Toplevel(self.root)
-        self.inp.title("Файл вывода")
+        self.output_file_input_window = tkinter.Toplevel(self.root)
+        self.output_file_input_window.title("Файл вывода")
+        self.output_file_input_window.geometry("200x50")
 
-        e = tkinter.Entry(self.inp, text="Укажите имя файла")
-        e.grid(row=0, column=0)
-        e.focus()
+        output_file_entry = tkinter.Entry(self.output_file_input_window, text="Укажите имя файла")
+        output_file_entry.grid(row=0, column=0)
+        output_file_entry.focus()
 
-        e.bind("<Return>", self.on_return)
+        output_file_entry.bind("<Return>", self.on_return)
 
     def on_return(self, event):
         """Обработка ввода пользователем имени файла вывода."""
@@ -103,7 +103,7 @@ class DecodeButton:
             data = reader.read()
         except Exception as exc:
             tkinter.messagebox.showerror(title="Ошибка", message=exc)
-            self.inp.destroy()
+            self.output_file_input_window.destroy()
             return
 
         try:
@@ -111,13 +111,13 @@ class DecodeButton:
             writer.write()
         except Exception as exc:
             tkinter.messagebox.showerror(title="Ошибка", message=exc)
-            self.inp.destroy()
+            self.output_file_input_window.destroy()
             return
 
         tkinter.messagebox.showinfo(title="Успешно",
                                     message=f"Расжатая информация записана в {output}")
 
-        self.inp.destroy()
+        self.output_file_input_window.destroy()
 
 
 class ShannonFanoApplication(tkinter.Frame):
