@@ -26,7 +26,7 @@ class ShannonFanoApplication(tkinter.Frame):
             tkinter.messagebox.showerror(title="Ошибка", message="Файл не выбран")
             return
 
-        inp=tkinter.Tk()
+        inp=tkinter.Toplevel(self)
         inp.title("Файл вывода")
 
         e = tkinter.Entry(inp, text='Укажите название файла')
