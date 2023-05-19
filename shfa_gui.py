@@ -10,7 +10,7 @@ from reader import DecompressionReader, Reader
 class EncodeButton:
     def __init__(self, root_frame):
         self.root = root_frame
-        ttk.Button(root_frame, text="Enc", command=self.encode).pack()
+        ttk.Button(root_frame, text="Закодировать", command=self.encode).pack()
 
     def encode(self):
         self.filename = askopenfilename()
@@ -55,7 +55,7 @@ class EncodeButton:
 class DecodeButton:
     def __init__(self, root_frame):
         self.root = root_frame
-        ttk.Button(root_frame, text="Dec", command=self.decode).pack()
+        ttk.Button(root_frame, text="Декодировать", command=self.decode).pack()
 
     def decode(self):
         self.filename = askopenfilename()
