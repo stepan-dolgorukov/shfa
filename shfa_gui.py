@@ -10,7 +10,9 @@ from reader import DecompressionReader, Reader
 class ShannonFanoApplication(tkinter.Frame):
     def __init__(self):
         super().__init__(tkinter.Tk())
+
         self.master.title("ShFa")
+        self.master.resizable(width=False, height=False)
 
         ttk.Button(self, text="Enc", command=self.encode).grid(column=0, row=0)
         ttk.Button(self, text="Dec", command=self.decode).grid(column=1, row=0)
