@@ -3,7 +3,7 @@
 import tkinter
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
-from writer import CompressionWriter
+from writer import CompressionWriter, Writer
 from reader import DecompressionReader
 
 
@@ -90,8 +90,8 @@ class ShannonFanoApplication:
                 return
 
             try:
-                with open(output, "wb") as out:
-                    out.write(data)
+                writer = Writer(data, output)
+                writer.write()
             except Exception as exc:
                 tkinter.messagebox.showerror(title="Ошибка", message=exc)
                 inp.destroy()
