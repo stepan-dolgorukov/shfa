@@ -2,6 +2,7 @@ from accessify import private
 from bitstring import BitArray
 import json
 from decoder import Decoder
+from pathlib import Path
 
 class DecompressionReader:
     """Читает из файла и раскодирует информацию."""
@@ -12,6 +13,9 @@ class DecompressionReader:
 
         if not fname:
             raise ValueError("Пустое имя файла")
+
+        if not Path(fname).exists():
+            raise ValueError(f"Файл {fname} не существует")
 
         self.fname = fname
         self.decoded = None
