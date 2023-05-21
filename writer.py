@@ -133,4 +133,4 @@ class Writer():
             raise ValueError("Передано пустое имя файла")
 
         if Path(fname).exists():
-            raise ValueError(f"Файл уже {fname} существует")
+            raise ValueError(f"Файл {fname} уже существует")
