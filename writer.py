@@ -3,6 +3,7 @@ from accessify import private
 from code_symbol import CodeSymbolMap
 from encoder import Encoder
 from pathlib import Path
+from symbol_code import SymbolCodeMap
 
 
 class CompressionWriter:
@@ -94,7 +95,7 @@ class CompressionWriter:
         return self.encoder.coded()
 
     @private
-    def get_symbol_code_map(self) -> encoder.SymbolCodeMap:
+    def get_symbol_code_map(self) -> SymbolCodeMap:
         """Получить отображение, использующееся для закодирования."""
 
         return self.encoder.map()
