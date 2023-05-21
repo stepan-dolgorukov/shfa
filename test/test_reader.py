@@ -41,6 +41,7 @@ class TestDecompressionReader(unittest.TestCase):
 
         self.assertEqual(b'Hello', reader.read())
 
+
 class TestReader(unittest.TestCase):
     def test_filename_none(self):
         self.assertRaises(TypeError, Reader, None)
@@ -55,6 +56,7 @@ class TestReader(unittest.TestCase):
             Reader('input')
         except Exception:
             self.fail()
+
 
 if __name__ == '__main__':
     unittest.main()
