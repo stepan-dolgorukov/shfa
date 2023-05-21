@@ -119,14 +119,21 @@ class Writer():
             raise IOError(f"Ошибка записи в файл {self.fname}")
 
     @private
-    def file_exists(self, file: str) -> bool:
-        """Существует ли файл."""
+    def file_exists(self, fname: str) -> bool:
+        """Существует ли файл.
+
+        fname -- имя файла, существование которого требуется узнать.
+        """
 
         return Path(fname).exists
 
     @private
     def arguments_checking(self, data: bytes, fname: str) -> None:
-        """Проверка аргументов (типы & состояния), передаваемых в __init__."""
+        """Проверка аргументов (типы & состояния), передаваемых в __init__.
+
+        data -- информация на запись
+        fname -- имя файла, в который нужно записать data
+        """
 
         if not isinstance(data, bytes):
             raise TypeError("Информация должна быть типа bytes")
