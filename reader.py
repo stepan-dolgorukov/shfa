@@ -111,10 +111,14 @@ class Reader():
 
     @private
     def file_exists(self, fname: str) -> bool:
+        """Проверка существования файла."""
+
         return Path(fname).exists()
 
     @private
     def init_arguments_checking(self, fname: str) -> None:
+        """Проверка аргументов __init__."""
+
         if not isinstance(fname, str):
             raise TypeError("Имя файла должно быть строкой str")
 
