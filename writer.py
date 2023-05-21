@@ -95,7 +95,7 @@ class CompressionWriter:
 
     @private
     def get_symbol_code_map(self) -> encoder.SymbolCodeMap:
-        """Получить отображение для раскодирования."""
+        """Получить отображение, использующееся для закодирования."""
 
         return self.encoder.map()
 
