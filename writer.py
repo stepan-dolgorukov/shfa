@@ -10,22 +10,7 @@ class CompressionWriter:
     """Сжимает строку и записывает в указанный файл."""
 
     def __init__(self, data: bytes, fname: str):
-        if not isinstance(data, bytes):
-            raise TypeError(
-                "Данные должны быть байтовой строкой (тип «bytes»)")
-
-        if len(data) <= 0:
-            raise ValueError("Длина байтовой строки должна быть строго "
-                             "положительной")
-
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно задаваться строкой типа «str»")
-
-        if not fname:
-            raise ValueError("Не указано имя файла")
-
-        if Path(fname).exists():
-            raise ValueError(f"Файл {fname} существует")
+        self.init_arguments_checking(data, fname)
 
         self.fname = fname
         self.data = data
@@ -99,6 +84,27 @@ class CompressionWriter:
         """Получить отображение, использующееся для закодирования."""
 
         return self.encoder.map()
+
+    @private
+    def init_arguments_checking(self, data: bytes, fname: str) -> None:
+        """Проверка типов & состояний аргументов, переданных в __init__."""
+
+        if not isinstance(data, bytes):
+            raise TypeError(
+                "Данные должны быть байтовой строкой (тип «bytes»)")
+
+        if len(data) <= 0:
+            raise ValueError("Длина байтовой строки должна быть строго "
+                             "положительной")
+
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно задаваться строкой типа «str»")
+
+        if not fname:
+            raise ValueError("Не указано имя файла")
+
+        if Path(fname).exists():
+            raise ValueError(f"Файл {fname} существует")
 
 
 class Writer():
