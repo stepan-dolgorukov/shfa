@@ -119,6 +119,10 @@ class Writer():
             raise IOError(f"Ошибка записи в файл {self.fname}")
 
     @private
+    def file_exists(self, file: str):
+        return Path(fname).exists
+
+    @private
     def arguments_checking(self, data, fname):
         if not isinstance(data, bytes):
             raise TypeError("Информация должна быть типа bytes")
@@ -132,5 +136,5 @@ class Writer():
         if not fname:
             raise ValueError("Передано пустое имя файла")
 
-        if Path(fname).exists():
+        if self.file_exists(file):
             raise ValueError(f"Файл {fname} уже существует")
