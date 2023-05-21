@@ -140,5 +140,5 @@ class Writer():
         if not fname:
             raise ValueError("Передано пустое имя файла")
 
-        if self.file_exists(file):
+        if self.file_exists(fname):
             raise ValueError(f"Файл {fname} уже существует")
