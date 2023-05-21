@@ -93,14 +93,7 @@ class Reader():
     """Чтение байтов из файла."""
 
     def __init__(self, fname: str):
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно быть строкой str")
-
-        if not fname:
-            raise ValueError("Передано пустое имя файла")
-
-        if not Path(fname).exists():
-            raise ValueError(f"Файл {fname} не существует")
+        self.init_arguments_checking(fname)
 
         self.fname = fname
 
@@ -115,3 +108,18 @@ class Reader():
             raise IOError(f"Не удалось считать информацию из {self.fname}")
 
         return data
+
+    @private
+    def file_exists(self, fname: str) -> bool:
+        return Path(fname).exists()
+
+    @private
+    def init_arguments_checking(self, fname: str) -> None:
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть строкой str")
+
+        if not fname:
+            raise ValueError("Передано пустое имя файла")
+
+        if not self.file_exists(fname):
+            raise ValueError(f"Файл {fname} не существует")
