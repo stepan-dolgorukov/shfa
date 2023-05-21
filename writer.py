@@ -132,7 +132,7 @@ class Writer():
         fname -- имя файла, существование которого требуется узнать.
         """
 
-        return Path(fname).exists
+        return Path(fname).exists()
 
     @private
     def arguments_checking(self, data: bytes, fname: str) -> None:
