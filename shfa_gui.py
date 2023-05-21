@@ -134,6 +134,7 @@ class ShannonFanoApplication(tkinter.Frame):
         super().__init__(master_window)
 
         self.master.title("ShFa")
+        self.master.resizable(width=False, height=False)
 
         EncodeButton(self)
         DecodeButton(self)
