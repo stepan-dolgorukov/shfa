@@ -120,10 +120,14 @@ class Writer():
 
     @private
     def file_exists(self, file: str):
+        """Существует ли файл."""
+
         return Path(fname).exists
 
     @private
     def arguments_checking(self, data, fname):
+        """Проверка аргументов (типы & состояния), передаваемых в __init__."""
+
         if not isinstance(data, bytes):
             raise TypeError("Информация должна быть типа bytes")
 
