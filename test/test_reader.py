@@ -1,5 +1,5 @@
 from encoder import Encoder
-from reader import DecompressionReader
+from reader import DecompressionReader, Reader
 import unittest
 from unittest.mock import Mock
 from bitstring import BitArray
@@ -41,6 +41,20 @@ class TestDecompressionReader(unittest.TestCase):
 
         self.assertEqual(b'Hello', reader.read())
 
+class TestReader(unittest.TestCase):
+    def test_filename_none(self):
+        self.assertRaises(TypeError, Reader, None)
+
+    def test_filename_empty(self):
+        self.assertRaises(ValueError, Reader, '')
+
+    def test_correct_filename(self):
+        Reader.file_exists = Mock(return_value=True)
+
+        try:
+            Reader('input')
+        except Exception:
+            self.fail()
 
 if __name__ == '__main__':
     unittest.main()
