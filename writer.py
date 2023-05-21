@@ -109,7 +109,7 @@ class Writer():
         self.data = data
         self.fname = fname
 
-    def write(self):
+    def write(self) -> None:
         """Записать информацию."""
 
         try:
@@ -119,13 +119,13 @@ class Writer():
             raise IOError(f"Ошибка записи в файл {self.fname}")
 
     @private
-    def file_exists(self, file: str):
+    def file_exists(self, file: str) -> bool:
         """Существует ли файл."""
 
         return Path(fname).exists
 
     @private
-    def arguments_checking(self, data, fname):
+    def arguments_checking(self, data: bytes, fname: str) -> None:
         """Проверка аргументов (типы & состояния), передаваемых в __init__."""
 
         if not isinstance(data, bytes):
