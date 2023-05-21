@@ -34,7 +34,7 @@ class CompressionWriter:
     def pad(self, length: int) -> int:
         return (8 - (length % 8)) % 8
 
-    def write(self):
+    def write(self) -> None:
         """Записать заголовок & сжатые данные в файл. """
 
         if self.encoder is None:
@@ -44,7 +44,7 @@ class CompressionWriter:
         self.write_compressed()
 
     @private
-    def write_header(self):
+    def write_header(self) -> None:
         """Записать заголовок в файл."""
 
         try:
@@ -55,7 +55,7 @@ class CompressionWriter:
             raise IOError("Не удалось записать заголовок в файл")
 
     @private
-    def write_compressed(self):
+    def write_compressed(self) -> None:
         """Записать сжатую строку в файл."""
 
         try:
@@ -70,7 +70,7 @@ class CompressionWriter:
                 "Не удалось записать закодированную информацию в файл")
 
     @private
-    def get_header(self):
+    def get_header(self) -> str:
         """Сформировать заголовок."""
 
         header = None
@@ -88,13 +88,13 @@ class CompressionWriter:
         return header
 
     @private
-    def get_compressed(self):
+    def get_compressed(self) -> bytes:
         """Получить сжатую строку."""
 
         return self.encoder.coded()
 
     @private
-    def get_symbol_code_map(self):
+    def get_symbol_code_map(self) -> encoder.SymbolCodeMap:
         """Получить отображение для раскодирования."""
 
         return self.encoder.map()
