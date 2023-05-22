@@ -32,6 +32,10 @@ class TestWriter(unittest.TestCase):
         for filename in (bytes(), int(), dict(), set()):
             self.assertRaises(TypeError, Writer, b'Hello', filename)
 
+    def test_output_file_exists(self):
+        Writer.file_exists = Mock(return_value=True)
+        self.assertRaises(ValueError, Writer, b"Hello", "output")
+
     def test_correct_arguments(self):
         Writer.file_exists = Mock(return_value=False)
 
