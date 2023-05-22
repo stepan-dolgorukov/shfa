@@ -20,7 +20,7 @@ class SymbolCountMap(SymbolMap):
             self.symbol_count[symbol] += 1
 
     @override
-    def at(self, symbol: bytes):
+    def at(self, symbol: bytes) -> int:
         """Сколько раз встречается конкретный символ.
 
         symbol -- символ, количество раз которого узнаётся
