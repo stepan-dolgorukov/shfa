@@ -70,6 +70,9 @@ class DecompressionReader:
         except Exception:
             raise IOError("Не удалось считать закодированную информацию")
 
+        if not encoded:
+            raise ValueError("Закодированная информация -- пустая байтовая строка")
+
         return encoded
 
     @private
