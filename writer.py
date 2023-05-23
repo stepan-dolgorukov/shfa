@@ -60,12 +60,13 @@ class CompressionWriter:
         """Сформировать заголовок."""
 
         header = None
+        code_symbol = CodeSymbolMap(self.encoder.map())
 
         try:
             info = dict()
             info["encoding"] = "ShannonFano"
             info["version"] = "Test"
-            info["map"] = CodeSymbolMap(self.encoder.map()).json()
+            info["map"] = code_symbol.json()
             info["length"] = len(self.encoder.coded())
             header = json.dumps(info)
         except Exception:
