@@ -46,7 +46,7 @@ class CompressionWriter:
 
         try:
             with open(self.fname, "ab") as file:
-                compressed = self.get_compressed()
+                compressed = self.encoder.coded()
                 pad = self.pad(len(compressed))
 
                 compressed.append(pad)
@@ -65,25 +65,13 @@ class CompressionWriter:
             info = dict()
             info["encoding"] = "ShannonFano"
             info["version"] = "Test"
-            info["map"] = CodeSymbolMap(self.get_symbol_code_map()).json()
-            info["length"] = len(self.get_compressed())
+            info["map"] = CodeSymbolMap(self.encoder.map()).json()
+            info["length"] = len(self.encoder.coded())
             header = json.dumps(info)
         except Exception:
             raise Exception("Не удалось сформировать заголовок")
 
         return header
-
-    @private
-    def get_compressed(self) -> bytes:
-        """Получить сжатую строку."""
-
-        return self.encoder.coded()
-
-    @private
-    def get_symbol_code_map(self) -> SymbolCodeMap:
-        """Получить отображение, использующееся для закодирования."""
-
-        return self.encoder.map()
 
     @private
     def init_arguments_checking(self, data: bytes, fname: str) -> None:
