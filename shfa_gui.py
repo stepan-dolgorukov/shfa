@@ -21,26 +21,26 @@ class EncodeButton:
     def on_press(self):
         """Обработка нажатия кнопки."""
 
-        filename = askopenfilename(
+        input_fname = askopenfilename(
             title="Выбор файла для закодирования"
         )
 
-        if not filename:
+        if not input_fname:
             return
 
-        output = tkinter.filedialog.asksaveasfilename(
+        output_fname = tkinter.filedialog.asksaveasfilename(
             title="Выбор файла для сохранения",
             confirmoverwrite=False
         )
 
-        if not output:
+        if not output_fname:
             return
 
         try:
-            reader = Reader(filename)
+            reader = Reader(input_fname)
             data = reader.read()
 
-            writer = CompressionWriter(data, output)
+            writer = CompressionWriter(data, output_fname)
         except Exception as exc:
             tkinter.messagebox.showerror(title="Ошибка", message=exc)
             return
@@ -52,7 +52,7 @@ class EncodeButton:
             return
 
         tkinter.messagebox.showinfo(title="Успешно",
-                                    message=f"Сжатая информация записана в {output}")
+                                    message=f"Сжатая информация записана в {output_fname}")
 
 
 class DecodeButton:
@@ -69,37 +69,37 @@ class DecodeButton:
     def on_press(self):
         """Обработка нажатия на кнопку."""
 
-        filename = askopenfilename()
+        input_fname = askopenfilename()
 
-        if not filename:
+        if not input_fname:
             return
 
-        output = tkinter.filedialog.asksaveasfilename(
+        output_fname = tkinter.filedialog.asksaveasfilename(
             title="Выбор файла для сохранения",
             confirmoverwrite=False
         )
 
-        if not output:
+        if not output_fname:
             return
 
         data = None
 
         try:
-            reader = DecompressionReader(filename)
+            reader = DecompressionReader(input_fname)
             data = reader.read()
         except Exception as exc:
             tkinter.messagebox.showerror(title="Ошибка", message=exc)
             return
 
         try:
-            writer = Writer(data, output)
+            writer = Writer(data, output_fname)
             writer.write()
         except Exception as exc:
             tkinter.messagebox.showerror(title="Ошибка", message=exc)
             return
 
         tkinter.messagebox.showinfo(title="Успешно",
-                                    message=f"Расжатая информация записана в {output}")
+                                    message=f"Расжатая информация записана в {output_fname}")
 
 
 class ShannonFanoApplication(tkinter.Frame):
