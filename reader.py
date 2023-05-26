@@ -71,7 +71,8 @@ class DecompressionReader:
             raise IOError("Не удалось считать закодированную информацию")
 
         if not encoded:
-            raise ValueError("Закодированная информация -- пустая байтовая строка")
+            raise ValueError(
+                "Закодированная информация -- пустая байтовая строка")
 
         return encoded
 

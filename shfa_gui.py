@@ -54,6 +54,7 @@ class EncodeButton:
         tkinter.messagebox.showinfo(title="Успешно",
                                     message=f"Сжатая информация записана в {output}")
 
+
 class DecodeButton:
     """Кнопка декодирования файла."""
 
