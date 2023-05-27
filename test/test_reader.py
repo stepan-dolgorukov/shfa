@@ -2,6 +2,8 @@ from reader import DecompressionReader, Reader
 import unittest
 from unittest.mock import Mock, patch, mock_open
 from bitstring import BitArray
+import pathlib
+
 
 
 class TestDecompressionReader(unittest.TestCase):
@@ -37,11 +39,19 @@ class TestDecompressionReader(unittest.TestCase):
         self.assertEqual(b'Hello', reader.read())
 
     def test_bad_header_read(self):
-        with patch("builtins.open", mock_open(read_data="Bad-Header")) as m:
-            reader = DecompressionReader('input.txt')
-            self.assertRaises(ValueError, reader.read)
+
+        def dummy_exists(fname: pathlib.Path):
+            return fname == pathlib.Path('input.txt')
+
+        with patch("builtins.open", mock_open(read_data="Bad-Header")):
+            with patch.object(pathlib.Path, "exists", dummy_exists):
+                reader = DecompressionReader('input.txt')
+                self.assertRaises(ValueError, reader.read)
 
     def test_bad_encoded_read(self):
+
+        def dummy_exists(fname: pathlib.Path):
+            return fname == pathlib.Path('input.txt')
 
         # Для этого теста все ключи заголовка не нужны
         DecompressionReader.read_info = Mock(return_value={
@@ -49,9 +59,10 @@ class TestDecompressionReader(unittest.TestCase):
         })
 
         # Байтовая строка может быть любой не пустой
-        with patch("__main__.open", mock_open(read_data=b"")) as m:
-            reader = DecompressionReader('input.txt')
-            self.assertRaises(ValueError, reader.read)
+        with patch("__main__.open", mock_open(read_data=b"")):
+            with patch.object(pathlib.Path, "exists", dummy_exists):
+                reader = DecompressionReader('input.txt')
+                self.assertRaises(ValueError, reader.read)
 
 
 class TestReader(unittest.TestCase):
@@ -62,14 +73,18 @@ class TestReader(unittest.TestCase):
         self.assertRaises(ValueError, Reader, '')
 
     def test_correct_filename(self):
-        Reader.file_exists = Mock(return_value=True)
+
+        def dummy_exists(fname: pathlib.Path):
+            return fname == pathlib.Path('input')
 
         try:
-            Reader('input')
+            with patch.object(pathlib.Path, "exists", dummy_exists):
+                Reader('input')
         except Exception:
             self.fail()
 
-    def test_read(self):
+    @patch('pathlib.Path.exists', return_value=True)
+    def test_read(self, mock_path_exists):
         with patch("builtins.open", mock_open(read_data=b"Hello")):
             reader = Reader("input")
             self.assertEqual(b"Hello", reader.read())

@@ -12,6 +12,11 @@ class Button(ABC):
     def on_press(self):
         raise NotImplementedError
 
+class Button(ABC):
+    @abstractmethod
+    def on_press(self):
+        raise NotImplementedError
+
 class EncodeButton(Button):
     """Кнопка кодирования файла."""
 
