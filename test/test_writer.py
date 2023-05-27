@@ -19,7 +19,6 @@ class TestCompressionWriter(unittest.TestCase):
     def test_filename_empty(self):
         self.assertRaises(ValueError, CompressionWriter, b'Hello', str())
 
-
     @patch("pathlib.Path.exists")
     def test_output_file_exists(self, mock_path_exists):
         mock_path_exists = Mock(return_value=True)
@@ -66,6 +65,7 @@ class TestWriter(unittest.TestCase):
         writer = Writer(b"Hello", "output")
 
         self.assertRaises(IOError, writer.write)
+
 
 if __name__ == '__main__':
     unittest.main()

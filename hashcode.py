@@ -1,5 +1,6 @@
 import hashlib
 
+
 def hashcode(data: bytes) -> str:
     """Вычисление хэш-кода указанной байтовой строки.
 
