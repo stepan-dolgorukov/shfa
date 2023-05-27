@@ -5,9 +5,14 @@ from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from writer import CompressionWriter, Writer
 from reader import DecompressionReader, Reader
+from abc import ABC, abstractmethod
 
+class Button(ABC):
+    @abstractmethod
+    def on_press(self):
+        raise NotImplementedError
 
-class EncodeButton:
+class EncodeButton(Button):
     """Кнопка кодирования файла."""
 
     def __init__(self, root_frame):
@@ -55,7 +60,7 @@ class EncodeButton:
                                     message=f"Сжатая информация записана в {output_fname}")
 
 
-class DecodeButton:
+class DecodeButton(Button):
     """Кнопка декодирования файла."""
 
     def __init__(self, root_frame):
