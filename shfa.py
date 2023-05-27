@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from writer import CompressionWriter
+from writer import CompressionWriter, Writer
 from reader import DecompressionReader, Reader
 
 from argparser import ArgParser
@@ -58,11 +58,11 @@ if __name__ == '__main__':
     if parser.args.action == Action.DECODE:
         try:
             data = decode(args.filename)
-
-            try:
-                with open(parser.args.output, "wb") as out:
-                    out.write(data)
-            except Exception:
-                print("Не удалось записать раскодированную информацию")
         except Exception:
             print("Не удалось раскодировать информацию")
+
+        try:
+            writer = Writer(data, parser.args.output)
+            writer.write()
+        except Exception:
+            print("Не удалось записать раскодированную информацию")
