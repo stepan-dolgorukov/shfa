@@ -18,3 +18,6 @@ class CodeSymbolMapTest(unittest.TestCase):
         self.assertTrue(code_symbol.has('01'))
         self.assertTrue(code_symbol.has('10'))
         self.assertTrue(code_symbol.has('11'))
+
+        for symbol in symbol_code:
+            self.assertIn((symbol_code[symbol], symbol), code_symbol.items())
