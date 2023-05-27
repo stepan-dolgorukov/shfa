@@ -49,8 +49,16 @@ if __name__ == '__main__':
         print(parser.brief())
         exit(1)
 
-    if parser.args.action == Action.ENCODE:
-        write_encode(args.filename, args.output)
+    action = None
 
-    if parser.args.action == Action.DECODE:
-        write_decode(args.filename, args.output)
+    match args.action:
+        case Action.ENCODE:
+            action = write_encode
+        case Action.DECODE:
+            action = write_decode
+
+    try:
+        action(args.filename, args.output)
+    except Exception as exc:
+        erint(f"Не удалось совершить операциюю: {exc}")
+        exit(1)
