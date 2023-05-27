@@ -37,7 +37,7 @@ class Decoder:
         self.data_length = length
         self.decompressed_data = None
 
-    def decoded(self):
+    def decoded(self) -> bytes:
         """Получить информацию, которую раскодировал."""
 
         if self.decompressed_data is None:
@@ -45,7 +45,7 @@ class Decoder:
         return self.decompressed_data
 
     @private
-    def decode(self):
+    def decode(self) -> bytes:
         """Раскодировать информацию."""
 
         decompressed = b""
