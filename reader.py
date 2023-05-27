@@ -4,6 +4,7 @@ import json
 from decoder import Decoder
 from pathlib import Path
 from hashcode import hashcode
+from file_name_is_nice import file_name_is_nice
 
 
 class DecompressionReader:
@@ -127,11 +128,8 @@ class Reader():
     def init_arguments_checking(self, fname: str) -> None:
         """Проверка аргументов __init__."""
 
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно быть строкой str")
-
-        if not fname:
-            raise ValueError("Передано пустое имя файла")
+        if not file_name_is_nice(fname):
+            raise ValueError(f"«{fname}» недопустимо для имени файла")
 
         if not self.file_exists(fname):
             raise ValueError(f"Файл {fname} не существует")
