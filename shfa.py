@@ -60,9 +60,11 @@ if __name__ == '__main__':
             data = decode(args.filename)
         except Exception:
             print("Не удалось раскодировать информацию")
+            exit(1)
 
         try:
             writer = Writer(data, parser.args.output)
             writer.write()
         except Exception:
             print("Не удалось записать раскодированную информацию")
+            exit(1)
