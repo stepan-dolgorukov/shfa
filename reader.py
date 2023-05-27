@@ -4,7 +4,7 @@ import json
 from decoder import Decoder
 from pathlib import Path
 from hashcode import hashcode
-from file_name_is_nice import file_name_is_nice, NotNiceFileName
+from nice_filename import file_name_is_nice, NotNiceFileName
 
 
 class DecompressionReader:

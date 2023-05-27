@@ -3,8 +3,7 @@ import unittest
 from unittest.mock import Mock, patch, mock_open
 from bitstring import BitArray
 import pathlib
-from file_name_is_nice import NotNiceFileName
-
+from nice_filename import NotNiceFileName
 
 
 class TestDecompressionReader(unittest.TestCase):

@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 from bitstring import BitArray
 from writer import CompressionWriter, Writer
-from file_name_is_nice import NotNiceFileName
+from nice_filename import NotNiceFileName
 
 
 class TestCompressionWriter(unittest.TestCase):

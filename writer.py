@@ -6,7 +6,7 @@ from pathlib import Path
 from symbol_code import SymbolCodeMap
 from bitstring import BitArray
 from hashcode import hashcode
-from file_name_is_nice import file_name_is_nice, NotNiceFileName
+from nice_filename import file_name_is_nice, NotNiceFileName
 
 
 class CompressionWriter:
