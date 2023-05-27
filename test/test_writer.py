@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 from bitstring import BitArray
 from writer import CompressionWriter, Writer
+from file_name_is_nice import NotNiceFileName
 
 
 class TestCompressionWriter(unittest.TestCase):
@@ -14,10 +15,10 @@ class TestCompressionWriter(unittest.TestCase):
 
     def test_filename_wrong_type(self):
         for filename in (bytes(), int(), dict(), set()):
-            self.assertRaises(TypeError, CompressionWriter, b'Hello', filename)
+            self.assertRaises(NotNiceFileName, CompressionWriter, b'Hello', filename)
 
     def test_filename_empty(self):
-        self.assertRaises(ValueError, CompressionWriter, b'Hello', str())
+        self.assertRaises(NotNiceFileName, CompressionWriter, b'Hello', str())
 
     @patch("pathlib.Path.exists")
     def test_output_file_exists(self, mock_path_exists):
@@ -35,7 +36,7 @@ class TestWriter(unittest.TestCase):
 
     def test_filename_wrong_type(self):
         for filename in (bytes(), int(), dict(), set()):
-            self.assertRaises(TypeError, Writer, b'Hello', filename)
+            self.assertRaises(NotNiceFileName, Writer, b'Hello', filename)
 
     def test_output_file_exists(self):
         Writer.file_exists = Mock(return_value=True)
