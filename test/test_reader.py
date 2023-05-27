@@ -4,6 +4,7 @@ from unittest.mock import Mock, patch, mock_open
 from bitstring import BitArray
 import pathlib
 
+
 class TestDecompressionReader(unittest.TestCase):
     def test_filename_none(self):
         self.assertRaises(TypeError, DecompressionReader, None)
