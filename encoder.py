@@ -19,7 +19,7 @@ class Encoder:
             self.compressed_data = self.bitarray()
         return self.compressed_data
 
-    def map(self):
+    def map(self) -> SymbolCodeMap:
         """Получить отображение «символ→код»."""
         return self.symbol_code
 
