@@ -50,6 +50,11 @@ class Encoder:
 
     @private
     def init_arguments_checking(self, data) -> None:
+        """Функция проверки аргументов, переданных в инициализатор __init__.
+
+        data -- информация, переданная на кодировку (сжатие)
+        """
+
         if not isinstance(data, bytes):
             raise ValueError("Поддерживается работа только с байтовыми"
                              "строками")
