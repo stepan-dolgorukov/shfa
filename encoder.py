@@ -7,12 +7,7 @@ class Encoder:
     def __init__(self, data: bytes):
         """data -- информация, которую нужно закодировать"""
 
-        if not isinstance(data, bytes):
-            raise ValueError("Поддерживается работа только с байтовыми"
-                             "строками")
-
-        if len(data) <= 0:
-            raise ValueError("Длина должна быть строго положительной")
+        self.init_arguments_checking(data)
 
         self.data = data
         self.symbol_code = SymbolCodeMap(data)
@@ -52,3 +47,12 @@ class Encoder:
             self.compressed_data.append(code_bitstr)
 
         return self.compressed_data
+
+    @private
+    def init_arguments_checking(self, data) -> None:
+        if not isinstance(data, bytes):
+            raise ValueError("Поддерживается работа только с байтовыми"
+                             "строками")
+
+        if len(data) <= 0:
+            raise ValueError("Длина должна быть строго положительной")
