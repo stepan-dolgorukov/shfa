@@ -4,8 +4,8 @@ from code_symbol import CodeSymbolMap
 from encoder import Encoder
 from pathlib import Path
 from symbol_code import SymbolCodeMap
-import hashlib
 from bitstring import BitArray
+from hashcode import hashcode
 
 
 class CompressionWriter:
@@ -64,16 +64,6 @@ class CompressionWriter:
 
         return data.bytes
 
-
-    @private
-    def hashcode(self, data: bytes) -> bytes:
-        if not isinstance(data, bytes):
-            raise TypeError("Информация должна быть типа «bytes»")
-
-        hasher = hashlib.new("sha256", data)
-        return hasher.hexdigest()
-
-
     @private
     def get_header(self) -> str:
         """Сформировать заголовок."""
@@ -88,9 +78,7 @@ class CompressionWriter:
             info["map"] = code_symbol.json()
             info["length"] = len(self.encoder.coded())
 
-            # info["hashcode"] = self.hashcode(
-            #     self.bytes_with_padding(self.encoder.coded()))
-            info["hashcode"] = self.hashcode(self.data)
+            info["hashcode"] = hashcode(self.data)
 
             header = json.dumps(info)
         except Exception:

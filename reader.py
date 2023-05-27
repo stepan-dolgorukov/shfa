@@ -3,7 +3,7 @@ from bitstring import BitArray
 import json
 from decoder import Decoder
 from pathlib import Path
-import hashlib
+from hashcode import hashcode
 
 
 class DecompressionReader:
@@ -31,15 +31,10 @@ class DecompressionReader:
             except Exception:
                 raise ValueError("Не удалось декодировать информацию")
 
-            if not self.equal_hashcodes(self.decoded, self.info["hashcode"]):
+            if not hashcode(self.decoded) == self.info["hashcode"]:
                 raise ValueError("Хэш-суммы не совпали")
 
         return self.decoded
-
-    @private
-    def equal_hashcodes(self, data: bytes, header_hashcode: str):
-        hasher = hashlib.new("sha256", data)
-        return header_hashcode == hasher.hexdigest()
 
     @private
     def read_info(self):
