@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from writer import CompressionWriter
-from reader import DecompressionReader
+from reader import DecompressionReader, Reader
 
 from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
@@ -16,9 +16,8 @@ def encode(filename, output_filename):
     output -- файл вывода, в него будет помещён контейнер
     """
 
-    data = ""
-    with open(filename, 'rb') as file:
-        data = file.read()
+    reader = Reader(filename)
+    data = reader.read()
 
     writer = CompressionWriter(data, output_filename)
     writer.write()
