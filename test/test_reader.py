@@ -3,15 +3,16 @@ import unittest
 from unittest.mock import Mock, patch, mock_open
 from bitstring import BitArray
 import pathlib
+from file_name_is_nice import NotNiceFileName
 
 
 
 class TestDecompressionReader(unittest.TestCase):
     def test_filename_none(self):
-        self.assertRaises(TypeError, DecompressionReader, None)
+        self.assertRaises(NotNiceFileName, DecompressionReader, None)
 
     def test_filename_empty(self):
-        self.assertRaises(ValueError, DecompressionReader, '')
+        self.assertRaises(NotNiceFileName, DecompressionReader, '')
 
     @patch("pathlib.Path.exists", return_value=True)
     def test_hello(self, mock_path_exists):
@@ -33,7 +34,11 @@ class TestDecompressionReader(unittest.TestCase):
                 '11': ord('o')
             },
 
-            'length': 2 + 2 + (2 * 2) + 2
+            'length': 2 + 2 + (2 * 2) + 2,
+
+
+            # hashlib.new("sha256", b"Hello").hexdigest()
+            'hashcode': "185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969"
         })
 
         self.assertEqual(b'Hello', reader.read())
@@ -67,10 +72,10 @@ class TestDecompressionReader(unittest.TestCase):
 
 class TestReader(unittest.TestCase):
     def test_filename_none(self):
-        self.assertRaises(TypeError, Reader, None)
+        self.assertRaises(NotNiceFileName, Reader, None)
 
     def test_filename_empty(self):
-        self.assertRaises(ValueError, Reader, '')
+        self.assertRaises(NotNiceFileName, Reader, '')
 
     def test_correct_filename(self):
 
