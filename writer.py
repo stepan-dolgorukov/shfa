@@ -6,7 +6,7 @@ from pathlib import Path
 from symbol_code import SymbolCodeMap
 from bitstring import BitArray
 from hashcode import hashcode
-from file_name_is_nice import file_name_is_nice
+from file_name_is_nice import file_name_is_nice, NotNiceFileName
 
 
 class CompressionWriter:
@@ -100,7 +100,7 @@ class CompressionWriter:
                              "положительной")
 
         if not file_name_is_nice(fname):
-            raise ValueError(f"«{fname}» недопустимо для имени файла")
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if Path(fname).exists():
             raise ValueError(f"Файл {fname} существует")
@@ -148,7 +148,7 @@ class Writer():
             raise ValueError("Передана пустая байтовая строка")
 
         if not file_name_is_nice(fname):
-            raise ValueError(f"«{fname}» недопустимо для имени файла")
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if self.file_exists(fname):
             raise ValueError(f"Файл {fname} уже существует")

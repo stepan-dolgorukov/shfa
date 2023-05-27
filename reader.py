@@ -4,7 +4,7 @@ import json
 from decoder import Decoder
 from pathlib import Path
 from hashcode import hashcode
-from file_name_is_nice import file_name_is_nice
+from file_name_is_nice import file_name_is_nice, NotNiceFileName
 
 
 class DecompressionReader:
@@ -89,7 +89,7 @@ class DecompressionReader:
     @private
     def args_checking(self, fname):
         if not file_name_is_nice(fname):
-            raise ValueError(f"«{fname}» недопустимо для имени файла")
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if not Path(fname).exists():
             raise ValueError(f"Файл {fname} не существует")
@@ -126,7 +126,7 @@ class Reader():
         """Проверка аргументов __init__."""
 
         if not file_name_is_nice(fname):
-            raise ValueError(f"«{fname}» недопустимо для имени файла")
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if not self.file_exists(fname):
             raise ValueError(f"Файл {fname} не существует")
