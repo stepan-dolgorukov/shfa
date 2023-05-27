@@ -7,10 +7,12 @@ from writer import CompressionWriter, Writer
 from reader import DecompressionReader, Reader
 from abc import ABC, abstractmethod
 
+
 class Button(ABC):
     @abstractmethod
     def on_press(self):
         raise NotImplementedError
+
 
 class Button(ABC):
     """Класс абстрактный «кнопка»."""
@@ -20,6 +22,7 @@ class Button(ABC):
         """Действия, которые выполнятся, когда пользователь нажмёт на кнопку."""
 
         raise NotImplementedError
+
 
 class EncodeButton(Button):
     """Кнопка кодирования файла."""

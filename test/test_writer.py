@@ -15,7 +15,11 @@ class TestCompressionWriter(unittest.TestCase):
 
     def test_filename_wrong_type(self):
         for filename in (bytes(), int(), dict(), set()):
-            self.assertRaises(NotNiceFileName, CompressionWriter, b'Hello', filename)
+            self.assertRaises(
+                NotNiceFileName,
+                CompressionWriter,
+                b'Hello',
+                filename)
 
     def test_filename_empty(self):
         self.assertRaises(NotNiceFileName, CompressionWriter, b'Hello', str())
