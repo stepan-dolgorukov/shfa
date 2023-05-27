@@ -49,7 +49,7 @@ class Encoder:
         return self.compressed_data
 
     @private
-    def init_arguments_checking(self, data) -> None:
+    def init_arguments_checking(self, data: bytes) -> None:
         """Функция проверки аргументов, переданных в инициализатор __init__.
 
         data -- информация, переданная на кодировку (сжатие)
