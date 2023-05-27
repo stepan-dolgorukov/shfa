@@ -12,12 +12,20 @@ class ArgParser:
             Action.DECODE: ['d', 'decode', 'dec', 'de']
         }
 
-        self.parser = argparse.ArgumentParser(prog="Архиватор «Shannon-Fano»")
-        self.parser.add_argument("--filename", "-f", nargs='?')
+        self.parser = argparse.ArgumentParser(
+            description="Архиватор «Shannon-Fano»")
+
+        self.parser.add_argument("--filename", "-f", nargs='?',
+            help="Имя файла ввода")
 
         self.parser.add_argument("--action", "-a", nargs='?',
             choices=self.action_key_values[Action.ENCODE] +
-                    self.action_key_values[Action.DECODE])
+                    self.action_key_values[Action.DECODE],
+            help="Действие, которое требуется совершить над файлом "
+                "ввода")
+
+        self.parser.add_argument("--output", "-o", nargs='?',
+            help="Имя файла вывода")
 
     def parse(self):
         """Разобрать аргументы."""

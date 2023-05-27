@@ -1,11 +1,18 @@
 from accessify import private
 from bitstring import BitArray
 import json
+from decoder import Decoder
 
 class DecompressionReader:
     """Читает из файла и раскодирует информацию."""
 
     def __init__(self, fname: str):
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть типом «str»")
+
+        if not fname:
+            raise ValueError("Пустое имя файла")
+
         self.fname = fname
         self.decoded = None
         self.encoded = None
@@ -15,9 +22,9 @@ class DecompressionReader:
         """Получить раскодированную строку."""
         if self.decoded is None:
             try:
-                self.read_info()
-                self.read_encoded()
-                self.decode()
+                self.info = self.read_info()
+                self.encoded = self.read_encoded()
+                self.decoded = self.decode()
             except Exception:
                 raise ValueError
         return self.decoded
@@ -27,18 +34,22 @@ class DecompressionReader:
         """Считать заголовок."""
         info = None
 
-        with open(self.fname, 'r', errors="ignore") as file:
-            info = file.readline()
+        try:
+            with open(self.fname, 'r', errors="ignore") as file:
+                info = file.readline()
+        except Exception:
+            raise IOError("Не удалось считать заголовок из файла")
 
         header_length = len(info)
 
         try:
-            self.info = json.loads(info)
-            self.info["map"] = json.loads(self.info["map"])
+            info = json.loads(info)
+            info["map"] = json.loads(info["map"])
         except Exception:
-            raise ValueError
+            raise ValueError("Не удалось раскодировать заголовок")
 
-        self.info["header-length"] = header_length
+        info["header-length"] = header_length
+        return info
 
     @private
     def read_encoded(self):
@@ -47,24 +58,18 @@ class DecompressionReader:
         Информация записана байтово, не символьно.
         """
 
-        with open(self.fname, "rb") as file:
-            file.seek(self.info["header-length"])
-            self.encoded = file.read()
+        encoded = None
+
+        try:
+            with open(self.fname, "rb") as file:
+                file.seek(self.info["header-length"])
+                encoded = BitArray(file.read())
+        except Exception:
+            raise IOError("Не удалось считать закодированную информацию")
+
+        return encoded
 
     @private
     def decode(self):
-        """Раскодировать строку."""
-
-        self.decoded = ""
-        self.encoded = BitArray(self.encoded)
-        data_length = self.info["length"]
-        char_code = ""
-
-        for i in range(data_length):
-            char_code += str(int(self.encoded[i]))
-
-            if char_code not in self.info["map"]:
-                continue
-
-            self.decoded += self.info["map"][char_code]
-            char_code = ""
+        decoder = Decoder(self.encoded, self.info["length"], self.info["map"])
+        return decoder.decoded()

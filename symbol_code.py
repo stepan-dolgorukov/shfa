@@ -1,50 +1,53 @@
 #!/usr/bin/env python3
 
 from typing_extensions import override
-from symbol_probability import SymbolProbabilityMap
 from symbol_map import SymbolMap
 from accessify import private
 import json
+
+import probability
 
 
 class SymbolCodeMap(SymbolMap):
     """Отображение «символ→код»."""
 
-    def __init__(self, data: str):
-        self.symbol_code = dict()
+    def __init__(self, data: bytes):
+        if not isinstance(data, bytes):
+            raise ValueError("Только байтовые строки")
 
         if not data:
-            return
+            raise ValueError("Пустая байтовая строка")
 
-        self.symbol_prob = SymbolProbabilityMap(data)
+        self.symbol_code = dict()
+        self.symbol_prob = probability.byte_probability(data)
         self.codes(self.symbol_prob)
 
     @private
-    def sort(self, symbol_prob):
+    def sort(self, symbol_prob: dict[int, float]) -> dict[int, float]:
         return {k: v for k, v in sorted(symbol_prob.items(),
                                         key=lambda item: item[1],
                                         reverse=True)}
 
     @private
-    def find_split(self, symbol_prob):
-        low_summa = sum(symbol_prob.values())
-        up_summa = 0
-        min_diff = low_summa
-        split_index = 0
+    def find_split(self, symbol_prob: dict[int, float]):
+        decr_summa = sum(symbol_prob.values())
+        incr_summa = 0
 
-        for index, value in enumerate(symbol_prob.values()):
-            up_summa += value
-            low_summa -= value
-            diff = abs(up_summa - low_summa)
-            if diff <= min_diff:
-                min_diff = diff
-                split_index = index
+        for index, probability in enumerate(symbol_prob.values()):
+            incr_summa += probability
+            decr_summa -= probability
 
-        return split_index
+            if (incr_summa - decr_summa) >= 0:
+                return index
+
+        return -1
 
     @private
-    def parts(self, symbol_prob, split_index):
+    def parts(self, symbol_prob: dict[int, float], split_index: int):
         """Разбиение отображения на две части по индексу"""
+
+        if split_index < 0:
+            raise ValueError("Отрицательное значение индекса")
 
         part_left = dict()
         part_right = dict()
@@ -60,13 +63,25 @@ class SymbolCodeMap(SymbolMap):
 
 
     @private
-    def codes(self, symbol_prob, code=''):
+    def codes(self, symbol_prob: dict[int: float], code: str=''):
 
-        if len(symbol_prob) <= 2:
-            # Если в отображении два прообраза, то index in {0,1}
-            # Если один, то index = 0
+        # Группа из двух символов
+        # первому символу назначается код слева — приписывается ноль
+        # второму назначается код справа — приписывается единица
+        if len(symbol_prob) == 2:
             for index, symbol in enumerate(symbol_prob):
                 self.symbol_code[symbol] = code + str(index)
+            return
+
+        # Группа из одного символа
+        # К коду ничего не дописывается
+        if len(symbol_prob) == 1:
+            symbol = [symbol for symbol in symbol_prob][0]
+
+            if code == '':
+                code = '0'
+
+            self.symbol_code[symbol] = code
             return
 
         symbol_prob = self.sort(symbol_prob)
@@ -78,13 +93,19 @@ class SymbolCodeMap(SymbolMap):
         self.codes(part_right, code + '1')
 
     @override
-    def at(self, symbol: str):
+    def at(self, symbol: bytes):
         """Узнать код конкретного символа.
 
         symbol -- символ, количество раз которого узнаётся
         """
-        if not symbol or len(symbol) != 1 or symbol not in self.symbol_code:
+        if symbol not in self.symbol_code:
             return -1
+
+        return self.symbol_code[symbol]
+
+    def __getitem__(self, symbol):
+        if symbol not in self.symbol_code:
+            return ""
 
         return self.symbol_code[symbol]
 
