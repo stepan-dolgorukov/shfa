@@ -7,7 +7,7 @@ from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
 
 
-def encode(filename: str, output_filename: str) -> None:
+def write_encode(filename: str, output_filename: str) -> None:
     """Считать информацию с файла, записать заголовок и сжатую
     информацию в файл
 
@@ -23,7 +23,7 @@ def encode(filename: str, output_filename: str) -> None:
     writer.write()
 
 
-def decode(filename: str) -> bytes:
+def write_decode(source_filename: str, destination_filename: str) -> None:
     """Считать заголок & сжатые данные из файла,
     вернуть раскодированную информацию
 
@@ -31,15 +31,11 @@ def decode(filename: str) -> bytes:
     filename -- файл, в котором содержится заголовок & сжатые данные
     """
 
-    data = None
+    reader = DecompressionReader(source_filename)
+    data = reader.read()
 
-    try:
-        reader = DecompressionReader(filename)
-        data = reader.read()
-    except Exception:
-        raise ValueError
-
-    return data
+    writer = Writer(data, destination_filename)
+    writer.write()
 
 
 if __name__ == '__main__':
@@ -53,18 +49,7 @@ if __name__ == '__main__':
         exit(1)
 
     if parser.args.action == Action.ENCODE:
-        encode(args.filename, args.output)
+        write_encode(args.filename, args.output)
 
     if parser.args.action == Action.DECODE:
-        try:
-            data = decode(args.filename)
-        except Exception:
-            print("Не удалось раскодировать информацию")
-            exit(1)
-
-        try:
-            writer = Writer(data, parser.args.output)
-            writer.write()
-        except Exception:
-            print("Не удалось записать раскодированную информацию")
-            exit(1)
+        write_decode(args.filename, args.output)
