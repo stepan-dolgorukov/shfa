@@ -60,5 +60,5 @@ if __name__ == '__main__':
     try:
         action(args.filename, args.output)
     except Exception as exc:
-        erint(f"Не удалось совершить операциюю: {exc}")
+        print(f"Не удалось совершить операцию: {exc}")
         exit(1)
