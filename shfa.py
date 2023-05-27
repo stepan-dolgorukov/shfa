@@ -7,19 +7,19 @@ from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
 
 
-def write_encode(filename: str, output_filename: str) -> None:
+def write_encode(source_filename: str, destination_filename: str) -> None:
     """Считать информацию с файла, записать заголовок и сжатую
     информацию в файл
 
     Аргументы:
-    filename -- файл ввода, в нём лежит информация, которую нужно сжать
-    output -- файл вывода, в него будет помещён контейнер
+    source_filename -- файл ввода, в нём лежит информация, которую нужно сжать
+    destination_filename -- файл вывода, в него будет помещён контейнер (заголовок & сжатая информация)
     """
 
-    reader = Reader(filename)
-    data = reader.read()
+    reader = Reader(source_filename)
+    data: bytes = reader.read()
 
-    writer = CompressionWriter(data, output_filename)
+    writer = CompressionWriter(data, destination_filename)
     writer.write()
 
 
@@ -28,11 +28,12 @@ def write_decode(source_filename: str, destination_filename: str) -> None:
     вернуть раскодированную информацию
 
     Аргументы:
-    filename -- файл, в котором содержится заголовок & сжатые данные
+    source_filename -- файл, в котором содержится заголовок & сжатые данные
+    destination_filename -- файл, в который нужно записать расжатую информацию
     """
 
     reader = DecompressionReader(source_filename)
-    data = reader.read()
+    data: bytes = reader.read()
 
     writer = Writer(data, destination_filename)
     writer.write()
