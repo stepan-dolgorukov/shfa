@@ -7,7 +7,7 @@ from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
 
 
-def encode(filename, output_filename):
+def encode(filename: str, output_filename: str) -> None:
     """Считать информацию с файла, записать заголовок и сжатую
     информацию в файл
 
@@ -23,7 +23,7 @@ def encode(filename, output_filename):
     writer.write()
 
 
-def decode(filename) -> bytes:
+def decode(filename: str) -> bytes:
     """Считать заголок & сжатые данные из файла,
     вернуть раскодированную информацию
 
