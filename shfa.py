@@ -6,6 +6,7 @@ from reader import DecompressionReader
 from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
 
+
 def encode(filename, output_filename):
     """Считать информацию с файла, записать заголовок и сжатую
     информацию в файл
@@ -21,6 +22,7 @@ def encode(filename, output_filename):
 
     writer = CompressionWriter(data, output_filename)
     writer.write()
+
 
 def decode(filename) -> bytes:
     """Считать заголок & сжатые данные из файла,
@@ -39,6 +41,7 @@ def decode(filename) -> bytes:
         raise ValueError
 
     return data
+
 
 if __name__ == '__main__':
     parser = ArgParser()

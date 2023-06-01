@@ -2,16 +2,14 @@ from accessify import private
 from bitstring import BitArray
 import json
 from decoder import Decoder
+from pathlib import Path
+
 
 class DecompressionReader:
     """Читает из файла и раскодирует информацию."""
 
     def __init__(self, fname: str):
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно быть типом «str»")
-
-        if not fname:
-            raise ValueError("Пустое имя файла")
+        self.args_checking(fname)
 
         self.fname = fname
         self.decoded = None
@@ -24,9 +22,14 @@ class DecompressionReader:
             try:
                 self.info = self.read_info()
                 self.encoded = self.read_encoded()
+            except Exception:
+                raise ValueError("Неверный формат сжатого файла")
+
+            try:
                 self.decoded = self.decode()
             except Exception:
-                raise ValueError
+                raise ValueError("Не удалось декодировать информацию")
+
         return self.decoded
 
     @private
@@ -67,9 +70,64 @@ class DecompressionReader:
         except Exception:
             raise IOError("Не удалось считать закодированную информацию")
 
+        if not encoded:
+            raise ValueError(
+                "Закодированная информация -- пустая байтовая строка")
+
         return encoded
 
     @private
     def decode(self):
         decoder = Decoder(self.encoded, self.info["length"], self.info["map"])
         return decoder.decoded()
+
+    @private
+    def args_checking(self, fname):
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть типом «str»")
+
+        if not fname:
+            raise ValueError("Пустое имя файла")
+
+        if not Path(fname).exists():
+            raise ValueError(f"Файл {fname} не существует")
+
+
+class Reader():
+    """Чтение байтов из файла."""
+
+    def __init__(self, fname: str):
+        self.init_arguments_checking(fname)
+
+        self.fname = fname
+
+    def read(self) -> bytes:
+        """Прочитать информацию."""
+        data = None
+
+        try:
+            with open(self.fname, "rb") as inp:
+                data = inp.read()
+        except Exception:
+            raise IOError(f"Не удалось считать информацию из {self.fname}")
+
+        return data
+
+    @private
+    def file_exists(self, fname: str) -> bool:
+        """Проверка существования файла."""
+
+        return Path(fname).exists()
+
+    @private
+    def init_arguments_checking(self, fname: str) -> None:
+        """Проверка аргументов __init__."""
+
+        if not isinstance(fname, str):
+            raise TypeError("Имя файла должно быть строкой str")
+
+        if not fname:
+            raise ValueError("Передано пустое имя файла")
+
+        if not self.file_exists(fname):
+            raise ValueError(f"Файл {fname} не существует")

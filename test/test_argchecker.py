@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from argparse import Namespace
 from argchecker import ArgChecker, Conclusion, CheckMessage, Action
 
+
 class TestArgChecker(unittest.TestCase):
     def test_none(self):
         self.assertRaises(ValueError, ArgChecker, None)
@@ -53,8 +54,10 @@ class TestArgChecker(unittest.TestCase):
         checker.check_arg_action = Mock(return_value=CheckMessage.CORRECT)
 
         def file_exists(filename: str) -> bool:
-            if filename == 'input': return False
-            if filename == 'output': return False
+            if filename == 'input':
+                return False
+            if filename == 'output':
+                return False
             raise ValueError("Имя файла в тесте не участвует")
 
         checker.file_exists = Mock(side_effect=file_exists)
@@ -67,22 +70,28 @@ class TestArgChecker(unittest.TestCase):
         checker.check_arg_action = Mock(return_value=CheckMessage.CORRECT)
 
         def file_exists(filename: str) -> bool:
-            if filename == 'in.txt': return True 
-            if filename == 'out.txt': return False
+            if filename == 'in.txt':
+                return True
+            if filename == 'out.txt':
+                return False
             raise ValueError("Имя файла в тесте не участвует")
 
         checker.file_exists = Mock(side_effect=file_exists)
 
         self.assertEqual(Conclusion.NEGATIVE, checker.get_conclusion())
-        self.assertEqual(CheckMessage.NO_OUTPUT_FILE_NAME, checker.get_message())
+        self.assertEqual(
+            CheckMessage.NO_OUTPUT_FILE_NAME,
+            checker.get_message())
 
     def test_output_file_exists(self):
         checker = ArgChecker(Namespace(output='output', filename='input'))
         checker.check_arg_action = Mock(return_value=CheckMessage.CORRECT)
 
         def file_exists(filename: str) -> bool:
-            if filename == 'input': return True
-            if filename == 'output': return True
+            if filename == 'input':
+                return True
+            if filename == 'output':
+                return True
             raise ValueError("Имя файла в тесте не участвует")
 
         checker.file_exists = Mock(side_effect=file_exists)

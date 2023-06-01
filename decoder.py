@@ -3,10 +3,12 @@ from symbol_code import SymbolCodeMap
 from code_symbol import CodeSymbolMap
 from accessify import private
 
+
 class Decoder:
     """Декодировка информации. Коды берутся из переданного отображения."""
 
-    def __init__(self, data: BitArray, length: int, code_symbol: dict[str:int]):
+    def __init__(self, data: BitArray, length: int,
+                 code_symbol: dict[str:int]):
 
         if not isinstance(data, BitArray):
             raise ValueError("Поддерживается работа только со строками байтов")
@@ -25,7 +27,7 @@ class Decoder:
 
         if len(data) < length:
             raise ValueError("Длина закодированной строки меньше указанной "
-                "длины")
+                             "длины")
 
         if len(code_symbol) <= 0:
             raise ValueError("Отображение не должно быть пустым")
