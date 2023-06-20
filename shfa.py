@@ -1,46 +1,42 @@
 #!/usr/bin/env python3
 
-from writer import CompressionWriter
-from reader import DecompressionReader
+from writer import CompressionWriter, Writer
+from reader import DecompressionReader, Reader
 
 from argparser import ArgParser
 from argchecker import ArgChecker, Conclusion, Action
 
 
-def encode(filename, output_filename):
+def write_encode(source_filename: str, destination_filename: str) -> None:
     """Считать информацию с файла, записать заголовок и сжатую
     информацию в файл
 
     Аргументы:
-    filename -- файл ввода, в нём лежит информация, которую нужно сжать
-    output -- файл вывода, в него будет помещён контейнер
+    source_filename -- файл ввода, в нём лежит информация, которую нужно сжать
+    destination_filename -- файл вывода, в него будет помещён контейнер (заголовок & сжатая информация)
     """
 
-    data = ""
-    with open(filename, 'rb') as file:
-        data = file.read()
+    reader = Reader(source_filename)
+    data: bytes = reader.read()
 
-    writer = CompressionWriter(data, output_filename)
+    writer = CompressionWriter(data, destination_filename)
     writer.write()
 
 
-def decode(filename) -> bytes:
+def write_decode(source_filename: str, destination_filename: str) -> None:
     """Считать заголок & сжатые данные из файла,
     вернуть раскодированную информацию
 
     Аргументы:
-    filename -- файл, в котором содержится заголовок & сжатые данные
+    source_filename -- файл, в котором содержится заголовок & сжатые данные
+    destination_filename -- файл, в который нужно записать расжатую информацию
     """
 
-    data = None
+    reader = DecompressionReader(source_filename)
+    data: bytes = reader.read()
 
-    try:
-        reader = DecompressionReader(filename)
-        data = reader.read()
-    except Exception:
-        raise ValueError
-
-    return data
+    writer = Writer(data, destination_filename)
+    writer.write()
 
 
 if __name__ == '__main__':
@@ -53,17 +49,16 @@ if __name__ == '__main__':
         print(parser.brief())
         exit(1)
 
-    if parser.args.action == Action.ENCODE:
-        encode(args.filename, args.output)
+    action = None
 
-    if parser.args.action == Action.DECODE:
-        try:
-            data = decode(args.filename)
+    match args.action:
+        case Action.ENCODE:
+            action = write_encode
+        case Action.DECODE:
+            action = write_decode
 
-            try:
-                with open(parser.args.output, "wb") as out:
-                    out.write(data)
-            except Exception:
-                print("Не удалось записать раскодированную информацию")
-        except Exception:
-            print("Не удалось раскодировать информацию")
+    try:
+        action(args.filename, args.output)
+    except Exception as exc:
+        print(f"Не удалось совершить операцию: {exc}")
+        exit(1)

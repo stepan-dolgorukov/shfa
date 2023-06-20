@@ -4,6 +4,9 @@ from code_symbol import CodeSymbolMap
 from encoder import Encoder
 from pathlib import Path
 from symbol_code import SymbolCodeMap
+from bitstring import BitArray
+from hashcode import hashcode
+from nice_filename import file_name_is_nice, NotNiceFileName
 
 
 class CompressionWriter:
@@ -56,6 +59,13 @@ class CompressionWriter:
                 "Не удалось записать закодированную информацию в файл")
 
     @private
+    def bytes_with_padding(self, data: BitArray) -> bytes:
+        pad = self.pad(len(data))
+        data.append(pad)
+
+        return data.bytes
+
+    @private
     def get_header(self) -> str:
         """Сформировать заголовок."""
 
@@ -68,6 +78,9 @@ class CompressionWriter:
             info["version"] = "Test"
             info["map"] = code_symbol.json()
             info["length"] = len(self.encoder.coded())
+
+            info["hashcode"] = hashcode(self.data)
+
             header = json.dumps(info)
         except Exception:
             raise Exception("Не удалось сформировать заголовок")
@@ -86,11 +99,8 @@ class CompressionWriter:
             raise ValueError("Длина байтовой строки должна быть строго "
                              "положительной")
 
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно задаваться строкой типа «str»")
-
-        if not fname:
-            raise ValueError("Не указано имя файла")
+        if not file_name_is_nice(fname):
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if Path(fname).exists():
             raise ValueError(f"Файл {fname} существует")
@@ -137,11 +147,8 @@ class Writer():
         if not data:
             raise ValueError("Передана пустая байтовая строка")
 
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно быть строкой str")
-
-        if not fname:
-            raise ValueError("Передано пустое имя файла")
+        if not file_name_is_nice(fname):
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if self.file_exists(fname):
             raise ValueError(f"Файл {fname} уже существует")

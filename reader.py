@@ -3,6 +3,8 @@ from bitstring import BitArray
 import json
 from decoder import Decoder
 from pathlib import Path
+from hashcode import hashcode
+from nice_filename import file_name_is_nice, NotNiceFileName
 
 
 class DecompressionReader:
@@ -29,6 +31,9 @@ class DecompressionReader:
                 self.decoded = self.decode()
             except Exception:
                 raise ValueError("Не удалось декодировать информацию")
+
+            if not hashcode(self.decoded) == self.info["hashcode"]:
+                raise ValueError("Хэш-суммы не совпали")
 
         return self.decoded
 
@@ -83,11 +88,8 @@ class DecompressionReader:
 
     @private
     def args_checking(self, fname):
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно быть типом «str»")
-
-        if not fname:
-            raise ValueError("Пустое имя файла")
+        if not file_name_is_nice(fname):
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if not Path(fname).exists():
             raise ValueError(f"Файл {fname} не существует")
@@ -123,11 +125,8 @@ class Reader():
     def init_arguments_checking(self, fname: str) -> None:
         """Проверка аргументов __init__."""
 
-        if not isinstance(fname, str):
-            raise TypeError("Имя файла должно быть строкой str")
-
-        if not fname:
-            raise ValueError("Передано пустое имя файла")
+        if not file_name_is_nice(fname):
+            raise NotNiceFileName(f"«{fname}» недопустимо для имени файла")
 
         if not self.file_exists(fname):
             raise ValueError(f"Файл {fname} не существует")

@@ -1,7 +1,9 @@
 import unittest
+
 from unittest.mock import Mock, patch
 from bitstring import BitArray
 from writer import CompressionWriter, Writer
+from nice_filename import NotNiceFileName
 
 
 class TestCompressionWriter(unittest.TestCase):
@@ -14,15 +16,33 @@ class TestCompressionWriter(unittest.TestCase):
 
     def test_filename_wrong_type(self):
         for filename in (bytes(), int(), dict(), set()):
-            self.assertRaises(TypeError, CompressionWriter, b'Hello', filename)
+            self.assertRaises(
+                NotNiceFileName,
+                CompressionWriter,
+                b'Hello',
+                filename)
 
     def test_filename_empty(self):
-        self.assertRaises(ValueError, CompressionWriter, b'Hello', str())
+        self.assertRaises(NotNiceFileName, CompressionWriter, b'Hello', str())
 
     @patch("pathlib.Path.exists")
     def test_output_file_exists(self, mock_path_exists):
         mock_path_exists = Mock(return_value=True)
         self.assertRaises(ValueError, CompressionWriter, b"Hello", "output")
+
+    @patch("builtins.open")
+    def test_good_write(self, mock_open):
+        CompressionWriter.file_exists = Mock(return_value=False)
+
+        CompressionWriter.write_header = Mock()
+        CompressionWriter.write_compressed = Mock()
+
+        writer = CompressionWriter(b"Hello", "output")
+        writer.write()
+
+        writer.write_header.assert_called_once()
+        writer.write_compressed.assert_called_once()
+
 
 
 class TestWriter(unittest.TestCase):
@@ -35,7 +55,7 @@ class TestWriter(unittest.TestCase):
 
     def test_filename_wrong_type(self):
         for filename in (bytes(), int(), dict(), set()):
-            self.assertRaises(TypeError, Writer, b'Hello', filename)
+            self.assertRaises(NotNiceFileName, Writer, b'Hello', filename)
 
     def test_output_file_exists(self):
         Writer.file_exists = Mock(return_value=True)
@@ -52,6 +72,7 @@ class TestWriter(unittest.TestCase):
     @patch("builtins.open")
     def test_good_write(self, mock_open):
         Writer.file_exists = Mock(return_value=False)
+
         writer = Writer(b"Hello", "output")
 
         writer.write()

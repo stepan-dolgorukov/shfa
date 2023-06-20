@@ -14,6 +14,16 @@ class Button(ABC):
         raise NotImplementedError
 
 
+class Button(ABC):
+    """Класс абстрактный «кнопка»."""
+
+    @abstractmethod
+    def on_press(self):
+        """Действия, которые выполнятся, когда пользователь нажмёт на кнопку."""
+
+        raise NotImplementedError
+
+
 class EncodeButton(Button):
     """Кнопка кодирования файла."""
 

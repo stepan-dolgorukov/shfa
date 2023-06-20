@@ -39,6 +39,8 @@
 + probability.py &mdash; подсчёт вероятности встречи символа
 + symbol_code.py &mdash; отображение &laquo;символ→код&raquo;
 + shfa_gui.py &mdash; графический интерфейс пользователя (Tk)
++ hashcode.py &mdash; вычисление хэш-кода байтовой строки
++ nice_filename.py &mdash; проверки строки, использующейся для имени файла
 
 ## Зависимости
 
